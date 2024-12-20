@@ -1,0 +1,112 @@
+[gd_scene load_steps=7 format=3 uid="uid://4su3d00erb0k"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
+[ext_resource type="Texture2D" uid="uid://cgcq35jmbrh4" path="res://assets/sprites/circle.png" id="1_jrsdj"]
+[ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
+[ext_resource type="PackedScene" uid="uid://b7055nlbpufhw" path="res://objects/character.tscn" id="2_riojm"]
+[ext_resource type="PackedScene" uid="uid://caq62ugtyx76r" path="res://objects/big_house.tscn" id="3_sv75s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
+radius = 317.039
+
+[node name="Main" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_0wmhh")
+speed_low = 0.6
+position_bounds = Vector2(20, 250)
+house_spawn_timing = Vector2(0.2, 0.8)
+buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s")])
+
+[node name="Earth" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(320, 566)
+
+[node name="EarthSprite" type="Sprite2D" parent="Earth"]
+scale = Vector2(10, 10)
+texture = ExtResource("1_jrsdj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
+shape = SubResource("CircleShape2D_jundk")
+
+[node name="Character" parent="." instance=ExtResource("2_riojm")]
+unique_name_in_owner = true
+position = Vector2(320, 70)
+impulse_override_speed = false
+
+[node name="HouseSpawnPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(628, 393)
+rotation = 0.987856
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxTopLeft" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score: 0"
+
+[node name="HPLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "HP: 3"
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Presents: 5 (0%)"
+
+[node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/VBoxTopRight"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "120"
+horizontal_alignment = 2
+
+[node name="CanvasLayerGameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayerGameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelLose" type="Label" parent="CanvasLayerGameOver/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "Game Over!!!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayerGameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ButtonRetry" type="Button" parent="CanvasLayerGameOver/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Retry"
+
+[connection signal="exited_screen" from="Character" to="." method="_on_character_exited_screen"]
+[connection signal="hit" from="Character" to="." method="_on_character_hit"]
+[connection signal="hit_ground" from="Character" to="." method="_on_character_hit_ground"]
+[connection signal="pressed" from="CanvasLayerGameOver/VBoxContainer/MarginContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]

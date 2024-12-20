@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://co3nfgr6pq3ga"]
+
+[ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
+[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="1_ugqlb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
+size = Vector2(34, 34)
+
+[node name="House" type="Area2D"]
+collision_mask = 8
+script = ExtResource("1_2rqh5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0, 0.392157, 1, 1)
+scale = Vector2(0.273, 0.273)
+texture = ExtResource("1_ugqlb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r1msg")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.90735e-06, -1.90735e-06)
+scale = Vector2(1.8, 1.8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://caq62ugtyx76r"]
+
+[ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="1_wj351"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8guw"]
+size = Vector2(34, 66)
+
+[node name="BigHouse" instance=ExtResource("1_wj351")]
+
+[node name="Sprite2D2" parent="." index="0"]
+position = Vector2(0, -16.264)
+scale = Vector2(0.273, 0.527125)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_f8guw")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="2"]
+position = Vector2(-1.90735e-06, -16)
+scale = Vector2(1.8, 3.4)

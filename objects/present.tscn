@@ -1,29 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://diivk1ejveqva"]
+[gd_scene load_steps=9 format=3 uid="uid://diivk1ejveqva"]
 
 [ext_resource type="Script" path="res://scripts/present.gd" id="1_4p4et"]
-[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="1_dotkb"]
+[ext_resource type="Texture2D" uid="uid://6jvobvjs67pi" path="res://assets/sprites/cadeau.png" id="2_ijbwd"]
 [ext_resource type="PackedScene" uid="uid://1b1oxh3qqnbo" path="res://objects/present_frag.tscn" id="2_1hot1"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_guh1o"]
+atlas = ExtResource("2_ijbwd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjmtx"]
+atlas = ExtResource("2_ijbwd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge341"]
+atlas = ExtResource("2_ijbwd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv1hh"]
+atlas = ExtResource("2_ijbwd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_612vx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guh1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjmtx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge341")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv1hh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
-size = Vector2(14, 14)
+size = Vector2(12.235, 15.855)
 
 [node name="Present" type="Area2D"]
-modulate = Color(0, 1, 0, 1)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("1_4p4et")
 frag = ExtResource("2_1hot1")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_dotkb")
+[node name="CadeauxSprites" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_612vx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_r1msg")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(7.15256e-07, 1.19209e-07)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.62, 0.8)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

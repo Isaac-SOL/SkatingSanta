@@ -72,7 +72,13 @@ func _process(delta: float) -> void:
 	speed += dash_additional_speed
 	speed *= speed_bonus
 	
+	#Rotation Parallax
 	%Earth.rotation -= speed * delta
+	%EarthSprite.rotation -= speed * delta
+	%StarsSprite1.rotation -= speed * delta * 0.05
+	%StarsSprite2.rotation -= speed * delta * 0.1
+	%CloudSprite2.rotation -= speed * delta * 0.5
+	%CloudSprite1.rotation -= speed * delta * 0.6
 	
 	if has_upgrade(&"DASH"):
 		if dash_reload > 0:

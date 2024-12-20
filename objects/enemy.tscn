@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxwxahda2kpih"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_8yaqu"]
-[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="3_we20l"]
+[ext_resource type="Texture2D" uid="uid://cpinqo4oohaut" path="res://assets/sprites/satellite.png" id="2_gn8qh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xtcku"]
-size = Vector2(24, 48)
+size = Vector2(53.36, 48)
 
 [node name="Enemy" type="Area2D"]
 collision_layer = 4
@@ -12,16 +12,16 @@ collision_mask = 2
 script = ExtResource("1_8yaqu")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-modulate = Color(1, 0.176471, 0.2, 1)
-scale = Vector2(0.191, 0.391)
-texture = ExtResource("3_we20l")
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gn8qh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xtcku")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.90735e-06, -1.90736e-07)
-scale = Vector2(1.3, 2.5)
+scale = Vector2(2.675, 2.4)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

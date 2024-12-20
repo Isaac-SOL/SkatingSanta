@@ -5,11 +5,15 @@ class_name Present extends Area2D
 
 @export var frag: PackedScene
 
+@onready var cadeaux_sprites = $CadeauxSprites
+
 var speed: Vector2 = Vector2.ZERO
 var rotation_speed: float = 0
 
 func _ready() -> void:
 	rotation_speed = randf_range(rotation_speed_bounds.x, rotation_speed_bounds.y)
+	cadeaux_sprites.speed_scale = 0
+	cadeaux_sprites.frame = randi_range(0,3)
 
 func _process(delta: float) -> void:
 	position += speed * delta

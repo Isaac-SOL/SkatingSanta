@@ -1,7 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
-[ext_resource type="Texture2D" uid="uid://cgcq35jmbrh4" path="res://assets/sprites/circle.png" id="1_jrsdj"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
 [ext_resource type="PackedScene" uid="uid://b7055nlbpufhw" path="res://objects/character.tscn" id="2_riojm"]
 [ext_resource type="PackedScene" uid="uid://caq62ugtyx76r" path="res://objects/big_house.tscn" id="3_sv75s"]
@@ -13,6 +12,12 @@
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
 [ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
 [ext_resource type="PackedScene" uid="uid://d1mp57ku7y5e" path="res://objects/repeatable_upgrade_button.tscn" id="12_784fy"]
+[ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
+[ext_resource type="Texture2D" uid="uid://1hems8ncj8ps" path="res://assets/sprites/planet.png" id="10_2dg3h"]
+[ext_resource type="Texture2D" uid="uid://8x7c6jkwbq1i" path="res://assets/sprites/cloud1.png" id="11_8c04w"]
+[ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
+[ext_resource type="Texture2D" uid="uid://bppegucb8lano" path="res://assets/sprites/stars1.png" id="13_uj0hh"]
+[ext_resource type="Texture2D" uid="uid://h3cyaemysf0u" path="res://assets/sprites/stars2.png" id="14_2hypx"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -107,7 +112,7 @@ name = "Rollback time by 20 seconds"
 icon = ExtResource("6_h3cn5")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
-radius = 639.003
+radius = 652.13
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -129,9 +134,14 @@ repeatable_upgrade_button_scene = ExtResource("12_784fy")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(507, 180)
 
-[node name="Earth" type="Area2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
+
+[node name="SkySprite" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
+scale = Vector2(2, 2)
+texture = ExtResource("9_w0pw6")
 
 [node name="RainbowLine" parent="Earth" instance=ExtResource("11_lm4cc")]
 unique_name_in_owner = true
@@ -141,8 +151,27 @@ visible = false
 scale = Vector2(5, 5)
 texture = ExtResource("1_jrsdj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
-shape = SubResource("CircleShape2D_jundk")
+[node name="StarsSprite1" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(2, 2)
+texture = ExtResource("13_uj0hh")
+
+
+[node name="StarsSprite2" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(2, 2)
+texture = ExtResource("14_2hypx")
+
+[node name="CloudSprite2" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("12_med80")
 
 [node name="Character" parent="." groups=["Character"] instance=ExtResource("2_riojm")]
 unique_name_in_owner = true
@@ -152,6 +181,29 @@ mass = 70.0
 upwards_impulse = 70.0
 downwards_impulse = 40.0
 present_launch_speed = 200.0
+
+[node name="Forground" type="Node2D" parent="."]
+
+[node name="EarthSprite" type="Sprite2D" parent="Forground"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("10_2dg3h")
+
+[node name="CloudSprite1" type="Sprite2D" parent="Forground"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("11_8c04w")
+
+[node name="Earth" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(320, 896)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
+shape = SubResource("CircleShape2D_jundk")
 
 [node name="HouseSpawnPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true

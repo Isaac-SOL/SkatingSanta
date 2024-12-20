@@ -43,7 +43,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0jxee"]
 radius = 5.0
-height = 16.0
+height = 23.43
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_my1uq"]
 radius = 3.0
@@ -62,20 +62,22 @@ angle_by_speed = 0.2
 present_scene = ExtResource("2_ek7se")
 present_launch_speed = 100.0
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(0, 5)
-scale = Vector2(0.756836, 0.461207)
+[node name="CaneSprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 6.855)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ecoa4")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4)
-scale = Vector2(0.178, 0.178)
+[node name="SantaSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -7.375)
+scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_rrjhe")
 autoplay = "default"
 frame_progress = 0.920633
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(0, -6.685)
 shape = SubResource("CapsuleShape2D_0jxee")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]

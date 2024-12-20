@@ -46,24 +46,28 @@ position = Vector2(507, 180)
 
 [node name="SkySprite" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("9_w0pw6")
 
 [node name="StarsSprite1" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("13_uj0hh")
 
 [node name="StarsSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("14_2hypx")
 
 [node name="CloudSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("12_med80")
@@ -81,12 +85,14 @@ present_launch_speed = 200.0
 
 [node name="EarthSprite" type="Sprite2D" parent="Forground"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("10_2dg3h")
 
 [node name="CloudSprite1" type="Sprite2D" parent="Forground"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("11_8c04w")

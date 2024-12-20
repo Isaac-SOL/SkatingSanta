@@ -5,36 +5,36 @@
 [ext_resource type="Texture2D" uid="uid://0k4qldwxq17s" path="res://assets/sprites/Santa_sprite_sheet.png" id="3_5i80b"]
 [ext_resource type="Texture2D" uid="uid://b2emuwix2vrs6" path="res://assets/sprites/cane.png" id="3_ecoa4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nv1cl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aonbj"]
 atlas = ExtResource("3_5i80b")
-region = Rect2(0, 0, 64, 87)
+region = Rect2(0, 0, 66, 92)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dby60"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcka0"]
 atlas = ExtResource("3_5i80b")
-region = Rect2(64, 0, 64, 87)
+region = Rect2(66, 0, 66, 92)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qxai0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktcpy"]
 atlas = ExtResource("3_5i80b")
-region = Rect2(128, 0, 64, 87)
+region = Rect2(132, 0, 66, 92)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4so0x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wddo7"]
 atlas = ExtResource("3_5i80b")
-region = Rect2(192, 0, 64, 87)
+region = Rect2(198, 0, 66, 92)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rrjhe"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nv1cl")
+"texture": SubResource("AtlasTexture_aonbj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dby60")
+"texture": SubResource("AtlasTexture_wcka0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qxai0")
+"texture": SubResource("AtlasTexture_ktcpy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4so0x")
+"texture": SubResource("AtlasTexture_wddo7")
 }],
 "loop": true,
 "name": &"default",
@@ -72,7 +72,7 @@ position = Vector2(0, -4)
 scale = Vector2(0.178, 0.178)
 sprite_frames = SubResource("SpriteFrames_rrjhe")
 autoplay = "default"
-frame_progress = 0.49135
+frame_progress = 0.920633
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)

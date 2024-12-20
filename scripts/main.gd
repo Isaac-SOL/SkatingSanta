@@ -60,7 +60,13 @@ func _process(delta: float) -> void:
 	speed = lerpf(speed_high, speed_low, pow(norm_pos, speed_power))
 	if has_upgrade(&"SPEED_1"): speed *= 1.2
 	
+	#Rotation Parallax
 	%Earth.rotation -= speed * delta
+	%EarthSprite.rotation -= speed * delta
+	%StarsSprite1.rotation -= speed * delta * 0.05
+	%StarsSprite2.rotation -= speed * delta * 0.1
+	%CloudSprite2.rotation -= speed * delta * 0.5
+	%CloudSprite1.rotation -= speed * delta * 0.6
 	
 	process_spawn_houses(delta)
 	process_spawn_satellites(delta)

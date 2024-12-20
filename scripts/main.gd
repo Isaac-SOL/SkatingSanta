@@ -10,12 +10,14 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var speed_power: float = 2.0
 @export var house_spawn_timing: Vector2 = Vector2(1.0, 4.0)
 @export var satellite_spawn_timing: Vector2 = Vector2(2.0, 10.0)
+@export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var initial_time: float = 120.0
 @export var max_presents: int = 5
 @export var present_reload_time: float = 1.0
 
 @export var buildings: Array[PackedScene]
 @export var satellites: Array[PackedScene]
+@export var aliens: Array[PackedScene]
 
 @export var upgrades: Array[Upgrade]
 @export var upgrade_button_scene: PackedScene
@@ -24,6 +26,7 @@ var game_state: GameState = GameState.RUNNING
 var speed: float = 1.0
 var next_house_spawn: float
 var next_satellite_spawn: float
+var next_alien_spawn: float
 
 var picked_upgrades: Array[StringName] = []
 
@@ -50,6 +53,8 @@ var reload: float = 0 :
 
 func _ready() -> void:
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
+	next_satellite_spawn = randf_range(satellite_spawn_timing.x, satellite_spawn_timing.y)
+	next_alien_spawn = randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
 	hp = %Character.start_hp
 	time_left = initial_time
 	presents = max_presents
@@ -70,6 +75,7 @@ func _process(delta: float) -> void:
 	
 	process_spawn_houses(delta)
 	process_spawn_satellites(delta)
+	process_spawn_aliens(delta)
 	
 	process_present_reload(delta)
 	
@@ -97,6 +103,16 @@ func process_spawn_satellites(delta: float):
 		var satellite_pos: Vector2 = lerp(%SatelliteSpawnLow.global_position, %SatelliteSpawnHigh.global_position, randf())
 		new_satellite.global_position = satellite_pos
 		new_satellite.global_rotation = %SatelliteSpawnLow.global_rotation
+
+func process_spawn_aliens(delta: float):
+	next_alien_spawn -= speed * delta
+	if next_alien_spawn <= 0:
+		next_alien_spawn += randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
+		var new_alien: Alien = aliens.pick_random().instantiate()
+		%Earth.add_child(new_alien)
+		new_alien.global_position = %AlienSpawnPosition.global_position
+		new_alien.global_rotation = %AlienSpawnPosition.global_rotation
+		new_alien.hit.connect(_on_alien_destroyed)
 
 func process_present_reload(delta: float):
 	if presents < max_presents:
@@ -159,6 +175,11 @@ func update_ammo_text():
 
 func _on_house_destroyed():
 	score += 1
+	if score % 10 == 0:
+		start_upgrade_screen()
+		
+func _on_alien_destroyed():
+	score += 2
 	if score % 10 == 0:
 		start_upgrade_screen()
 

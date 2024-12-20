@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dj7rsw3j4iqm4"]
+
+[ext_resource type="Script" path="res://scripts/alien.gd" id="1_2hrhx"]
+[ext_resource type="Texture2D" uid="uid://cugwtgiuf6nhx" path="res://assets/sprites/alien.png" id="2_3almi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8167"]
+atlas = ExtResource("2_3almi")
+region = Rect2(0, 0, 66, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76s55"]
+atlas = ExtResource("2_3almi")
+region = Rect2(66, 0, 66, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sgrun"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8167")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76s55")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucaid"]
+size = Vector2(64.705, 38.965)
+
+[node name="Alien" type="Area2D"]
+script = ExtResource("1_2hrhx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_sgrun")
+frame_progress = 0.692117
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ucaid")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4.76837e-07, 1.66893e-06)
+scale = Vector2(3.255, 1.95)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

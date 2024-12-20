@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=19 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="4_dlig4"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="5_kqrhn"]
 [ext_resource type="Texture2D" uid="uid://dbjw7krf01fow" path="res://assets/sprites/upgrade_placeholder.png" id="6_h3cn5"]
+[ext_resource type="PackedScene" uid="uid://dj7rsw3j4iqm4" path="res://objects/alien.tscn" id="6_ruiaf"]
 [ext_resource type="PackedScene" uid="uid://l07pua8b6vte" path="res://objects/upgrade_button.tscn" id="7_dgolm"]
 [ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
 [ext_resource type="Texture2D" uid="uid://1hems8ncj8ps" path="res://assets/sprites/planet.png" id="10_2dg3h"]
@@ -36,6 +37,7 @@ satellite_spawn_timing = Vector2(0.4, 2)
 initial_time = 60.0
 buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s"), ExtResource("4_1sbbi")])
 satellites = Array[PackedScene]([ExtResource("4_dlig4")])
+aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
 upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_rwmb3")])
 upgrade_button_scene = ExtResource("7_dgolm")
 
@@ -65,6 +67,13 @@ position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("14_2hypx")
 
+[node name="CloudSprite1" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("11_8c04w")
+
 [node name="CloudSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
 texture_filter = 1
@@ -90,13 +99,6 @@ position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("10_2dg3h")
 
-[node name="CloudSprite1" type="Sprite2D" parent="Forground"]
-unique_name_in_owner = true
-texture_filter = 1
-position = Vector2(320, 896)
-scale = Vector2(3.25, 3.25)
-texture = ExtResource("11_8c04w")
-
 [node name="Earth" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(320, 896)
@@ -116,7 +118,12 @@ rotation = 0.753982
 
 [node name="SatelliteSpawnHigh" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(1029, 279)
+position = Vector2(970, 342)
+rotation = 0.753982
+
+[node name="AlienSpawnPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1010, 299)
 rotation = 0.753982
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

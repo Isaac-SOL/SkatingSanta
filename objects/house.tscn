@@ -1,43 +1,45 @@
 [gd_scene load_steps=8 format=3 uid="uid://co3nfgr6pq3ga"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
-[ext_resource type="Texture2D" uid="uid://yafks4f5p0on" path="res://assets/sprites/maison_rouge_enfant.png" id="2_7aulo"]
+[ext_resource type="Texture2D" uid="uid://ckhu4fsxyxwnm" path="res://assets/sprites/maison_rouge.png" id="2_otsd3"]
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_vm2sc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_76osu"]
-atlas = ExtResource("2_7aulo")
-region = Rect2(0, 0, 66, 83)
+[sub_resource type="Gradient" id="Gradient_ogiuy"]
+colors = PackedColorArray(0, 0, 0, 1, 0.696886, 0.696886, 0.696886, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qox26"]
-atlas = ExtResource("2_7aulo")
-region = Rect2(66, 0, 66, 83)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_van3s"]
+gradient = SubResource("Gradient_ogiuy")
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_qjnd8"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_76osu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qox26")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2fabr"]
+particle_flag_disable_z = true
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(1, 1, 0)
+initial_velocity_max = 2.0
+gravity = Vector3(0, -10, 0)
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_van3s")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp85y"]
-size = Vector2(24, 30)
+size = Vector2(25.345, 31.745)
 
 [node name="House" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_2rqh5")
 
-[node name="Sprite2D2" type="AnimatedSprite2D" parent="."]
+[node name="Sprite2D2" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.384, 0.384)
-sprite_frames = SubResource("SpriteFrames_qjnd8")
+texture = ExtResource("2_otsd3")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(6, -10)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_2fabr")
+preprocess = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.76837e-07, 0)

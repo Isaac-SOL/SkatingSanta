@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://diivk1ejveqva"]
+[gd_scene load_steps=5 format=3 uid="uid://diivk1ejveqva"]
 
 [ext_resource type="Script" path="res://scripts/present.gd" id="1_4p4et"]
 [ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="1_dotkb"]
+[ext_resource type="PackedScene" uid="uid://1b1oxh3qqnbo" path="res://objects/present_frag.tscn" id="2_1hot1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
 size = Vector2(14, 14)
@@ -11,6 +12,7 @@ modulate = Color(0, 1, 0, 1)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("1_4p4et")
+frag = ExtResource("2_1hot1")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)

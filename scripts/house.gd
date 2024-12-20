@@ -18,3 +18,10 @@ func _on_area_entered(area: Area2D) -> void:
 		if hp <= 0:
 			queue_free()
 			destroyed.emit()
+
+func parry():
+	while hp > 0:
+		hp -= 1
+		hit.emit()
+	queue_free()
+	destroyed.emit()

@@ -143,21 +143,12 @@ position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("9_w0pw6")
 
-[node name="RainbowLine" parent="Earth" instance=ExtResource("11_lm4cc")]
-unique_name_in_owner = true
-visible = false
-
-[node name="EarthSprite" type="Sprite2D" parent="Earth"]
-scale = Vector2(5, 5)
-texture = ExtResource("1_jrsdj")
-
 [node name="StarsSprite1" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("13_uj0hh")
-
 
 [node name="StarsSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
@@ -204,6 +195,14 @@ position = Vector2(320, 896)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
 shape = SubResource("CircleShape2D_jundk")
+
+[node name="RainbowLine" parent="Earth" instance=ExtResource("11_lm4cc")]
+unique_name_in_owner = true
+visible = false
+
+[node name="EarthSprite" type="Sprite2D" parent="Earth"]
+scale = Vector2(5, 5)
+texture = ExtResource("1_jrsdj")
 
 [node name="HouseSpawnPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true

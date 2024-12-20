@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/present.gd" id="1_4p4et"]
 [ext_resource type="Texture2D" uid="uid://6jvobvjs67pi" path="res://assets/sprites/cadeau.png" id="2_ijbwd"]
-[ext_resource type="PackedScene" uid="uid://1b1oxh3qqnbo" path="res://objects/present_frag.tscn" id="2_1hot1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_guh1o"]
 atlas = ExtResource("2_ijbwd")
@@ -47,7 +46,6 @@ size = Vector2(12.235, 15.855)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("1_4p4et")
-frag = ExtResource("2_1hot1")
 
 [node name="CadeauxSprites" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

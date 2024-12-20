@@ -1,29 +1,91 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=12 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
-[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="1_jgpnm"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
+[ext_resource type="Texture2D" uid="uid://0k4qldwxq17s" path="res://assets/sprites/Santa_sprite_sheet.png" id="3_5i80b"]
+[ext_resource type="Texture2D" uid="uid://b2emuwix2vrs6" path="res://assets/sprites/cane.png" id="3_ecoa4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
-size = Vector2(34, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv1cl"]
+atlas = ExtResource("3_5i80b")
+region = Rect2(0, 0, 64, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dby60"]
+atlas = ExtResource("3_5i80b")
+region = Rect2(64, 0, 64, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxai0"]
+atlas = ExtResource("3_5i80b")
+region = Rect2(128, 0, 64, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4so0x"]
+atlas = ExtResource("3_5i80b")
+region = Rect2(192, 0, 64, 87)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rrjhe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv1cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dby60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxai0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4so0x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0jxee"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_my1uq"]
+radius = 3.0
+height = 20.0
 
 [node name="Character" type="Area2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 21
 script = ExtResource("1_g5wu1")
+mass = 100.0
+upwards_impulse = 100.0
+downwards_impulse = 50.0
+impulse_override_speed = false
+hit_updards_impulse = 100.0
+angle_by_speed = 0.2
 present_scene = ExtResource("2_ek7se")
-present_launch_speed = 50.0
+present_launch_speed = 100.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-scale = Vector2(0.273, 0.273)
-texture = ExtResource("1_jgpnm")
+position = Vector2(0, 5)
+scale = Vector2(0.756836, 0.461207)
+texture = ExtResource("3_ecoa4")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.178, 0.178)
+sprite_frames = SubResource("SpriteFrames_rrjhe")
+autoplay = "default"
+frame_progress = 0.49135
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_r1msg")
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_0jxee")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_my1uq")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-7.15256e-07, -7.15256e-07)
-scale = Vector2(1.8, 1.8)
+position = Vector2(0.5, -0.499999)
+scale = Vector2(1.05, 1.15)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

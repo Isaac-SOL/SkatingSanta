@@ -9,6 +9,7 @@ size = Vector2(14, 14)
 [node name="Present" type="Area2D"]
 modulate = Color(0, 1, 0, 1)
 collision_layer = 8
+collision_mask = 21
 script = ExtResource("1_4p4et")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]

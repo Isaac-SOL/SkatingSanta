@@ -1,20 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://caq62ugtyx76r"]
+[gd_scene load_steps=8 format=3 uid="uid://caq62ugtyx76r"]
 
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="1_wj351"]
+[ext_resource type="Texture2D" uid="uid://d0ph08c4lsvh5" path="res://assets/sprites/appartement_moyen_enfant.png" id="2_jtawb"]
+[ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_kq456"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mcn8"]
+atlas = ExtResource("2_jtawb")
+region = Rect2(0, 0, 66, 131)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqgiu"]
+atlas = ExtResource("2_jtawb")
+region = Rect2(66, 0, 66, 131)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6k30"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mcn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqgiu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8guw"]
-size = Vector2(34, 66)
+size = Vector2(22, 46)
 
 [node name="BigHouse" instance=ExtResource("1_wj351")]
+hp = 3
 
 [node name="Sprite2D2" parent="." index="0"]
-position = Vector2(0, -16.264)
-scale = Vector2(0.273, 0.527125)
+position = Vector2(2.27374e-13, -9)
+scale = Vector2(0.363636, 0.363636)
+sprite_frames = SubResource("SpriteFrames_i6k30")
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, -16)
+position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_f8guw")
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="2"]
-position = Vector2(-1.90735e-06, -16)
-scale = Vector2(1.8, 3.4)
+position = Vector2(1.90735e-06, -9.5)
+scale = Vector2(1.3, 2.55)
+
+[node name="LittleGuy3" parent="Guys" index="0" instance=ExtResource("3_kq456")]
+position = Vector2(0, -14)
+
+[node name="LittleGuy2" parent="Guys" index="1" instance=ExtResource("3_kq456")]
+position = Vector2(-8, -5)

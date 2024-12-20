@@ -1,26 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://co3nfgr6pq3ga"]
+[gd_scene load_steps=8 format=3 uid="uid://co3nfgr6pq3ga"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
-[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="1_ugqlb"]
+[ext_resource type="Texture2D" uid="uid://yafks4f5p0on" path="res://assets/sprites/maison_rouge_enfant.png" id="2_7aulo"]
+[ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_vm2sc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
-size = Vector2(34, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_76osu"]
+atlas = ExtResource("2_7aulo")
+region = Rect2(0, 0, 66, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qox26"]
+atlas = ExtResource("2_7aulo")
+region = Rect2(66, 0, 66, 83)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qjnd8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76osu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qox26")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp85y"]
+size = Vector2(24, 30)
 
 [node name="House" type="Area2D"]
+collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_2rqh5")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-modulate = Color(0, 0.392157, 1, 1)
-scale = Vector2(0.273, 0.273)
-texture = ExtResource("1_ugqlb")
+[node name="Sprite2D2" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.384, 0.384)
+sprite_frames = SubResource("SpriteFrames_qjnd8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_r1msg")
+position = Vector2(-4.76837e-07, 0)
+shape = SubResource("RectangleShape2D_mp85y")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-1.90735e-06, -1.90735e-06)
-scale = Vector2(1.8, 1.8)
+position = Vector2(-4.76837e-07, 1.66893e-06)
+scale = Vector2(1.3, 1.6)
+
+[node name="Guys" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LittleGuy" parent="Guys" instance=ExtResource("3_vm2sc")]
+position = Vector2(0, 4)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4sgae8l2qjjp"]
+
+[ext_resource type="Texture2D" uid="uid://bx5uece575078" path="res://assets/sprites/guy.png" id="1_17jq2"]
+
+[sub_resource type="GDScript" id="GDScript_8gr3d"]
+script/source = "extends Node2D
+
+@export var frequency: float = 1
+@export var amplitude: float = 35
+
+var time_spent: float = 0
+
+func _ready() -> void:
+	time_spent = randf() * TAU
+
+func _process(delta: float) -> void:
+	time_spent += delta
+	var rot := sin(time_spent * frequency)
+	rotation_degrees = rot * amplitude
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csh4n"]
+atlas = ExtResource("1_17jq2")
+region = Rect2(0, 0, 22, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_100b4"]
+atlas = ExtResource("1_17jq2")
+region = Rect2(22, 0, 22, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bi2c0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csh4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_100b4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LittleGuy" type="Node2D"]
+script = SubResource("GDScript_8gr3d")
+frequency = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_bi2c0")
+autoplay = "default"
+frame_progress = 0.284207

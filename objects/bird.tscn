@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdmo2guc76hvf"]
+[gd_scene load_steps=7 format=3 uid="uid://dtvfkiu7mydg1"]
 
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="1_rn1hk"]
 [ext_resource type="Texture2D" uid="uid://ccp3j7nmyis50" path="res://assets/sprites/bird.png" id="2_dsrjd"]

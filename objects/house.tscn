@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ckhu4fsxyxwnm" path="res://assets/sprites/maison_rouge.png" id="2_otsd3"]
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_vm2sc"]
 [ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="4_ps47y"]
-[ext_resource type="Texture2D" uid="uid://d0u2c4apehh54" path="res://assets/sprites/happychild.png" id="4_xyo8p"]
+[ext_resource type="Texture2D" uid="uid://b3jsaystkmtnj" path="res://assets/sprites/smiley.png" id="5_idc8c"]
 
 [sub_resource type="Gradient" id="Gradient_ogiuy"]
 colors = PackedColorArray(0, 0, 0, 1, 0.696886, 0.696886, 0.696886, 1)
@@ -124,7 +124,7 @@ scale = Vector2(2, 2)
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_pdsh2")
-texture = ExtResource("4_xyo8p")
+texture = ExtResource("5_idc8c")
 lifetime = 0.5
 one_shot = true
 local_coords = true

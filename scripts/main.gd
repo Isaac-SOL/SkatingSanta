@@ -14,6 +14,9 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var initial_time: float = 120.0
 @export var max_presents: int = 5
 @export var present_reload_time: float = 1.0
+@export var dash_reload_time: float = 5.0
+@export var dash_speed: float = 10
+@export var dash_falloff: float = 0.5
 
 @export var buildings: Array[PackedScene]
 @export var satellites: Array[PackedScene]
@@ -21,12 +24,17 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 
 @export var upgrades: Array[Upgrade]
 @export var upgrade_button_scene: PackedScene
+@export var repeatable_upgrades: Array[RepeatableUpgrade]
+@export var repeatable_upgrade_button_scene: PackedScene
 
 var game_state: GameState = GameState.RUNNING
 var speed: float = 1.0
 var next_house_spawn: float
 var next_satellite_spawn: float
 var next_alien_spawn: float
+var speed_bonus: float = 1.0
+var dash_additional_speed: float = 0.0
+var level: int = 1
 
 var picked_upgrades: Array[StringName] = []
 
@@ -50,6 +58,10 @@ var reload: float = 0 :
 	set(value):
 		reload = value
 		update_ammo_text()
+var dash_reload: float = 0.0 :
+	set(value):
+		dash_reload = value
+		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time))) + "%"
 
 func _ready() -> void:
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
@@ -63,7 +75,8 @@ func _process(delta: float) -> void:
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
 	norm_pos = pow(clamp(norm_pos, 0, 1), speed_power)
 	speed = lerpf(speed_high, speed_low, pow(norm_pos, speed_power))
-	if has_upgrade(&"SPEED_1"): speed *= 1.2
+	speed += dash_additional_speed
+	speed *= speed_bonus
 	
 	#Rotation Parallax
 	%Earth.rotation -= speed * delta
@@ -72,6 +85,15 @@ func _process(delta: float) -> void:
 	%StarsSprite2.rotation -= speed * delta * 0.1
 	%CloudSprite2.rotation -= speed * delta * 0.5
 	%CloudSprite1.rotation -= speed * delta * 0.6
+	
+	if has_upgrade(&"DASH"):
+		if dash_reload > 0:
+			dash_reload -= delta
+			if dash_reload < 0:
+				dash_reload = 0
+		if Input.is_action_just_pressed("dash") and dash_reload <= 0:
+			start_dash()
+			dash_reload = dash_reload_time
 	
 	process_spawn_houses(delta)
 	process_spawn_satellites(delta)
@@ -83,6 +105,10 @@ func _process(delta: float) -> void:
 	
 	process_pause()
 
+func start_dash():
+	dash_additional_speed = dash_speed
+	var tween = create_tween()
+	tween.tween_property(self, "dash_additional_speed", 0.0, dash_falloff)
 
 func process_spawn_houses(delta: float):
 	next_house_spawn -= speed * delta
@@ -147,15 +173,27 @@ func start_upgrade_screen():
 	
 	game_state = GameState.WAITING_UPGRADE
 	Engine.time_scale = 0
+	
 	var proposed_upgrades: Array[Upgrade] = []
 	for i in range(min(3, upgrades.size())):
 		var new_upgrade: Upgrade = upgrades.pick_random()
-		while new_upgrade in proposed_upgrades:
+		while new_upgrade in proposed_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = upgrades.pick_random()
 		proposed_upgrades.append(new_upgrade)
 		var new_upgrade_button: UpgradeButton = upgrade_button_scene.instantiate()
 		%UpgradeButtonsContainer.add_child(new_upgrade_button)
 		new_upgrade_button.set_upgrade(new_upgrade)
+	
+	var proposed_repeatable_upgrades: Array[RepeatableUpgrade] = []
+	for i in range(min(2, repeatable_upgrades.size())):
+		var new_upgrade: RepeatableUpgrade = repeatable_upgrades.pick_random()
+		while new_upgrade in proposed_repeatable_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
+			new_upgrade = repeatable_upgrades.pick_random()
+		proposed_repeatable_upgrades.append(new_upgrade)
+		var new_upgrade_button: RepeatableUpgradeButton = repeatable_upgrade_button_scene.instantiate()
+		%RepeatableUpgradeButtonsContainer.add_child(new_upgrade_button)
+		new_upgrade_button.set_upgrade(new_upgrade)
+	
 	%CanvasLayerUpgrades.visible = true
 
 func kill():
@@ -179,8 +217,8 @@ func _on_house_destroyed():
 		start_upgrade_screen()
 		
 func _on_alien_destroyed():
-	score += 2
-	if score % 10 == 0:
+	score += 3
+	if score % 10 == 0: # TODO change this
 		start_upgrade_screen()
 
 func _on_character_hit() -> void:
@@ -210,15 +248,49 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 			upgrades.remove_at(i)
 			break
 	
+	level += 1
 	do_upgrade_instant_effect(upgrade_id)
+	
 	close_upgrades_screen()
 
 func close_upgrades_screen():
 	for child: Button in %UpgradeButtonsContainer.get_children():
+		child.queue_free()
+	for child: Button in %RepeatableUpgradeButtonsContainer.get_children():
 		child.queue_free()
 	game_state = GameState.RUNNING
 	Engine.time_scale = 1
 	%CanvasLayerUpgrades.visible = false
 
 func do_upgrade_instant_effect(upgrade_id: StringName):
-	pass
+	# Repeatables
+	if upgrade_id == &"MORE_SPEED":
+		speed_bonus *= 1.1
+	elif upgrade_id == &"MORE_PRESENTS":
+		max_presents += 1
+	elif upgrade_id == &"MORE_HP":
+		hp += 1
+		%Character.start_hp += 1
+	elif upgrade_id == &"MORE_LOAD":
+		present_reload_time *= 0.9
+	elif upgrade_id == &"MORE_TIME":
+		time_left += 20
+	elif upgrade_id == &"DASH_RELOAD":
+		dash_reload_time *= 0.8
+	
+	# Non-repeatables
+	elif upgrade_id == &"SPEED_LOW":
+		speed_low *= 1.7
+	elif upgrade_id == &"SPEED_HIGH":
+		speed_high *= 2
+	elif upgrade_id == &"FAST_PRESENTS":
+		%Character.present_launch_speed *= 2
+	elif upgrade_id == &"RAINBOW":
+		%RainbowLine.running = true
+		%RainbowLine.visible = true
+	elif upgrade_id == &"DASH":
+		%DashLabel.visible = true
+	elif upgrade_id == &"HEAVY":
+		%Character.mass *= 1.5
+	elif upgrade_id == &"LIGHT":
+		%Character.mass *= 0.6666

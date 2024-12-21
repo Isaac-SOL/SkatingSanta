@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw3e2fl4rn5am"]
+
+[ext_resource type="Texture2D" uid="uid://b4a3juiomft3" path="res://assets/sprites/trainee.png" id="1_x6auw"]
+[ext_resource type="Script" path="res://scripts/trail.gd" id="2_pox4t"]
+
+[node name="RainbowLine" type="Line2D"]
+points = PackedVector2Array(0, 0, 100, 0)
+width = 16.0
+texture = ExtResource("1_x6auw")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+antialiased = true
+script = ExtResource("2_pox4t")

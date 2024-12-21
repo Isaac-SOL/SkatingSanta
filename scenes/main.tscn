@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=51 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -8,21 +8,188 @@
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="4_dlig4"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="5_kqrhn"]
 [ext_resource type="Texture2D" uid="uid://dbjw7krf01fow" path="res://assets/sprites/upgrade_placeholder.png" id="6_h3cn5"]
-[ext_resource type="PackedScene" uid="uid://dj7rsw3j4iqm4" path="res://objects/alien.tscn" id="6_ruiaf"]
-[ext_resource type="PackedScene" uid="uid://l07pua8b6vte" path="res://objects/upgrade_button.tscn" id="7_dgolm"]
+[ext_resource type="PackedScene" uid="uid://gyabx1wd7q0g" path="res://objects/alien.tscn" id="6_ruiaf"]
+[ext_resource type="PackedScene" uid="uid://y5vhj87ha5ca" path="res://objects/upgrade_button_2.tscn" id="8_pnpyq"]
+[ext_resource type="Texture2D" uid="uid://bm36brk13r1ho" path="res://assets/sprites/multicado.png" id="8_tdt6j"]
+[ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
+[ext_resource type="Texture2D" uid="uid://ifgg83x4klcb" path="res://assets/sprites/boooost.png" id="9_gnnfb"]
 [ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
 [ext_resource type="Texture2D" uid="uid://1hems8ncj8ps" path="res://assets/sprites/planet.png" id="10_2dg3h"]
+[ext_resource type="Texture2D" uid="uid://chr4f3ff46s7f" path="res://assets/sprites/anvil.png" id="10_57xcf"]
 [ext_resource type="Texture2D" uid="uid://8x7c6jkwbq1i" path="res://assets/sprites/cloud1.png" id="11_8c04w"]
+[ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
+[ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
+[ext_resource type="PackedScene" uid="uid://d1mp57ku7y5e" path="res://objects/repeatable_upgrade_button.tscn" id="12_784fy"]
 [ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
+[ext_resource type="Texture2D" uid="uid://bnvcxvlqc8mp" path="res://assets/sprites/sugar_rainbow4.png" id="12_sfbkc"]
+[ext_resource type="Texture2D" uid="uid://c3yc0ti38d7w5" path="res://assets/sprites/sugar_rainbow5.png" id="13_fb388"]
 [ext_resource type="Texture2D" uid="uid://bppegucb8lano" path="res://assets/sprites/stars1.png" id="13_uj0hh"]
 [ext_resource type="Texture2D" uid="uid://h3cyaemysf0u" path="res://assets/sprites/stars2.png" id="14_2hypx"]
+[ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]
+[ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
+[ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
 
-[sub_resource type="Resource" id="Resource_rwmb3"]
+[sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
-id = &"SPEED_1"
-name = "Super Candy Propulsors"
+id = &"LOAD_SHOT"
+name = "Strong Present"
 icon = ExtResource("6_h3cn5")
-description = "Increases speed by 20% using improved sugar combustion technology"
+description = "Hold the shooting button to load a stronger shot, sending the present faster and gaining more speed"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_812a1"]
+script = ExtResource("5_kqrhn")
+id = &"FRAG"
+name = "Fragmentation Present"
+icon = ExtResource("8_tdt6j")
+description = "Presents will create more presents when hitting the ground"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_306lq"]
+script = ExtResource("5_kqrhn")
+id = &"DASH"
+name = "Sugar Burst"
+icon = ExtResource("9_gnnfb")
+description = "Allows you to dash forward by pressing the spacebar"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_bt1gb"]
+script = ExtResource("5_kqrhn")
+id = &"FAST_PRESENTS"
+name = "Weighted Presents"
+icon = ExtResource("10_57xcf")
+description = "Add some weight into your presents to make them reach the ground faster"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_t402t"]
+script = ExtResource("5_kqrhn")
+id = &"SPEED_HIGH"
+name = "Stellar Fuel"
+icon = ExtResource("6_h3cn5")
+description = "Greatly increases speed in high orbit"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_fe4ix"]
+script = ExtResource("5_kqrhn")
+id = &"SPEED_LOW"
+name = "Stylish Moves"
+icon = ExtResource("6_h3cn5")
+description = "Greatly increases speed in low orbit"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_yuq2w"]
+script = ExtResource("5_kqrhn")
+id = &"PARRY"
+name = "Last-Minute Present"
+icon = ExtResource("11_v50qq")
+description = "Throw a present at the very last moment to  make an entire building happy"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_42057"]
+script = ExtResource("5_kqrhn")
+id = &"RAINBOW"
+name = "Rainbow Cane"
+icon = ExtResource("12_sfbkc")
+description = "The Candy Cane now shoots rainbows"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_7pejh"]
+script = ExtResource("5_kqrhn")
+id = &"OMNI_SHOT"
+name = "Omnidirectional Presents"
+icon = ExtResource("6_h3cn5")
+description = "Allows you to shoot presents in any direction with the mouse"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_tv622"]
+script = ExtResource("5_kqrhn")
+id = &"WORLD_BOUNCE"
+name = "Bouncy Jelly"
+icon = ExtResource("6_h3cn5")
+description = "Allows you to bounce when hitting the ground, preventing an untimely demise (but still taking damage)"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_uy4bj"]
+script = ExtResource("5_kqrhn")
+id = &"TOP_BOUNCE"
+name = "Vertical Momentum Dampeners"
+icon = ExtResource("6_h3cn5")
+description = "Increases your mass at high altitudes, preventing accidental exit from orbit"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_ohgfx"]
+script = ExtResource("5_kqrhn")
+id = &"HEAVY"
+name = "Heavy Cane"
+icon = ExtResource("10_57xcf")
+description = "Makes you 50% heavier"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_yeuxv"]
+script = ExtResource("5_kqrhn")
+id = &"LIGHT"
+name = "Lightweight Cane"
+icon = ExtResource("6_h3cn5")
+description = "Makes you 33% lighter"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_xug02"]
+script = ExtResource("5_kqrhn")
+id = &"FLOATER"
+name = "Hovercane"
+icon = ExtResource("13_fb388")
+description = "You are no longer affected by gravity"
+dependencies = Array[StringName]([&"RAINBOW", &"DASH"])
+
+[sub_resource type="Resource" id="Resource_1vr1a"]
+script = ExtResource("5_kqrhn")
+id = &"BOMB"
+name = "Surprise Present"
+icon = ExtResource("14_lu857")
+description = "Use the right click to send a surprise present and remove obstacles."
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_wdxe3"]
+script = ExtResource("9_7qq88")
+id = &"MORE_PRESENTS"
+name = "Hold 1 more present"
+icon = ExtResource("17_gjkxn")
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_y1h6y"]
+script = ExtResource("9_7qq88")
+id = &"MORE_HP"
+name = "Heal 1 HP"
+icon = ExtResource("18_415e6")
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_pyael"]
+script = ExtResource("9_7qq88")
+id = &"MORE_LOAD"
+name = "Load new presents 10% faster"
+icon = ExtResource("17_gjkxn")
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_bpf33"]
+script = ExtResource("9_7qq88")
+id = &"MORE_SPEED"
+name = "Increase speed by 10%"
+icon = ExtResource("6_h3cn5")
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_7smhc"]
+script = ExtResource("9_7qq88")
+id = &"MORE_TIME"
+name = "Rollback time by 20 seconds"
+icon = ExtResource("6_h3cn5")
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_ey6rm"]
+script = ExtResource("9_7qq88")
+id = &"DASH_RELOAD"
+name = "Dash reloads 20% faster"
+icon = ExtResource("6_h3cn5")
+dependencies = Array[StringName]([&"DASH"])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
 radius = 652.13
@@ -34,12 +201,15 @@ speed_low = 0.45
 position_bounds = Vector2(0, 225)
 house_spawn_timing = Vector2(0.2, 0.8)
 satellite_spawn_timing = Vector2(0.4, 2)
-initial_time = 60.0
+dash_speed = 1.0
+dash_falloff = 0.3
 buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s"), ExtResource("4_1sbbi")])
 satellites = Array[PackedScene]([ExtResource("4_dlig4")])
 aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
-upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_rwmb3")])
-upgrade_button_scene = ExtResource("7_dgolm")
+upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_7pejh"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a")])
+upgrade_button_scene = ExtResource("8_pnpyq")
+repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_ey6rm")])
+repeatable_upgrade_button_scene = ExtResource("12_784fy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(507, 180)
@@ -81,15 +251,6 @@ position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("12_med80")
 
-[node name="Character" parent="." instance=ExtResource("2_riojm")]
-unique_name_in_owner = true
-position = Vector2(320, 70)
-scale = Vector2(1.5, 1.5)
-mass = 70.0
-upwards_impulse = 70.0
-downwards_impulse = 40.0
-present_launch_speed = 200.0
-
 [node name="Forground" type="Node2D" parent="."]
 
 [node name="EarthSprite" type="Sprite2D" parent="Forground"]
@@ -105,6 +266,20 @@ position = Vector2(320, 896)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
 shape = SubResource("CircleShape2D_jundk")
+
+[node name="RainbowLine" parent="Earth" instance=ExtResource("11_lm4cc")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Character" parent="." groups=["Character"] instance=ExtResource("2_riojm")]
+unique_name_in_owner = true
+position = Vector2(320, 70)
+scale = Vector2(1.5, 1.5)
+mass = 70.0
+upwards_impulse = 70.0
+downwards_impulse = 40.0
+height_mass_max = 70.0
+present_launch_speed = 120.0
 
 [node name="HouseSpawnPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true
@@ -123,7 +298,7 @@ rotation = 0.753982
 
 [node name="AlienSpawnPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(1010, 299)
+position = Vector2(986, 325)
 rotation = 0.753982
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -147,6 +322,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Presents: 5 (0%)"
 
+[node name="DashLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Dash: READY"
+
 [node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -163,7 +344,6 @@ horizontal_alignment = 2
 
 [node name="CanvasLayerUpgrades" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayerUpgrades"]
 texture_filter = 1
@@ -177,9 +357,20 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="UpgradeButtonsContainer" type="HBoxContainer" parent="CanvasLayerUpgrades/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayerUpgrades/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="UpgradeButtonsContainer" type="HBoxContainer" parent="CanvasLayerUpgrades/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="RepeatableUpgradeButtonsContainer" type="HBoxContainer" parent="CanvasLayerUpgrades/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1

@@ -1,24 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://diivk1ejveqva"]
+[gd_scene load_steps=9 format=3 uid="uid://bwu24podrf7ng"]
 
-[ext_resource type="Script" path="res://scripts/present.gd" id="1_4p4et"]
-[ext_resource type="PackedScene" uid="uid://bwu24podrf7ng" path="res://objects/present_frag.tscn" id="2_d4ph2"]
-[ext_resource type="Texture2D" uid="uid://6jvobvjs67pi" path="res://assets/sprites/cadeau.png" id="2_ijbwd"]
-[ext_resource type="Texture2D" uid="uid://dwbsiwwowq5tv" path="res://assets/sprites/cadeau_surprise.png" id="4_rw6wf"]
+[ext_resource type="Script" path="res://scripts/present.gd" id="1_727f3"]
+[ext_resource type="Texture2D" uid="uid://6jvobvjs67pi" path="res://assets/sprites/cadeau.png" id="3_ooa2r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_guh1o"]
-atlas = ExtResource("2_ijbwd")
+atlas = ExtResource("3_ooa2r")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wjmtx"]
-atlas = ExtResource("2_ijbwd")
+atlas = ExtResource("3_ooa2r")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ge341"]
-atlas = ExtResource("2_ijbwd")
+atlas = ExtResource("3_ooa2r")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fv1hh"]
-atlas = ExtResource("2_ijbwd")
+atlas = ExtResource("3_ooa2r")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_612vx"]
@@ -39,14 +37,6 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_rw6wf")
-}],
-"loop": true,
-"name": &"surprise",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
@@ -55,8 +45,10 @@ size = Vector2(12.235, 15.855)
 [node name="Present" type="Area2D"]
 collision_layer = 8
 collision_mask = 21
-script = ExtResource("1_4p4et")
-frag = ExtResource("2_d4ph2")
+monitoring = false
+monitorable = false
+script = ExtResource("1_727f3")
+can_frag = false
 
 [node name="CadeauxSprites" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://l07pua8b6vte"]
+[gd_scene load_steps=3 format=3 uid="uid://y5vhj87ha5ca"]
 
-[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="1_1jx82"]
-[ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="1_6oj1o"]
+[ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="1_0m7lo"]
+[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="2_primg"]
 
 [node name="Button" type="Button"]
 offset_right = 195.0
 offset_bottom = 149.0
 size_flags_horizontal = 3
-script = ExtResource("1_6oj1o")
+script = ExtResource("1_0m7lo")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -21,32 +21,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="MarginContainer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.588235)
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("1_1jx82")
+texture = ExtResource("2_primg")
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TitleLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="TitleLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "[center][font_size=16]Upgrade Name"
 fit_content = true
@@ -56,5 +55,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "[font_size=12]Upgrade effect lorem ipsum dolor sit amet"

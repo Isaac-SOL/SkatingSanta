@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dj7rsw3j4iqm4"]
+[gd_scene load_steps=8 format=3 uid="uid://gyabx1wd7q0g"]
 
 [ext_resource type="Script" path="res://scripts/alien.gd" id="1_2hrhx"]
 [ext_resource type="Texture2D" uid="uid://cugwtgiuf6nhx" path="res://assets/sprites/alien.png" id="2_3almi"]
+[ext_resource type="PackedScene" uid="uid://cq5756fqwkyjj" path="res://objects/little_green_guy.tscn" id="3_4jin3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t8167"]
 atlas = ExtResource("2_3almi")
@@ -29,6 +30,8 @@ animations = [{
 size = Vector2(64.705, 38.965)
 
 [node name="Alien" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
 script = ExtResource("1_2hrhx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -40,8 +43,15 @@ frame_progress = 0.692117
 shape = SubResource("RectangleShape2D_ucaid")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-4.76837e-07, 1.66893e-06)
-scale = Vector2(3.255, 1.95)
+position = Vector2(-4.76837e-07, -4.75)
+scale = Vector2(3.255, 2.425)
+
+[node name="Guys" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LittleGuy2" parent="Guys" instance=ExtResource("3_4jin3")]
+position = Vector2(-1, -5)
+scale = Vector2(1.5, 1.5)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

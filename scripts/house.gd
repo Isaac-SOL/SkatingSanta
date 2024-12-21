@@ -11,10 +11,17 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area is Present:
+	if area is Present and not area.surprise:
 		hp -= 1
 		hit.emit()
 		%Guys.get_children().pick_random().queue_free()
 		if hp <= 0:
 			queue_free()
 			destroyed.emit()
+
+func parry():
+	while hp > 0:
+		hp -= 1
+		hit.emit()
+	queue_free()
+	destroyed.emit()

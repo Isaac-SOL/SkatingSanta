@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=13 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
 [ext_resource type="Texture2D" uid="uid://0k4qldwxq17s" path="res://assets/sprites/Santa_sprite_sheet.png" id="3_5i80b"]
 [ext_resource type="Texture2D" uid="uid://b2emuwix2vrs6" path="res://assets/sprites/cane.png" id="3_ecoa4"]
+[ext_resource type="PackedScene" uid="uid://dxpqlebyvk2kb" path="res://objects/load_line.tscn" id="5_0pxab"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aonbj"]
 atlas = ExtResource("3_5i80b")
@@ -60,7 +61,9 @@ impulse_override_speed = false
 hit_updards_impulse = 100.0
 angle_by_speed = 0.2
 present_scene = ExtResource("2_ek7se")
-present_launch_speed = 100.0
+present_launch_speed = 60.0
+present_parry_time = 0.15
+present_max_load_mult = 2.5
 
 [node name="CaneSprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -69,6 +72,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ecoa4")
 
 [node name="SantaSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -7.375)
 scale = Vector2(0.25, 0.25)
@@ -88,6 +92,13 @@ shape = SubResource("CapsuleShape2D_my1uq")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0.5, -0.499999)
 scale = Vector2(1.05, 1.15)
+
+[node name="RotationCancel" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LoadLine" parent="RotationCancel" instance=ExtResource("5_0pxab")]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

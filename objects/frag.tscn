@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc4bdo2apjsre"]
+
+[ext_resource type="Script" path="res://scripts/merdouille.gd" id="1_rgfvg"]
+[ext_resource type="Texture2D" uid="uid://cugwtgiuf6nhx" path="res://assets/sprites/alien.png" id="1_xjqb3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kfwxy"]
+
+[node name="Node2D" type="Area2D"]
+script = ExtResource("1_rgfvg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xjqb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kfwxy")

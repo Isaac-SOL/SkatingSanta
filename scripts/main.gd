@@ -31,6 +31,7 @@ var next_house_spawn: float
 var next_satellite_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
+var level: int = 1
 
 var picked_upgrades: Array[StringName] = []
 
@@ -160,7 +161,7 @@ func start_upgrade_screen():
 	var proposed_upgrades: Array[Upgrade] = []
 	for i in range(min(3, upgrades.size())):
 		var new_upgrade: Upgrade = upgrades.pick_random()
-		while new_upgrade in proposed_upgrades:
+		while new_upgrade in proposed_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = upgrades.pick_random()
 		proposed_upgrades.append(new_upgrade)
 		var new_upgrade_button: UpgradeButton = upgrade_button_scene.instantiate()
@@ -170,7 +171,7 @@ func start_upgrade_screen():
 	var proposed_repeatable_upgrades: Array[RepeatableUpgrade] = []
 	for i in range(min(2, repeatable_upgrades.size())):
 		var new_upgrade: RepeatableUpgrade = repeatable_upgrades.pick_random()
-		while new_upgrade in proposed_repeatable_upgrades:
+		while new_upgrade in proposed_repeatable_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = repeatable_upgrades.pick_random()
 		proposed_repeatable_upgrades.append(new_upgrade)
 		var new_upgrade_button: RepeatableUpgradeButton = repeatable_upgrade_button_scene.instantiate()
@@ -226,7 +227,9 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 			upgrades.remove_at(i)
 			break
 	
+	level += 1
 	do_upgrade_instant_effect(upgrade_id)
+	
 	close_upgrades_screen()
 
 func close_upgrades_screen():
@@ -251,6 +254,8 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		present_reload_time *= 0.9
 	elif upgrade_id == &"MORE_TIME":
 		time_left += 20
+	elif upgrade_id == &"DASH_RELOAD":
+		dash_reload_time *= 0.8
 	
 	# Non-repeatables
 	elif upgrade_id == &"SPEED_LOW":
@@ -264,3 +269,7 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		%RainbowLine.visible = true
 	elif upgrade_id == &"DASH":
 		%DashLabel.visible = true
+	elif upgrade_id == &"HEAVY":
+		%Character.mass *= 1.5
+	elif upgrade_id == &"LIGHT":
+		%Character.mass *= 0.6666

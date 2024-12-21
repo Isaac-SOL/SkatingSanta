@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxpqlebyvk2kb"]
+
+[ext_resource type="Script" path="res://scripts/load_line.gd" id="1_g2mtw"]
+
+[sub_resource type="Curve" id="Curve_bkiwk"]
+_data = [Vector2(0.00566572, 0.274586), 0.0, 0.729548, 0, 1, Vector2(1, 1), 0.729548, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jrrr6"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_kn0rb"]
+_data = [Vector2(0.00566572, 0.274586), 0.0, 0.729548, 0, 1, Vector2(1, 1), 0.729548, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3taau"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1)
+
+[node name="LoadLine" type="Line2D"]
+points = PackedVector2Array(0, -10, 0, -20, 0, -30)
+width_curve = SubResource("Curve_bkiwk")
+gradient = SubResource("Gradient_jrrr6")
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_g2mtw")
+fixed_width_curve = SubResource("Curve_kn0rb")
+fixed_gradient = SubResource("Gradient_3taau")

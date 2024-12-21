@@ -16,9 +16,8 @@ angle_min = -90.0
 angle_max = 90.0
 direction = Vector3(1, 1, 0)
 initial_velocity_max = 2.0
-gravity = Vector3(0, -10, 0)
-scale_min = 0.5
-scale_max = 0.5
+gravity = Vector3(0, -15, 0)
+scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_van3s")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp85y"]
@@ -35,11 +34,11 @@ scale = Vector2(0.384, 0.384)
 texture = ExtResource("2_otsd3")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-visible = false
 position = Vector2(6, -10)
-amount = 30
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_2fabr")
 preprocess = 1.0
+local_coords = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.76837e-07, 0)

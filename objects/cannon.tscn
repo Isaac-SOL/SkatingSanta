@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqbqqn6f1pim4"]
+
+[ext_resource type="Script" path="res://scripts/cannon.gd" id="1_rtb7q"]
+[ext_resource type="Texture2D" uid="uid://dyanh7ly22r17" path="res://assets/sprites/canon.png" id="1_v5fgs"]
+[ext_resource type="Texture2D" uid="uid://dyd0bsi0pftbw" path="res://assets/sprites/bullet.png" id="2_khwx6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h5cf"]
+atlas = ExtResource("1_v5fgs")
+region = Rect2(0, 0, 47, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76npx"]
+atlas = ExtResource("1_v5fgs")
+region = Rect2(47, 0, 47, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sj606"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h5cf")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_76npx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3ll1"]
+size = Vector2(45, 37)
+
+[sub_resource type="Curve2D" id="Curve2D_64nqc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -18, -14, 0, 0, 0, 0, -286, -285)
+}
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mdja"]
+radius = 6.3678
+height = 21.2138
+
+[node name="cannon" type="Area2D"]
+script = ExtResource("1_rtb7q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_sj606")
+autoplay = "default"
+frame_progress = 0.690907
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_c3ll1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(2.235, 1.83)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_64nqc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-18, -14)
+rotation = -2.35063
+rotates = false
+
+[node name="bullet" type="Area2D" parent="Path2D/PathFollow2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/bullet"]
+texture_filter = 1
+rotation = 2.31431
+texture = ExtResource("2_khwx6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/bullet"]
+position = Vector2(1.41419, -0.00787127)
+rotation = -1.57593
+shape = SubResource("CapsuleShape2D_1mdja")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

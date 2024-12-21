@@ -15,6 +15,9 @@ position = Vector2(2.27374e-13, -9)
 scale = Vector2(0.363636, 0.363636)
 texture = ExtResource("2_16gfk")
 
+[node name="GPUParticles2D" parent="." index="1"]
+position = Vector2(6, -28)
+
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_f8guw")

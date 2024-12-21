@@ -10,7 +10,9 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var speed_power: float = 2.0
 @export var house_spawn_timing: Vector2 = Vector2(1.0, 4.0)
 @export var satellite_spawn_timing: Vector2 = Vector2(2.0, 10.0)
+@export var pipe_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
+@export var cannon_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var initial_time: float = 120.0
 @export var max_presents: int = 5
 @export var present_reload_time: float = 1.0
@@ -20,7 +22,9 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 
 @export var buildings: Array[PackedScene]
 @export var satellites: Array[PackedScene]
+@export var pipes: Array[PackedScene]
 @export var aliens: Array[PackedScene]
+@export var cannons: Array[PackedScene]
 
 @export var upgrades: Array[Upgrade]
 @export var upgrade_button_scene: PackedScene
@@ -31,10 +35,13 @@ var game_state: GameState = GameState.RUNNING
 var speed: float = 1.0
 var next_house_spawn: float
 var next_satellite_spawn: float
+var next_pipe_spawn: float
 var next_alien_spawn: float
+var next_cannon_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
+var phase: int = 0
 
 var picked_upgrades: Array[StringName] = []
 
@@ -66,7 +73,9 @@ var dash_reload: float = 0.0 :
 func _ready() -> void:
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
 	next_satellite_spawn = randf_range(satellite_spawn_timing.x, satellite_spawn_timing.y)
+	next_pipe_spawn = randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
 	next_alien_spawn = randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
+	next_cannon_spawn = randf_range(cannon_spawn_timing.x, cannon_spawn_timing.y)
 	hp = %Character.start_hp
 	time_left = initial_time
 	presents = max_presents
@@ -95,14 +104,22 @@ func _process(delta: float) -> void:
 			start_dash()
 			dash_reload = dash_reload_time
 	
-	process_spawn_houses(delta)
-	process_spawn_satellites(delta)
+	
+	match phase:
+		0:
+			process_spawn_satellites(delta)
+		1:
+			process_spawn_pipe(delta)
+			
 	process_spawn_aliens(delta)
+	process_spawn_houses(delta)
+	process_spawn_cannon(delta)
 	
 	process_present_reload(delta)
 	
 	process_global_timer(delta)
-	
+	if time_left <= 100.0 and phase != 1:
+		phase = 1
 	process_pause()
 
 func start_dash():
@@ -120,6 +137,15 @@ func process_spawn_houses(delta: float):
 		new_house.global_rotation = %HouseSpawnPosition.global_rotation
 		new_house.hit.connect(_on_house_destroyed)
 
+func process_spawn_cannon(delta: float):
+	next_cannon_spawn -= speed * delta * 1.3
+	if next_cannon_spawn <= 0:
+		next_cannon_spawn += randf_range(cannon_spawn_timing.x, cannon_spawn_timing.y)
+		var new_cannon: Cannon = cannons.pick_random().instantiate()
+		%Earth.add_child(new_cannon)
+		new_cannon.global_position = %HouseSpawnLowerGround.global_position
+		new_cannon.global_rotation = %HouseSpawnLowerGround.global_rotation
+
 func process_spawn_satellites(delta: float):
 	next_satellite_spawn -= speed * delta
 	if next_satellite_spawn <= 0:
@@ -129,6 +155,17 @@ func process_spawn_satellites(delta: float):
 		var satellite_pos: Vector2 = lerp(%SatelliteSpawnLow.global_position, %SatelliteSpawnHigh.global_position, randf())
 		new_satellite.global_position = satellite_pos
 		new_satellite.global_rotation = %SatelliteSpawnLow.global_rotation
+		
+func process_spawn_pipe(delta: float):
+	next_pipe_spawn -= speed * delta * 1.5
+	if next_pipe_spawn <= 0:
+		next_pipe_spawn += randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
+		var new_pipe: Pipe = pipes.pick_random().instantiate()
+		%Earth.add_child(new_pipe)
+		var pipe_pos: Vector2 = lerp(%SatelliteSpawnLow.global_position, %SatelliteSpawnHigh.global_position, randf())
+		new_pipe.global_position = pipe_pos
+		new_pipe.global_rotation = %SatelliteSpawnLow.global_rotation
+
 
 func process_spawn_aliens(delta: float):
 	next_alien_spawn -= speed * delta

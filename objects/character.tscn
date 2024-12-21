@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=17 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
@@ -45,10 +45,6 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0jxee"]
 radius = 5.0
 height = 23.43
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_my1uq"]
-radius = 3.0
-height = 20.0
 
 [sub_resource type="Gradient" id="Gradient_34qtd"]
 offsets = PackedFloat32Array(0, 0.447917, 1)
@@ -111,11 +107,6 @@ frame_progress = 0.920633
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6.685)
 shape = SubResource("CapsuleShape2D_0jxee")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-rotation = 1.57079
-shape = SubResource("CapsuleShape2D_my1uq")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0.5, -0.499999)

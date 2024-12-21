@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://gyabx1wd7q0g"]
 
-[ext_resource type="Script" path="res://scripts/alien.gd" id="1_2hrhx"]
+[ext_resource type="Script" path="res://scripts/house.gd" id="1_epain"]
 [ext_resource type="Texture2D" uid="uid://cugwtgiuf6nhx" path="res://assets/sprites/alien.png" id="2_3almi"]
 [ext_resource type="PackedScene" uid="uid://cq5756fqwkyjj" path="res://objects/little_green_guy.tscn" id="3_4jin3"]
 
@@ -32,11 +32,12 @@ size = Vector2(64.705, 38.965)
 [node name="Alien" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
-script = ExtResource("1_2hrhx")
+script = ExtResource("1_epain")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_sgrun")
+autoplay = "default"
 frame_progress = 0.692117
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

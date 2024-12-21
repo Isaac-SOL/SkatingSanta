@@ -8,12 +8,8 @@ signal destroyed
 
 func _process(delta):
 	if path_follow_2d.progress_ratio < 1.0:
-		#if animated_sprite_2d.frame == 1:
-			#animated_sprite_2d.speed_scale = 0
-			#animated_sprite_2d.frame = 0
-		path_follow_2d.progress_ratio += delta * 0.5
+		path_follow_2d.progress_ratio += delta * 0.3
 	else:
-		#animated_sprite_2d.speed_scale = 1
 		path_follow_2d.progress_ratio = 0.0
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

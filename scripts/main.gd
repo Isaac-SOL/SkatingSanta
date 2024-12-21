@@ -180,7 +180,7 @@ func process_spawn_aliens(delta: float):
 	next_alien_spawn -= speed * delta
 	if next_alien_spawn <= 0:
 		next_alien_spawn += randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
-		var new_alien: Alien = aliens.pick_random().instantiate()
+		var new_alien: House = aliens.pick_random().instantiate()
 		%Earth.add_child(new_alien)
 		new_alien.global_position = %AlienSpawnPosition.global_position
 		new_alien.global_rotation = %AlienSpawnPosition.global_rotation

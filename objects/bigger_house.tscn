@@ -10,8 +10,8 @@ size = Vector2(24, 67)
 [node name="BiggerHouse" instance=ExtResource("1_6kdpd")]
 hp = 5
 
-[node name="Sprite2D2" parent="." index="0"]
-position = Vector2(1.90735e-06, -18.1179)
+[node name="Sprite" parent="." index="0"]
+position = Vector2(0, -18.615)
 texture = ExtResource("2_b42lw")
 
 [node name="GPUParticles2D" parent="." index="1"]

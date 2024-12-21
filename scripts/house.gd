@@ -36,7 +36,7 @@ func parry():
 func destroy():
 	voided = true
 	%PoofParticles.emitting = true
-	%Sprite2D2.self_modulate = Color.DIM_GRAY
+	%Sprite.self_modulate = Color.DIM_GRAY
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
 	destroyed.emit()

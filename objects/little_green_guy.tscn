@@ -3,11 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="1_osg26"]
 [ext_resource type="Texture2D" uid="uid://ci6lbdnb1owv8" path="res://assets/sprites/alien_body.png" id="2_mu46q"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1bur"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d7eo"]
 atlas = ExtResource("2_mu46q")
 region = Rect2(0, 0, 26, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m4l3j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_61lpw"]
 atlas = ExtResource("2_mu46q")
 region = Rect2(26, 0, 26, 18)
 
@@ -15,10 +15,10 @@ region = Rect2(26, 0, 26, 18)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s1bur")
+"texture": SubResource("AtlasTexture_1d7eo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m4l3j")
+"texture": SubResource("AtlasTexture_61lpw")
 }],
 "loop": true,
 "name": &"default",

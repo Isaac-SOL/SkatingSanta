@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=23 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
@@ -84,8 +84,8 @@ scale_max = 4.0
 scale_curve = SubResource("CurveTexture_w3ey2")
 color_ramp = SubResource("GradientTexture1D_tng0t")
 
-[sub_resource type="Animation" id="Animation_q2fjk"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_jkwyw"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -135,8 +135,8 @@ tracks/3/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_jkwyw"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_q2fjk"]
+resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

@@ -30,14 +30,14 @@ interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
 colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gqf47"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b5cmg"]
 gradient = SubResource("Gradient_ittdl")
 
 [sub_resource type="Curve" id="Curve_if0jh"]
 _data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_6ntje"]
+[sub_resource type="CurveTexture" id="CurveTexture_nfk3c"]
 curve = SubResource("Curve_if0jh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bryn7"]
@@ -57,8 +57,8 @@ damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.3
 scale_max = 0.5
-scale_curve = SubResource("CurveTexture_6ntje")
-color_initial_ramp = SubResource("GradientTexture1D_gqf47")
+scale_curve = SubResource("CurveTexture_nfk3c")
+color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pdsh2"]
 lifetime_randomness = 0.2
@@ -73,14 +73,14 @@ damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.4
 scale_max = 0.7
-scale_curve = SubResource("CurveTexture_6ntje")
+scale_curve = SubResource("CurveTexture_nfk3c")
 
 [node name="House" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_2rqh5")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
 scale = Vector2(0.384, 0.384)

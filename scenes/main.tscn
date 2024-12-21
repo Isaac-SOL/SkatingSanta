@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=63 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bgepofsrw6blq" path="res://objects/bigger_house.tscn" id="4_1sbbi"]
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="4_dlig4"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="5_kqrhn"]
+[ext_resource type="PackedScene" uid="uid://cdmo2guc76hvf" path="res://objects/bird.tscn" id="6_e2ad0"]
 [ext_resource type="Texture2D" uid="uid://dbjw7krf01fow" path="res://assets/sprites/upgrade_placeholder.png" id="6_h3cn5"]
 [ext_resource type="PackedScene" uid="uid://gyabx1wd7q0g" path="res://objects/alien.tscn" id="6_ruiaf"]
 [ext_resource type="PackedScene" uid="uid://y0abmmsddhcy" path="res://objects/pipe.tscn" id="6_v6dun"]
@@ -242,7 +243,7 @@ initial_time = 300.0
 dash_speed = 1.0
 dash_falloff = 0.3
 buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s"), ExtResource("4_1sbbi")])
-satellites = Array[PackedScene]([ExtResource("4_dlig4")])
+satellites = Array[PackedScene]([ExtResource("4_dlig4"), ExtResource("6_e2ad0")])
 pipes = Array[PackedScene]([ExtResource("6_v6dun")])
 aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
 cannons = Array[PackedScene]([ExtResource("8_gv3ya")])

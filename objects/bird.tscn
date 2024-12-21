@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdmo2guc76hvf"]
+
+[ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="1_rn1hk"]
+[ext_resource type="Texture2D" uid="uid://ccp3j7nmyis50" path="res://assets/sprites/bird.png" id="2_dsrjd"]
+[ext_resource type="Script" path="res://scripts/bird.gd" id="2_fyxuq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2w0f"]
+atlas = ExtResource("2_dsrjd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxcfp"]
+atlas = ExtResource("2_dsrjd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hx7yy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2w0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxcfp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" instance=ExtResource("1_rn1hk")]
+script = ExtResource("2_fyxuq")
+
+[node name="Sprite2D2" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_hx7yy")
+frame = 1
+frame_progress = 0.682993
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0.5, -1.5)
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="2"]
+position = Vector2(0.5, -1.5)
+scale = Vector2(1.45, 0.85)

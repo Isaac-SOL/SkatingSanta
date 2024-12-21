@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://co3nfgr6pq3ga"]
+[gd_scene load_steps=16 format=3 uid="uid://co3nfgr6pq3ga"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
 [ext_resource type="Texture2D" uid="uid://ckhu4fsxyxwnm" path="res://assets/sprites/maison_rouge.png" id="2_otsd3"]
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_vm2sc"]
+[ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="4_ps47y"]
+[ext_resource type="Texture2D" uid="uid://d0u2c4apehh54" path="res://assets/sprites/happychild.png" id="4_xyo8p"]
 
 [sub_resource type="Gradient" id="Gradient_ogiuy"]
 colors = PackedColorArray(0, 0, 0, 1, 0.696886, 0.696886, 0.696886, 1)
@@ -24,12 +26,63 @@ color_ramp = SubResource("GradientTexture1D_van3s")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp85y"]
 size = Vector2(25.345, 31.745)
 
+[sub_resource type="Gradient" id="Gradient_ittdl"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gqf47"]
+gradient = SubResource("Gradient_ittdl")
+
+[sub_resource type="Curve" id="Curve_if0jh"]
+_data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_6ntje"]
+curve = SubResource("Curve_if0jh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bryn7"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 32.92
+initial_velocity_max = 75.5
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_6ntje")
+color_initial_ramp = SubResource("GradientTexture1D_gqf47")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pdsh2"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 180.0
+initial_velocity_min = 52.98
+initial_velocity_max = 75.5
+gravity = Vector3(0, -100, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.4
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_6ntje")
+
 [node name="House" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_2rqh5")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 scale = Vector2(0.384, 0.384)
 texture = ExtResource("2_otsd3")
@@ -54,6 +107,28 @@ unique_name_in_owner = true
 
 [node name="LittleGuy" parent="Guys" instance=ExtResource("3_vm2sc")]
 position = Vector2(0, 4)
+
+[node name="PoofParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_bryn7")
+texture = ExtResource("4_ps47y")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="HappyParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_pdsh2")
+texture = ExtResource("4_xyo8p")
+lifetime = 0.5
+one_shot = true
+local_coords = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

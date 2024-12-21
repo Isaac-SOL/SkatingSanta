@@ -17,10 +17,14 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var dash_reload_time: float = 5.0
 @export var dash_speed: float = 10
 @export var dash_falloff: float = 0.5
+@export var base_level_need: int = 10
+@export var level_mult: float = 1.5
 
 @export var buildings: Array[PackedScene]
 @export var satellites: Array[PackedScene]
 @export var aliens: Array[PackedScene]
+
+@export var line_scene: PackedScene
 
 @export var upgrades: Array[Upgrade]
 @export var upgrade_button_scene: PackedScene
@@ -35,13 +39,14 @@ var next_alien_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
+@onready var curr_level_need: int = base_level_need
 
 var picked_upgrades: Array[StringName] = []
 
 var score: int = 0 :
 	set(value):
 		score = value
-		%ScoreLabel.text = "Happy Kids: " + str(score)
+		%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 var hp: int = 3 :
 	set(value):
 		hp = value
@@ -61,7 +66,7 @@ var reload: float = 0 :
 var dash_reload: float = 0.0 :
 	set(value):
 		dash_reload = value
-		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time))) + "%"
+		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time)) + "%")
 
 func _ready() -> void:
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
@@ -85,6 +90,10 @@ func _process(delta: float) -> void:
 	%StarsSprite2.rotation -= speed * delta * 0.1
 	%CloudSprite2.rotation -= speed * delta * 0.5
 	%CloudSprite1.rotation -= speed * delta * 0.6
+	
+	# Speed lines
+	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)
+	%SpeedLines.modulate = Color(1, 1, 1, norm_speed)
 	
 	if has_upgrade(&"DASH"):
 		if dash_reload > 0:
@@ -169,7 +178,11 @@ func has_upgrade(upgrade_id: StringName) -> bool:
 
 func start_upgrade_screen():
 	if upgrades.is_empty():
+		curr_level_need = 1000000
 		return
+	base_level_need *= level_mult
+	curr_level_need += base_level_need
+	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 	
 	game_state = GameState.WAITING_UPGRADE
 	Engine.time_scale = 0
@@ -195,17 +208,20 @@ func start_upgrade_screen():
 		new_upgrade_button.set_upgrade(new_upgrade)
 	
 	%CanvasLayerUpgrades.visible = true
+	screen_click_protection()
 
 func kill():
 	Engine.time_scale = 0
 	game_state = GameState.END_GAME
 	%CanvasLayerGameOver.visible = true
+	screen_click_protection()
 	%Character.visible = false
 
 func end_game():
 	Engine.time_scale = 0
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
+	screen_click_protection()
 	%LabelEndPresents.text = "Presents offered: " + str(score)
 
 func update_ammo_text():
@@ -213,12 +229,12 @@ func update_ammo_text():
 
 func _on_house_destroyed():
 	score += 1
-	if score % 10 == 0:
+	if score >= curr_level_need:
 		start_upgrade_screen()
 		
 func _on_alien_destroyed():
 	score += 3
-	if score % 10 == 0: # TODO change this
+	if score >= curr_level_need:
 		start_upgrade_screen()
 
 func _on_character_hit() -> void:
@@ -228,6 +244,7 @@ func _on_character_hit() -> void:
 
 func _on_character_hit_ground() -> void:
 	hp = 0
+	%RectGround.visible = true
 	kill()
 
 func _on_character_exited_screen() -> void:
@@ -269,7 +286,7 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 	elif upgrade_id == &"MORE_PRESENTS":
 		max_presents += 1
 	elif upgrade_id == &"MORE_HP":
-		hp += 1
+		hp += 2
 		%Character.start_hp += 1
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
@@ -294,3 +311,17 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		%Character.mass *= 1.5
 	elif upgrade_id == &"LIGHT":
 		%Character.mass *= 0.6666
+
+func screen_click_protection():
+	%CanvasLayerClickProtection.visible = true
+	await get_tree().create_timer(0.7, true, false, true).timeout
+	%CanvasLayerClickProtection.visible = false
+
+func screenshake(amount: float, duration: float):
+	%Shaker2D.shake(amount, duration)
+
+func hitstop(duration: float):
+	get_tree().paused = true
+	await get_tree().create_timer(duration, true, false, true).timeout
+	get_tree().paused = false
+	

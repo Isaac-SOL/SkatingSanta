@@ -217,8 +217,8 @@ func _on_house_destroyed():
 		start_upgrade_screen()
 		
 func _on_alien_destroyed():
-	score += 2
-	if score % 10 == 0:
+	score += 3
+	if score % 10 == 0: # TODO change this
 		start_upgrade_screen()
 
 func _on_character_hit() -> void:

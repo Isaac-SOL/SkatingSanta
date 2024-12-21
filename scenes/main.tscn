@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="4_dlig4"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="5_kqrhn"]
 [ext_resource type="Texture2D" uid="uid://dbjw7krf01fow" path="res://assets/sprites/upgrade_placeholder.png" id="6_h3cn5"]
+[ext_resource type="PackedScene" uid="uid://dj7rsw3j4iqm4" path="res://objects/alien.tscn" id="6_ruiaf"]
 [ext_resource type="PackedScene" uid="uid://y5vhj87ha5ca" path="res://objects/upgrade_button_2.tscn" id="8_pnpyq"]
 [ext_resource type="Texture2D" uid="uid://bm36brk13r1ho" path="res://assets/sprites/multicado.png" id="8_tdt6j"]
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
@@ -208,6 +209,7 @@ upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubReso
 upgrade_button_scene = ExtResource("8_pnpyq")
 repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_ey6rm")])
 repeatable_upgrade_button_scene = ExtResource("12_784fy")
+aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(507, 180)
@@ -235,6 +237,13 @@ position = Vector2(320, 896)
 scale = Vector2(2, 2)
 texture = ExtResource("14_2hypx")
 
+[node name="CloudSprite1" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("11_8c04w")
+
 [node name="CloudSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
 texture_filter = 1
@@ -250,13 +259,6 @@ texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("10_2dg3h")
-
-[node name="CloudSprite1" type="Sprite2D" parent="Forground"]
-unique_name_in_owner = true
-texture_filter = 1
-position = Vector2(320, 896)
-scale = Vector2(3.25, 3.25)
-texture = ExtResource("11_8c04w")
 
 [node name="Earth" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -291,7 +293,12 @@ rotation = 0.753982
 
 [node name="SatelliteSpawnHigh" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(1029, 279)
+position = Vector2(970, 342)
+rotation = 0.753982
+
+[node name="AlienSpawnPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1010, 299)
 rotation = 0.753982
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

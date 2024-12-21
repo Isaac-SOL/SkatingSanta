@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=15 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
@@ -50,6 +50,24 @@ height = 23.43
 radius = 3.0
 height = 20.0
 
+[sub_resource type="Gradient" id="Gradient_34qtd"]
+offsets = PackedFloat32Array(0, 0.447917, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0.862745, 0.313726, 1, 1, 0, 0.698039, 0.698039, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tng0t"]
+gradient = SubResource("Gradient_34qtd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pw0b7"]
+particle_flag_disable_z = true
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(1, 1, 0)
+initial_velocity_max = 2.0
+gravity = Vector3(-500, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_tng0t")
+
 [node name="Character" type="Area2D"]
 collision_layer = 2
 collision_mask = 21
@@ -93,12 +111,19 @@ shape = SubResource("CapsuleShape2D_my1uq")
 position = Vector2(0.5, -0.499999)
 scale = Vector2(1.05, 1.15)
 
+
 [node name="RotationCancel" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="LoadLine" parent="RotationCancel" instance=ExtResource("5_0pxab")]
 unique_name_in_owner = true
 visible = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-10, 4)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_pw0b7")
+preprocess = 1.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

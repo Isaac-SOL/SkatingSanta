@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=44 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
@@ -19,7 +19,12 @@
 [ext_resource type="AudioStream" uid="uid://drhiixswkdkn" path="res://assets/audio/impactPunch_medium_003.ogg" id="16_582la"]
 [ext_resource type="AudioStream" uid="uid://b18xwul1wjfa5" path="res://assets/audio/impactPunch_medium_004.ogg" id="17_16qui"]
 [ext_resource type="AudioStream" uid="uid://dpswq0wx1a7ww" path="res://assets/audio/parry.ogg" id="18_0eq0e"]
+[ext_resource type="AudioStream" uid="uid://br640ojkphcgo" path="res://assets/audio/hohoho.ogg" id="19_eu5he"]
 [ext_resource type="AudioStream" uid="uid://bjcuvkhmkigwh" path="res://assets/audio/oof.ogg" id="19_i55gc"]
+[ext_resource type="AudioStream" uid="uid://cqu12wv1nwti6" path="res://assets/audio/waha.ogg" id="20_xwfdl"]
+[ext_resource type="AudioStream" uid="uid://cscmfb2nhdvch" path="res://assets/audio/ohyeah.ogg" id="21_66b5v"]
+[ext_resource type="AudioStream" uid="uid://bpmln7tet4fa" path="res://assets/audio/whohoho.ogg" id="22_utxr0"]
+[ext_resource type="AudioStream" uid="uid://dvv4b67ggx7c3" path="res://assets/audio/wahou.ogg" id="23_8uwx0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aonbj"]
 atlas = ExtResource("3_5i80b")
@@ -275,6 +280,13 @@ stream_2/stream = ExtResource("15_n405a")
 stream_3/stream = ExtResource("16_582la")
 stream_4/stream = ExtResource("17_16qui")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ru24s"]
+streams_count = 4
+stream_0/stream = ExtResource("20_xwfdl")
+stream_1/stream = ExtResource("21_66b5v")
+stream_2/stream = ExtResource("22_utxr0")
+stream_3/stream = ExtResource("23_8uwx0")
+
 [node name="Character" type="Area2D"]
 collision_layer = 2
 collision_mask = 149
@@ -351,13 +363,25 @@ max_polyphony = 4
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_u1nxg")
-volume_db = -5.0
+volume_db = 5.0
+max_polyphony = 4
+
+[node name="DodgeAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("19_eu5he")
+volume_db = -15.0
+max_polyphony = 4
+
+[node name="WahooAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ru24s")
+volume_db = -10.0
 max_polyphony = 4
 
 [node name="OofAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("19_i55gc")
-volume_db = -15.0
+volume_db = -10.0
 max_polyphony = 4
 
 [node name="ParryAudio" type="AudioStreamPlayer" parent="."]

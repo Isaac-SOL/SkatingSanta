@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://caq62ugtyx76r"]
+[gd_scene load_steps=6 format=3 uid="uid://caq62ugtyx76r"]
 
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="1_wj351"]
 [ext_resource type="Texture2D" uid="uid://cgmr2rr22nvoc" path="res://assets/sprites/appartement_moyen.png" id="2_16gfk"]
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_kq456"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8guw"]
-size = Vector2(22, 46)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hec5i"]
+size = Vector2(22, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sk317"]
+size = Vector2(22, 6)
 
 [node name="BigHouse" instance=ExtResource("1_wj351")]
 hp = 3
@@ -18,8 +21,8 @@ texture = ExtResource("2_16gfk")
 position = Vector2(6, -28)
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_f8guw")
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_hec5i")
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="3"]
 position = Vector2(1.90735e-06, -9.5)
@@ -30,3 +33,7 @@ position = Vector2(0, -14)
 
 [node name="LittleGuy2" parent="Guys" index="1" instance=ExtResource("3_kq456")]
 position = Vector2(-8, -5)
+
+[node name="CollisionShape2D" parent="Wahoo" index="0"]
+position = Vector2(-4.76837e-07, -31)
+shape = SubResource("RectangleShape2D_sk317")

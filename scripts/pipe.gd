@@ -39,6 +39,6 @@ func destroy():
 	set_deferred("monitorable", false)
 	destroyed.emit()
 	%AudioDestroyed.play()
-	%Sprite.visible = false
+	%pipe_sprites.visible = false
 	await %AudioDestroyed.finished
 	queue_free()

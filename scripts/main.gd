@@ -51,7 +51,6 @@ var next_children_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
-var phase: int = 0
 @onready var curr_level_need: int = base_level_need
 var camera_target_y: float = 0.0
 
@@ -126,22 +125,21 @@ func _process(delta: float) -> void:
 	var cam_target := clampf(%Character.position.y - 50, -75, 0)
 	%CameraRot.position.y = Util.decayf(%CameraRot.position.y, cam_target, 8 * delta)
 	
-	match phase:
-		0:
-			process_spawn_satellites(delta)
-		1:
-			process_spawn_pipe(delta)
-			
-	process_spawn_aliens(delta)
-	process_spawn_houses(delta)
-	process_spawn_cannon(delta)
-	process_spawn_childrens(delta)
+	if level >= 1:
+		process_spawn_houses(delta)
+		process_spawn_satellites(delta)
+	if level >= 2:
+		process_spawn_aliens(delta)
+	if level >= 3:
+		process_spawn_childrens(delta)
+	if level >= 5:
+		process_spawn_cannon(delta)
+	if level >= 7:
+		process_spawn_pipe(delta)
 	
 	process_present_reload(delta)
 	
 	process_global_timer(delta)
-	if time_left <= 100.0 and phase != 1:
-		phase = 1
 	process_pause()
 
 func start_dash():
@@ -241,15 +239,15 @@ func has_upgrade(upgrade_id: StringName) -> bool:
 	return upgrade_id in picked_upgrades
 
 func start_upgrade_screen():
-	if upgrades.is_empty():
-		curr_level_need = 1000000
+	if game_state == GameState.WAITING_UPGRADE:
 		return
-	base_level_need *= level_mult
-	curr_level_need += base_level_need
-	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 	
 	game_state = GameState.WAITING_UPGRADE
 	Engine.time_scale = 0
+	
+	if upgrades.is_empty():
+		curr_level_need = 1000000
+		return
 	
 	var proposed_upgrades: Array[Upgrade] = []
 	for i in range(min(3, upgrades.size())):
@@ -267,6 +265,8 @@ func start_upgrade_screen():
 		var new_upgrade_button: DoubleUpgradeButton = double_upgrade_button_scene.instantiate()
 		%UpgradeButtonsContainer.add_child(new_upgrade_button)
 		new_upgrade_button.set_upgrades(proposed_upgrades[i], new_upgrade)
+		if i == 0:
+			new_upgrade_button.grab_focus()
 	
 	%CanvasLayerUpgrades.visible = true
 	screen_click_protection()
@@ -286,7 +286,7 @@ func end_game():
 	%LabelEndPresents.text = "Presents offered: " + str(score)
 
 func update_ammo_barr():
-	%Ammo.set_value( 10 * (presents + reload / present_reload_time) )
+	%Ammo.set_value( 100 * (presents + reload / present_reload_time) )
 	
 func update_max_ammo_barr():
 	%Ammo.set_mask( max_presents - 5)
@@ -335,11 +335,16 @@ func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringNam
 			break
 	
 	level += 1
+	apply_new_level()
 	do_upgrade_instant_effect(upgrade_id)
 	do_upgrade_instant_effect(repeatable_id)
 	%UpgradeAudio.play()
 	%Character.invincibility_left = %Character.invincibility_time
 	%Character.upgrade_effect()
+	
+	base_level_need *= level_mult
+	curr_level_need += base_level_need
+	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 	
 	close_upgrades_screen()
 
@@ -349,6 +354,27 @@ func close_upgrades_screen():
 	game_state = GameState.RUNNING
 	Engine.time_scale = 1
 	%CanvasLayerUpgrades.visible = false
+
+func apply_new_level():
+	house_spawn_timing *= 0.95
+	satellite_spawn_timing *= 0.95
+	pipe_spawn_timing *= 0.95
+	alien_spawn_timing *= 0.95
+	cannon_spawn_timing *= 0.95
+	children_spawn_timing *= 0.95
+	
+	match level:
+		3:
+			satellite_spawn_timing /= 2
+			buildings.append(preload("res://objects/bigger_house.tscn"))
+		4:
+			satellites.append(preload("res://objects/bird.tscn"))
+		5:
+			aliens.append(preload("res://objects/alien_moyen.tscn"))
+		6:
+			children_spawn_timing /= 2
+		7:
+			satellite_spawn_timing *= 2
 
 func do_upgrade_instant_effect(upgrade_id: StringName):
 	# Repeatables
@@ -386,6 +412,8 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		%Character.mass *= 0.6666
 	elif upgrade_id == &"MONEY":
 		level_mult -= 0.2
+	elif upgrade_id == &"FLOATER":
+		%Character.downwards_impulse *= 3
 
 func screen_click_protection():
 	%CanvasLayerClickProtection.visible = true

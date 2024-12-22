@@ -75,7 +75,7 @@ stream_2/stream = ExtResource("11_n5t3c")
 
 [node name="Present" type="Area2D"]
 collision_layer = 8
-collision_mask = 21
+collision_mask = 116
 monitoring = false
 monitorable = false
 script = ExtResource("1_727f3")

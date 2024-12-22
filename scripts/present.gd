@@ -15,6 +15,7 @@ var running: bool = true
 var bounces_left: int = 0
 var ricochets_left: int = 0
 var has_gravity: bool = false
+var hit_houses: Array[House] = []
 
 func _ready() -> void:
 	rotation_speed = randf_range(rotation_speed_bounds.x, rotation_speed_bounds.y)
@@ -43,13 +44,15 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_collision_layer_value(5) or area.get_collision_layer_value(6): # Houses
-		if ricochets_left > 0:
-			ricochets_left -= 1
-			speed = Vector2.UP.rotated(randf_range(-PI/4, 0)) * speed.length()
-			%AudioBounce.play()
-			has_gravity = true
-		else:
-			call_deferred("destroy", area)
+		if area not in hit_houses and area.get_parent() not in hit_houses:
+			if ricochets_left > 0:
+				ricochets_left -= 1
+				speed = Vector2.UP.rotated(randf_range(-PI/4, 0)) * speed.length()
+				%AudioBounce.play()
+				has_gravity = true
+				hit_houses.append(area if area is House else area.get_parent())
+			else:
+				call_deferred("destroy", area)
 	else: # World, enemies, etc
 		if bounces_left > 0:
 			bounces_left -= 1

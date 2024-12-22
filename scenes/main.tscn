@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=65 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" path="res://scripts/shaker_2d.gd" id="21_7foa3"]
 [ext_resource type="Texture2D" uid="uid://wyvvjbtippsx" path="res://assets/sprites/schwooosh.png" id="30_tgke0"]
 [ext_resource type="FontFile" uid="uid://c1vgjmpoevrgg" path="res://assets/fonts/MinecraftRegular-Bmg3.otf" id="30_wana7"]
+[ext_resource type="AudioStream" uid="uid://7k2doc21mpa4" path="res://assets/audio/706994__nolit47__industrial_rusty_drums_loop180.ogg" id="35_s2fkl"]
+[ext_resource type="AudioStream" uid="uid://c8xp8rt78c0ql" path="res://assets/audio/wind.ogg" id="36_jimut"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -241,7 +243,8 @@ house_spawn_timing = Vector2(0.2, 0.8)
 satellite_spawn_timing = Vector2(0.4, 2)
 initial_time = 300.0
 dash_speed = 1.0
-dash_falloff = 0.3
+dash_falloff = 0.6
+level_mult = 1.4
 buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s"), ExtResource("4_1sbbi")])
 satellites = Array[PackedScene]([ExtResource("4_dlig4"), ExtResource("6_e2ad0")])
 pipes = Array[PackedScene]([ExtResource("6_v6dun")])
@@ -255,11 +258,10 @@ repeatable_upgrade_button_scene = ExtResource("12_784fy")
 
 [node name="CameraRot" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(320, 896)
 
 [node name="Shaker2D" type="Node2D" parent="CameraRot"]
 unique_name_in_owner = true
-position = Vector2(187, -716)
+position = Vector2(507, 180)
 script = ExtResource("21_7foa3")
 
 [node name="Camera2D" type="Camera2D" parent="CameraRot/Shaker2D"]
@@ -364,6 +366,16 @@ rotation = 0.954695
 unique_name_in_owner = true
 position = Vector2(1030, 370)
 rotation = 0.902335
+
+[node name="UpgradeAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("35_s2fkl")
+volume_db = -20.0
+
+[node name="WindAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("36_jimut")
+autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

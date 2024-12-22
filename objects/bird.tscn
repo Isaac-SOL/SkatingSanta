@@ -1,42 +1,52 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtvfkiu7mydg1"]
+[gd_scene load_steps=9 format=3 uid="uid://dtvfkiu7mydg1"]
 
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="1_rn1hk"]
 [ext_resource type="Texture2D" uid="uid://ccp3j7nmyis50" path="res://assets/sprites/bird.png" id="2_dsrjd"]
 [ext_resource type="Script" path="res://scripts/bird.gd" id="2_fyxuq"]
+[ext_resource type="AudioStream" uid="uid://cgfwdmrmqsca" path="res://assets/audio/bird.ogg" id="4_o8onb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t2w0f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_drem0"]
 atlas = ExtResource("2_dsrjd")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxcfp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_e42x8"]
 atlas = ExtResource("2_dsrjd")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_hx7yy"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_yvvto"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t2w0f")
+"texture": SubResource("AtlasTexture_drem0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xxcfp")
+"texture": SubResource("AtlasTexture_e42x8")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w36q6"]
+size = Vector2(26, 14)
+
 [node name="Enemy" instance=ExtResource("1_rn1hk")]
 script = ExtResource("2_fyxuq")
+frequency = 1.0
+amplitude = 50.0
 
-[node name="Sprite2D2" parent="." index="0"]
-sprite_frames = SubResource("SpriteFrames_hx7yy")
-frame = 1
-frame_progress = 0.682993
+[node name="Sprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_yvvto")
+frame_progress = 0.370325
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0.5, -1.5)
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_w36q6")
 
-[node name="VisibleOnScreenNotifier2D" parent="." index="2"]
-position = Vector2(0.5, -1.5)
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(0.5, 0.499999)
 scale = Vector2(1.45, 0.85)
+
+[node name="AudioDestroyed" parent="." index="4"]
+stream = ExtResource("4_o8onb")
+volume_db = -5.0

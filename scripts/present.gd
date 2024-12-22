@@ -47,6 +47,7 @@ func spawn_frag(direction: Vector2):
 	new_present.scale *= 0.5
 
 func destroy(by: Node2D):
+	%AudioHit.play()
 	running = false
 	monitoring = false
 	monitorable = false

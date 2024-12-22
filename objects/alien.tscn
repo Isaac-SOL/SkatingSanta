@@ -1,10 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://gyabx1wd7q0g"]
+[gd_scene load_steps=24 format=3 uid="uid://gyabx1wd7q0g"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_epain"]
 [ext_resource type="Texture2D" uid="uid://cugwtgiuf6nhx" path="res://assets/sprites/alien.png" id="2_3almi"]
+[ext_resource type="PackedScene" uid="uid://wm8oi46umfo0" path="res://objects/smiley.tscn" id="2_v1vp3"]
 [ext_resource type="PackedScene" uid="uid://cq5756fqwkyjj" path="res://objects/little_green_guy.tscn" id="3_4jin3"]
 [ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="4_sgksg"]
 [ext_resource type="Texture2D" uid="uid://d0u2c4apehh54" path="res://assets/sprites/happychild.png" id="5_1a1ay"]
+[ext_resource type="AudioStream" uid="uid://x5gewwoic6c7" path="res://assets/audio/alienHappy.ogg" id="6_uqvsg"]
+[ext_resource type="AudioStream" uid="uid://8edqmpyac841" path="res://assets/audio/impactMetal_medium_000.ogg" id="7_2jt4y"]
+[ext_resource type="AudioStream" uid="uid://dd37448r4myhi" path="res://assets/audio/impactMetal_medium_003.ogg" id="8_n11ne"]
+[ext_resource type="AudioStream" uid="uid://bn038c3p87nlr" path="res://assets/audio/party1.ogg" id="9_x2an4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t8167"]
 atlas = ExtResource("2_3almi")
@@ -81,10 +86,29 @@ scale_min = 0.4
 scale_max = 0.7
 scale_curve = SubResource("CurveTexture_6ntje")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vhjnn"]
+random_pitch = 1.02
+streams_count = 1
+stream_0/stream = ExtResource("6_uqvsg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d5wt5"]
+random_pitch = 1.05
+streams_count = 2
+stream_0/stream = ExtResource("7_2jt4y")
+stream_1/stream = ExtResource("8_n11ne")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3g8a8"]
+playback_mode = 1
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("9_x2an4")
+
 [node name="Alien" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_epain")
+points_awarded = 5
+smiley_scene = ExtResource("2_v1vp3")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -128,6 +152,25 @@ texture = ExtResource("5_1a1ay")
 lifetime = 0.5
 one_shot = true
 local_coords = true
+
+[node name="AudioHappy" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_vhjnn")
+volume_db = -20.0
+pitch_scale = 1.02
+max_polyphony = 4
+
+[node name="AudioHappyHit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_d5wt5")
+volume_db = -10.0
+max_polyphony = 4
+
+[node name="AudioConfetti" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_3g8a8")
+volume_db = -30.0
+max_polyphony = 4
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,6 +1,7 @@
 class_name Character extends Area2D
 
 signal hit
+signal hit_bonus
 signal hit_ground
 signal exited_screen
 

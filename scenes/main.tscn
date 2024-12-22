@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=97 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -17,11 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bm36brk13r1ho" path="res://assets/sprites/multicado.png" id="8_tdt6j"]
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
 [ext_resource type="Texture2D" uid="uid://ifgg83x4klcb" path="res://assets/sprites/boooost.png" id="9_gnnfb"]
-[ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
 [ext_resource type="PackedScene" uid="uid://dyx6nrciv5v2v" path="res://objects/alien_moyen.tscn" id="9_xltju"]
-[ext_resource type="Texture2D" uid="uid://1hems8ncj8ps" path="res://assets/sprites/planet.png" id="10_2dg3h"]
 [ext_resource type="Texture2D" uid="uid://chr4f3ff46s7f" path="res://assets/sprites/anvil.png" id="10_57xcf"]
-[ext_resource type="Texture2D" uid="uid://8x7c6jkwbq1i" path="res://assets/sprites/cloud1.png" id="11_8c04w"]
 [ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
 [ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
 [ext_resource type="PackedScene" uid="uid://mjcfyq10uyxg" path="res://objects/children.tscn" id="11_vnvko"]
@@ -29,32 +26,32 @@
 [ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
 [ext_resource type="Texture2D" uid="uid://bnvcxvlqc8mp" path="res://assets/sprites/sugar_rainbow4.png" id="12_sfbkc"]
 [ext_resource type="Texture2D" uid="uid://c3yc0ti38d7w5" path="res://assets/sprites/sugar_rainbow5.png" id="13_fb388"]
-[ext_resource type="Texture2D" uid="uid://bppegucb8lano" path="res://assets/sprites/stars1.png" id="13_uj0hh"]
-[ext_resource type="Texture2D" uid="uid://h3cyaemysf0u" path="res://assets/sprites/stars2.png" id="14_2hypx"]
 [ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]
 [ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
-[ext_resource type="Texture2D" uid="uid://duq18vh8e5uu1" path="res://assets/sprites/cadeau_line_vide.png" id="29_b4kqe"]
-[ext_resource type="Script" path="res://scripts/Ammo.gd" id="29_nd4gb"]
-[ext_resource type="Texture2D" uid="uid://47yxma5yrmuy" path="res://assets/sprites/cadeau_line_white.png" id="30_wqi3r"]
-[ext_resource type="Shader" path="res://Shader/mask.gdshader" id="32_lqem0"]
-[ext_resource type="Texture2D" uid="uid://tha2vko3anog" path="res://shader/whitetoblack.png" id="33_blh7w"]
-[ext_resource type="Script" path="res://scripts/hp.gd" id="34_h1wl4"]
-[ext_resource type="Texture2D" uid="uid://c1l3ltgatwycj" path="res://assets/sprites/Canne_barrc.png" id="36_61xrk"]
-[ext_resource type="Texture2D" uid="uid://ds7r68e70uhtr" path="res://assets/sprites/Canne_brokec.png" id="37_drntl"]
-[ext_resource type="Texture2D" uid="uid://bgxxq44lqoqjo" path="res://shader/Canne_cacheb.png" id="37_rdydd"]
-[ext_resource type="Shader" path="res://scenes/main.gdshader" id="39_acrwy"]
-[ext_resource type="Texture2D" uid="uid://bio0c531lmt" path="res://shader/Canne_cache.png" id="39_iriej"]
-[ext_resource type="Texture2D" uid="uid://cvqjsk2u7m7qj" path="res://shader/Canne_cache_carre.png" id="40_nivyf"]
-[ext_resource type="Texture2D" uid="uid://omwj84wan0br" path="res://assets/sprites/can_sprite.png" id="40_uclux"]
 [ext_resource type="Texture2D" uid="uid://bgnpxxdwjaxex" path="res://assets/sprites/squive.png" id="20_11ncr"]
 [ext_resource type="Script" path="res://scripts/shaker_2d.gd" id="21_7foa3"]
 [ext_resource type="Texture2D" uid="uid://bjiolof1im3xp" path="res://assets/sprites/squive2fast.png" id="25_tetid"]
+[ext_resource type="Texture2D" uid="uid://duq18vh8e5uu1" path="res://assets/sprites/cadeau_line_vide.png" id="29_b4kqe"]
+[ext_resource type="Script" path="res://scripts/Ammo.gd" id="29_nd4gb"]
 [ext_resource type="Texture2D" uid="uid://wyvvjbtippsx" path="res://assets/sprites/schwooosh.png" id="30_tgke0"]
+[ext_resource type="Texture2D" uid="uid://bybwrh2nff3ai" path="res://assets/sprites/background/sky.png" id="30_vq0nj"]
 [ext_resource type="FontFile" uid="uid://c1vgjmpoevrgg" path="res://assets/fonts/MinecraftRegular-Bmg3.otf" id="30_wana7"]
+[ext_resource type="Texture2D" uid="uid://47yxma5yrmuy" path="res://assets/sprites/cadeau_line_white.png" id="30_wqi3r"]
+[ext_resource type="Texture2D" uid="uid://c60xn66r54kx0" path="res://assets/sprites/background/stars1.png" id="31_raxv3"]
+[ext_resource type="Shader" path="res://Shader/mask.gdshader" id="32_lqem0"]
+[ext_resource type="Texture2D" uid="uid://dfidf7n8s7hi1" path="res://assets/sprites/background/stars2.png" id="32_r8lwe"]
+[ext_resource type="Texture2D" uid="uid://cg0kjdwkijxlo" path="res://assets/sprites/background/cloud1.png" id="33_0tbgk"]
+[ext_resource type="Texture2D" uid="uid://tha2vko3anog" path="res://shader/whitetoblack.png" id="33_blh7w"]
+[ext_resource type="Texture2D" uid="uid://b8jy74jpirks8" path="res://assets/sprites/background/moon.png" id="35_3n1bl"]
 [ext_resource type="AudioStream" uid="uid://7k2doc21mpa4" path="res://assets/audio/706994__nolit47__industrial_rusty_drums_loop180.ogg" id="35_s2fkl"]
+[ext_resource type="Texture2D" uid="uid://c1l3ltgatwycj" path="res://assets/sprites/Canne_barrc.png" id="36_61xrk"]
 [ext_resource type="AudioStream" uid="uid://c8xp8rt78c0ql" path="res://assets/audio/wind.ogg" id="36_jimut"]
+[ext_resource type="Texture2D" uid="uid://cr33jgcvrpqok" path="res://assets/sprites/background/planet.png" id="36_n81w4"]
+[ext_resource type="Texture2D" uid="uid://cgcm2wmdtiwyc" path="res://assets/sprites/background/trees.png" id="37_v8x45"]
+[ext_resource type="Shader" path="res://shader/snow.gdshader" id="38_p63ge"]
 [ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
+[ext_resource type="Script" path="res://scripts/barre_hp_canne.gd" id="49_wvq3d"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -246,104 +243,20 @@ name = "[NI] Dodge reloads 5% faster"
 icon = ExtResource("25_tetid")
 dependencies = Array[StringName]([&"DODGE"])
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bt6w"]
+shader = ExtResource("38_p63ge")
+shader_parameter/layers = 50.0
+shader_parameter/depth = 0.5
+shader_parameter/density = 0.5
+shader_parameter/speed = 0.5
+shader_parameter/wind = 0.5
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ad0ei"]
 radius = 652.007
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
 radius = 586.008
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbyh"]
-shader = ExtResource("32_lqem0")
-shader_parameter/mask_position = Vector2(-0.167, -0.167)
-shader_parameter/mask_size = Vector2(1, 1)
-shader_parameter/mask_texture = ExtResource("33_blh7w")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1elso"]
-shader = ExtResource("32_lqem0")
-shader_parameter/mask_position = Vector2(-0.111, -0.111)
-shader_parameter/mask_size = Vector2(1, 1)
-shader_parameter/mask_texture = ExtResource("39_iriej")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jg06"]
-shader = ExtResource("32_lqem0")
-shader_parameter/mask_position = Vector2(-0.111, -0.111)
-shader_parameter/mask_size = Vector2(1, 1)
-shader_parameter/mask_texture = ExtResource("37_rdydd")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yohqp"]
-shader = ExtResource("39_acrwy")
-shader_parameter/mask_texture = ExtResource("40_nivyf")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fwigj"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 0, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1tgkr"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 392, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xt35w"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 784, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k1uws"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 1176, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fm10x"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 1568, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_trv70"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 1960, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x7yho"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 2352, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_odhrf"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 2744, 1675, 392)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lfwjd"]
-atlas = ExtResource("40_uclux")
-region = Rect2(0, 3136, 1675, 392)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_f7q8s"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fwigj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1tgkr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xt35w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k1uws")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fm10x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_trv70")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x7yho")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_odhrf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lfwjd")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 [sub_resource type="Gradient" id="Gradient_dy0e4"]
 offsets = PackedFloat32Array(0.189474, 0.466667, 0.701754, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -369,6 +282,83 @@ scale_min = 3.0
 scale_max = 3.0
 color = Color(1, 1, 1, 0.588235)
 color_ramp = SubResource("GradientTexture1D_uxk25")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbyh"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.167, -0.167)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("33_blh7w")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38iap"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(0, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5wkh"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(1675, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y34s"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(3350, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tngs"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(5025, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1cy0"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(6700, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht2br"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(8375, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkyhu"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(10050, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drlp1"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(11725, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_618ct"]
+atlas = ExtResource("36_61xrk")
+region = Rect2(13400, 0, 1675, 392)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7q8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38iap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5wkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6y34s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tngs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1cy0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht2br")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkyhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drlp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_618ct")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_os4m7"]
 font = ExtResource("30_wana7")
@@ -415,28 +405,28 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
-texture = ExtResource("9_w0pw6")
+texture = ExtResource("30_vq0nj")
 
 [node name="StarsSprite1" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
-texture = ExtResource("13_uj0hh")
+texture = ExtResource("31_raxv3")
 
 [node name="StarsSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(2, 2)
-texture = ExtResource("14_2hypx")
+texture = ExtResource("32_r8lwe")
 
 [node name="CloudSprite1" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
-texture = ExtResource("11_8c04w")
+texture = ExtResource("33_0tbgk")
 
 [node name="CloudSprite2" type="Sprite2D" parent="Background"]
 unique_name_in_owner = true
@@ -445,6 +435,13 @@ position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("12_med80")
 
+[node name="MoonSprite" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("35_3n1bl")
+
 [node name="Forground" type="Node2D" parent="."]
 
 [node name="EarthSprite" type="Sprite2D" parent="Forground"]
@@ -452,7 +449,18 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
-texture = ExtResource("10_2dg3h")
+texture = ExtResource("36_n81w4")
+
+[node name="TreesSprite" type="Sprite2D" parent="Forground"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(320, 896)
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("37_v8x45")
+
+[node name="SnowSprite" type="Sprite2D" parent="Forground"]
+visible = false
+material = SubResource("ShaderMaterial_1bt6w")
 
 [node name="Earth" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -545,8 +553,8 @@ autoplay = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="VBoxTopLeft" type="VBoxContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 274.615
+offset_bottom = 27.865
 
 [node name="Ammo" type="Control" parent="CanvasLayer/VBoxTopLeft"]
 unique_name_in_owner = true
@@ -557,20 +565,18 @@ script = ExtResource("29_nd4gb")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_vtbyh")
 layout_mode = 0
+offset_left = 3.85
 offset_top = 4.0
-offset_right = 396.0
+offset_right = 399.85
 offset_bottom = 36.0
+scale = Vector2(0.645, 0.645)
 max_value = 150.0
 texture_under = ExtResource("29_b4kqe")
 texture_progress = ExtResource("30_wqi3r")
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Happy Kids: 0 / 10"
-
 [node name="HPLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "HP: 3"
 
@@ -580,46 +586,59 @@ visible = false
 layout_mode = 2
 text = "Dash: READY"
 
-[node name="HP" type="Control" parent="CanvasLayer/VBoxTopLeft"]
+[node name="VBoxBotRight" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -137.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxBotRight"]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("34_h1wl4")
+text = "Happy Kids: 0 / 10"
 
-[node name="HP_bar" type="Sprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
-visible = false
-material = SubResource("ShaderMaterial_1elso")
-position = Vector2(87, -1.5)
-scale = Vector2(0.0966667, 0.104326)
-texture = ExtResource("36_61xrk")
+[node name="VBoxTopMid" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.5
+offset_right = 68.5
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
-[node name="HP_Perdu_bar" type="Sprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
-visible = false
-material = SubResource("ShaderMaterial_0jg06")
-position = Vector2(87.5, -1.5)
-scale = Vector2(0.0972222, 0.104326)
-texture = ExtResource("37_drntl")
-
-[node name="Canabar" type="AnimatedSprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_yohqp")
-position = Vector2(108.5, 1.99998)
-scale = Vector2(0.129552, 0.112245)
-sprite_frames = SubResource("SpriteFrames_f7q8s")
-frame = 6
-
-[node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-
-[node name="TimeLabel" type="Label" parent="CanvasLayer/VBoxTopRight"]
+[node name="TimeLabel" type="Label" parent="CanvasLayer/VBoxTopMid"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "120"
-horizontal_alignment = 2
+horizontal_alignment = 1
+
+[node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(64, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="HP" type="Control" parent="CanvasLayer/VBoxTopRight"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("49_wvq3d")
+
+[node name="Canabar" type="AnimatedSprite2D" parent="CanvasLayer/VBoxTopRight/HP"]
+unique_name_in_owner = true
+position = Vector2(0, 17.735)
+scale = Vector2(0.07, 0.07)
+sprite_frames = SubResource("SpriteFrames_f7q8s")
+frame = 8
+frame_progress = 0.435135
 
 [node name="RectGround" type="ColorRect" parent="CanvasLayer"]
 unique_name_in_owner = true

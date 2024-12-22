@@ -1,9 +1,11 @@
 class_name House extends Area2D
 
 signal destroyed
-signal hit
+signal hit(points_awarded: int)
 
 @export var hp: int = 1
+@export var points_awarded: int = 1
+@export var smiley_scene: PackedScene
 
 var already_hit: Array[Area2D] = []
 var voided: bool = false
@@ -17,21 +19,38 @@ func _on_area_entered(area: Area2D) -> void:
 	if not voided and area is Present and not area.surprise and area not in already_hit:
 		already_hit.append(area)
 		hp -= 1
-		hit.emit()
+		hit.emit(points_awarded)
 		var guy: Node2D = %Guys.get_children().pick_random()
 		guy.queue_free()
-		%HappyParticles.restart()
-		%HappyParticles.emitting = true
+		for i in range(points_awarded):
+			emit_smiley(guy.position)
+		#%HappyParticles.restart()
+		#%HappyParticles.emitting = true
+		%AudioHappy.play()
+		%AudioHappyHit.play()
 		if hp <= 0:
 			destroy()
+			%AudioConfetti.play()
 
 func parry():
 	while hp > 0:
 		hp -= 1
-		hit.emit()
-	for child in %Guys.get_children():
+		hit.emit(points_awarded)
+	for child: Node2D in %Guys.get_children():
 		child.queue_free()
+		for i in range(points_awarded):
+			emit_smiley(child.position)
+	%PoofParryParticles.emitting = true
+	%AudioHappy.play()
 	destroy()
+
+func emit_smiley(pos: Vector2):
+	var new_smiley: Sprite2D = smiley_scene.instantiate()
+	var exit_vec: Vector2 = Vector2.LEFT if randf() < 0.5 else Vector2.RIGHT
+	exit_vec = exit_vec.rotated(randf_range(-PI/8, PI/8))
+	new_smiley.speed = exit_vec * 50
+	add_child(new_smiley)
+	new_smiley.position = pos
 
 func destroy():
 	voided = true

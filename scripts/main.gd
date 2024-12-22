@@ -18,9 +18,10 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var present_reload_time: float = 1.0
 @export var dash_reload_time: float = 5.0
 @export var dash_speed: float = 10
-@export var dash_falloff: float = 0.5
+@export var dash_falloff: float = 1
 @export var base_level_need: int = 10
 @export var level_mult: float = 1.5
+@export var top_kill: float = -75
 
 @export var buildings: Array[PackedScene]
 @export var satellites: Array[PackedScene]
@@ -47,6 +48,7 @@ var dash_additional_speed: float = 0.0
 var level: int = 1
 var phase: int = 0
 @onready var curr_level_need: int = base_level_need
+var camera_target_y: float = 0.0
 
 var picked_upgrades: Array[StringName] = []
 
@@ -92,7 +94,13 @@ func _process(delta: float) -> void:
 	speed += dash_additional_speed
 	speed *= speed_bonus
 	
-	#Rotation Parallax
+	# Wind volume and pitch
+	var norm_speed_wind_db = clampf((speed - 0.1) / 0.2, 0, 1)
+	%WindAudio.volume_db = lerpf(-40, -5, norm_speed_wind_db)
+	var norm_speed_wind_pitch = clampf((speed - 0.25) / 0.1, 0, 1)
+	%WindAudio.pitch_scale = lerpf(1, 1.5, norm_speed_wind_pitch)
+	
+	# Rotation parallax
 	%Earth.rotation -= speed * delta
 	%EarthSprite.rotation -= speed * delta
 	%StarsSprite1.rotation -= speed * delta * 0.05
@@ -103,6 +111,10 @@ func _process(delta: float) -> void:
 	# Speed lines
 	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)
 	%SpeedLines.modulate = Color(1, 1, 1, norm_speed)
+	
+	# Move camera
+	var cam_target := clampf(%Character.position.y - 50, -75, 0)
+	%CameraRot.position.y = Util.decayf(%CameraRot.position.y, cam_target, 8 * delta)
 	
 	if has_upgrade(&"DASH"):
 		if dash_reload > 0:
@@ -133,7 +145,7 @@ func _process(delta: float) -> void:
 
 func start_dash():
 	dash_additional_speed = dash_speed
-	var tween = create_tween()
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "dash_additional_speed", 0.0, dash_falloff)
 
 func process_spawn_houses(delta: float):
@@ -184,7 +196,7 @@ func process_spawn_aliens(delta: float):
 		%Earth.add_child(new_alien)
 		new_alien.global_position = %AlienSpawnPosition.global_position
 		new_alien.global_rotation = %AlienSpawnPosition.global_rotation
-		new_alien.hit.connect(_on_alien_destroyed)
+		new_alien.hit.connect(_on_house_destroyed)
 
 func process_present_reload(delta: float):
 	if presents < max_presents:
@@ -264,13 +276,8 @@ func end_game():
 func update_ammo_text():
 	%AmmoLabel.text = "Presents: " + str(presents) + " (" + str(floori(reload * 100 / present_reload_time)) + "%)"
 
-func _on_house_destroyed():
-	score += 1
-	if score >= curr_level_need:
-		start_upgrade_screen()
-		
-func _on_alien_destroyed():
-	score += 3
+func _on_house_destroyed(points_awarded: int):
+	score += points_awarded
 	if score >= curr_level_need:
 		start_upgrade_screen()
 
@@ -304,6 +311,9 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 	
 	level += 1
 	do_upgrade_instant_effect(upgrade_id)
+	%UpgradeAudio.play()
+	%Character.invincibility_left = %Character.invincibility_time
+	%Character.upgrade_effect()
 	
 	close_upgrades_screen()
 

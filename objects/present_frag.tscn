@@ -1,8 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwu24podrf7ng"]
+[gd_scene load_steps=16 format=3 uid="uid://bwu24podrf7ng"]
 
 [ext_resource type="Script" path="res://scripts/present.gd" id="1_727f3"]
 [ext_resource type="Texture2D" uid="uid://dwbsiwwowq5tv" path="res://assets/sprites/cadeau_surprise.png" id="3_a0ouq"]
 [ext_resource type="Texture2D" uid="uid://6jvobvjs67pi" path="res://assets/sprites/cadeau.png" id="3_ooa2r"]
+[ext_resource type="AudioStream" uid="uid://n6oq4rlrrxcg" path="res://assets/audio/footstep_wood_000.ogg" id="4_757fm"]
+[ext_resource type="AudioStream" uid="uid://bdtufodvet7t1" path="res://assets/audio/footstep_wood_001.ogg" id="5_vopwp"]
+[ext_resource type="AudioStream" uid="uid://c3p8uyetnivfw" path="res://assets/audio/footstep_wood_002.ogg" id="6_agxje"]
+[ext_resource type="AudioStream" uid="uid://clhbhf5oll7ej" path="res://assets/audio/footstep_wood_003.ogg" id="7_c5r3f"]
+[ext_resource type="AudioStream" uid="uid://bamhj0ags547i" path="res://assets/audio/footstep_wood_004.ogg" id="8_rnhdh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_guh1o"]
 atlas = ExtResource("3_ooa2r")
@@ -51,6 +56,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1msg"]
 size = Vector2(12.235, 15.855)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jny2f"]
+streams_count = 5
+stream_0/stream = ExtResource("4_757fm")
+stream_1/stream = ExtResource("5_vopwp")
+stream_2/stream = ExtResource("6_agxje")
+stream_3/stream = ExtResource("7_c5r3f")
+stream_4/stream = ExtResource("8_rnhdh")
+
 [node name="Present" type="Area2D"]
 collision_layer = 8
 collision_mask = 21
@@ -71,6 +84,11 @@ shape = SubResource("RectangleShape2D_r1msg")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(7.15256e-07, 1.19209e-07)
 scale = Vector2(0.62, 0.8)
+
+[node name="AudioHit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_jny2f")
+volume_db = -10.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

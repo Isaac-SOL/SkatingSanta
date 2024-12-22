@@ -36,7 +36,7 @@ var load_shot_direction: Vector2 = Vector2.ZERO
 var invincibility_left: float = 0.0
 
 func _process(delta: float) -> void:
-	var height_mass_norm_pos = 1 - clampf(position.y / height_mass_start_y, 0, 1)
+	var height_mass_norm_pos = 1 - clampf((position.y + 75) / (height_mass_start_y + 75), 0, 1)
 	var bonus_mass: float = height_mass_max * height_mass_norm_pos
 	if main.has_upgrade(&"TOP_BOUNCE"): bonus_mass *= 3
 	if main.has_upgrade(&"FLOATER"):
@@ -179,6 +179,7 @@ func shoot_present(dir_vector: Vector2, surprise: bool = false):
 	new_present.surprise = surprise
 	main.add_child(new_present)
 	new_present.global_position = global_position
+	%ThrowAudio.play()
 	if main.has_upgrade(&"LOAD_SHOT"):
 		new_present.speed *= 1.0 + ((present_max_load_mult - 1.0) * (curr_load / present_max_load_time))
 	if main.has_upgrade(&"PARRY"):
@@ -189,39 +190,56 @@ func shoot_present(dir_vector: Vector2, surprise: bool = false):
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_collision_layer_value(1) and invincibility_left <= 0.0:  # World
 		if main.has_upgrade(&"WORLD_BOUNCE"):
-			hit.emit()
-			vertical_speed = -hit_updards_impulse
-			main.screenshake(1, 1)
-			invincibility_left = invincibility_time
-			spawn_flash_at(lerp(global_position, area.global_position, 0.025))
+			get_hit_normal()
+			spawn_flash_at(lerp(global_position, area.global_position, 0.02))
+			main.hitstop(0.05)
 		else:
 			hit_ground.emit()
+			%OofAudio.play()
 	elif area.get_collision_layer_value(5) and not area.voided:  # Houses
 		if parry_time_left > 0.0:
 			parry_time_left = 0.0
 			%SantaSprite2D.modulate = Color.WHITE
 			area.parry()
-			spawn_flash_at(lerp(global_position, area.global_position, 0.4))
+			var flash := spawn_flash_at(lerp(global_position, area.global_position, 0.4))
+			flash.scale.x *= 3
+			flash.scale.y *= 0.5
+			flash.global_rotation = 0
+			flash.frame = 1
 			main.screenshake(1, 1)
 			main.hitstop(0.05)
+			%ParryAudio.play()
 		elif invincibility_left <= 0.0:
-			hit.emit()
-			vertical_speed = -hit_updards_impulse
+			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.4))
-			main.screenshake(1.5, 0.7)
-			invincibility_left = invincibility_time
+			main.hitstop(0.05)
 	elif area.get_collision_layer_value(3) and invincibility_left <= 0.0:  # Enemies
-		hit.emit()
+		get_hit_normal()
 		spawn_flash_at(lerp(global_position, area.global_position, 0.4))
-		main.screenshake(1.5, 0.7)
-		vertical_speed = -hit_updards_impulse
-		invincibility_left = invincibility_time
+		main.hitstop(0.05)
 
-func spawn_flash_at(glob: Vector2):
-	var new_flash = flash_scene.instantiate()
+func get_hit_normal():
+	hit.emit()
+	main.screenshake(1.5, 0.7)
+	vertical_speed = -hit_updards_impulse
+	invincibility_left = invincibility_time
+	%HitAudio.play()
+
+func spawn_flash_at(glob: Vector2) -> Node2D:
+	var new_flash: Node2D = flash_scene.instantiate()
 	$/root/Main/Earth.add_child(new_flash)
 	new_flash.scale *= 2
 	new_flash.global_position = glob
+	return new_flash
+
+func upgrade_effect():
+	%BallSprite2D.scale = Vector2.ONE * 0.2
+	%BallSprite2D.visible = true
+	%BallSprite2D.modulate = Color.WHITE
+	var tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(%BallSprite2D, "scale", Vector2.ONE, 1)
+	tween.parallel().tween_property(%BallSprite2D, "modulate", Color.TRANSPARENT, 1)
+	tween.tween_callback(func (): %BallSprite2D.visible = false)
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	exited_screen.emit()

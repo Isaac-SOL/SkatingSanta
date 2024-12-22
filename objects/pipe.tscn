@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://y0abmmsddhcy"]
+[gd_scene load_steps=9 format=3 uid="uid://y0abmmsddhcy"]
 
 [ext_resource type="Script" path="res://scripts/pipe.gd" id="1_2gjfi"]
 [ext_resource type="Texture2D" uid="uid://cfrgb7he6y5h2" path="res://assets/sprites/pipes.png" id="1_mltyi"]
+[ext_resource type="AudioStream" uid="uid://botd18novwram" path="res://assets/audio/impactBell_heavy_001.ogg" id="3_jp1c3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k5ewd"]
 atlas = ExtResource("1_mltyi")
@@ -36,6 +37,8 @@ animations = [{
 size = Vector2(45, 325)
 
 [node name="pipe" type="Area2D"]
+collision_layer = 4
+collision_mask = 10
 script = ExtResource("1_2gjfi")
 
 [node name="pipe_sprites" type="AnimatedSprite2D" parent="."]
@@ -51,6 +54,12 @@ shape = SubResource("RectangleShape2D_nvrl5")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(2.445, 36.25)
+
+[node name="AudioDestroyed" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_jp1c3")
+volume_db = -5.0
+pitch_scale = 0.8
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

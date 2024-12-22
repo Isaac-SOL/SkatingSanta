@@ -33,6 +33,7 @@ movie_writer/movie_file="A:/Pierre/Documents/GodotProjects/SkatingSanta/movies/m
 [file_customization]
 
 folder_colors={
+"res://assets/audio/": "yellow",
 "res://assets/sprites/": "green",
 "res://objects/": "yellow",
 "res://scenes/": "gray",

@@ -11,5 +11,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Character:
-		queue_free()
 		destroyed.emit()
+		%PoofParticles.emitting = true
+		set_deferred("monitorable", false)
+		set_deferred("monitoring", false)
+		%AnimatedSprite2D.visible = false
+		await %PoofParticles.finished
+		queue_free()

@@ -253,6 +253,9 @@ func _on_area_entered(area: Area2D) -> void:
 		get_hit_normal()
 		spawn_flash_at(lerp(global_position, area.global_position, 0.4))
 		main.hitstop(0.05)
+	elif area.get_collision_layer_value(6):  # Canne volante
+		main.hp +=1
+		%BonusAudio.play()
 
 func get_hit_normal():
 	invincibility_left = invincibility_time

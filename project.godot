@@ -135,6 +135,7 @@ shoot_left={
 2d_physics/layer_6="Wahoo"
 2d_physics/layer_7="Earth"
 2d_physics/layer_8="DeathZone"
+2d_physics/layer_9="Collectibles"
 
 [rendering]
 

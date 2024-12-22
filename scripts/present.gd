@@ -15,7 +15,7 @@ var running: bool = true
 var bounces_left: int = 0
 var ricochets_left: int = 0
 var has_gravity: bool = false
-var hit_houses: Array[House] = []
+var hit_houses: Array[Area2D] = []
 
 func _ready() -> void:
 	rotation_speed = randf_range(rotation_speed_bounds.x, rotation_speed_bounds.y)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8qjkhbjm6i64"]
+[gd_scene load_steps=13 format=3 uid="uid://c8qjkhbjm6i64"]
 
 [ext_resource type="Texture2D" uid="uid://eiivemr2fd1x" path="res://assets/sprites/canne_volante.png" id="1_8pj0j"]
 [ext_resource type="Script" path="res://scripts/canne_volante.gd" id="1_ng5jj"]
+[ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="3_e5tma"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0enfl"]
 atlas = ExtResource("1_8pj0j")
@@ -25,22 +26,72 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xljw1"]
-size = Vector2(30, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ylf6q"]
+radius = 15.0
+
+[sub_resource type="Gradient" id="Gradient_ogfj0"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_afukd"]
+gradient = SubResource("Gradient_ogfj0")
+
+[sub_resource type="Curve" id="Curve_gsww6"]
+_data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ocl5"]
+curve = SubResource("Curve_gsww6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5umq6"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 32.92
+initial_velocity_max = 75.5
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_8ocl5")
+color_initial_ramp = SubResource("GradientTexture1D_afukd")
 
 [node name="Canne_volante" type="Area2D"]
-collision_layer = 16
+collision_layer = 256
 collision_mask = 2
 script = ExtResource("1_ng5jj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ltcsb")
+autoplay = "default"
+frame = 1
+frame_progress = 0.668828
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -1)
-shape = SubResource("RectangleShape2D_xljw1")
+shape = SubResource("CircleShape2D_ylf6q")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1, -0.999999)
 scale = Vector2(1.5, 1.6)
+
+[node name="PoofParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_5umq6")
+texture = ExtResource("3_e5tma")
+one_shot = true
+explosiveness = 1.0
+local_coords = true

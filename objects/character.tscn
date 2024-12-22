@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=45 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://cscmfb2nhdvch" path="res://assets/audio/ohyeah.ogg" id="21_66b5v"]
 [ext_resource type="AudioStream" uid="uid://bpmln7tet4fa" path="res://assets/audio/whohoho.ogg" id="22_utxr0"]
 [ext_resource type="AudioStream" uid="uid://dvv4b67ggx7c3" path="res://assets/audio/wahou.ogg" id="23_8uwx0"]
+[ext_resource type="AudioStream" uid="uid://lewefcjuh3d6" path="res://assets/audio/powerUp9b.ogg" id="26_7sn2d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aonbj"]
 atlas = ExtResource("3_5i80b")
@@ -288,7 +289,7 @@ stream_2/stream = ExtResource("23_8uwx0")
 
 [node name="Character" type="Area2D"]
 collision_layer = 2
-collision_mask = 181
+collision_mask = 437
 script = ExtResource("1_g5wu1")
 start_hp = 5
 mass = 100.0
@@ -393,6 +394,13 @@ max_polyphony = 4
 unique_name_in_owner = true
 stream = ExtResource("18_0eq0e")
 volume_db = -5.0
+max_polyphony = 4
+
+[node name="BonusAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("26_7sn2d")
+volume_db = -15.0
+pitch_scale = 0.8
 max_polyphony = 4
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

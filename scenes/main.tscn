@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=120 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -13,9 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bqbqqn6f1pim4" path="res://objects/cannon.tscn" id="8_gv3ya"]
 [ext_resource type="Texture2D" uid="uid://bm36brk13r1ho" path="res://assets/sprites/multicado.png" id="8_tdt6j"]
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
+[ext_resource type="PackedScene" uid="uid://c8qjkhbjm6i64" path="res://objects/canne_volante.tscn" id="9_anif7"]
 [ext_resource type="Texture2D" uid="uid://ifgg83x4klcb" path="res://assets/sprites/boooost.png" id="9_gnnfb"]
-[ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
-[ext_resource type="PackedScene" uid="uid://dyx6nrciv5v2v" path="res://objects/alien_moyen.tscn" id="9_xltju"]
 [ext_resource type="Texture2D" uid="uid://chr4f3ff46s7f" path="res://assets/sprites/anvil.png" id="10_57xcf"]
 [ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
 [ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
@@ -29,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
 [ext_resource type="Texture2D" uid="uid://ca6dnxfn686pq" path="res://assets/sprites/boooost2.png" id="17_rodsk"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
+[ext_resource type="Texture2D" uid="uid://dtk7cxcbwmofy" path="res://assets/sprites/parade2.png" id="18_nigbi"]
 [ext_resource type="Texture2D" uid="uid://bgnpxxdwjaxex" path="res://assets/sprites/squive.png" id="20_11ncr"]
 [ext_resource type="Texture2D" uid="uid://pwr76r3w4a8s" path="res://assets/sprites/parachute.png" id="20_yxr3p"]
 [ext_resource type="Script" path="res://scripts/shaker_2d.gd" id="21_7foa3"]
@@ -36,40 +36,39 @@
 [ext_resource type="Texture2D" uid="uid://dqclvh5xqjnns" path="res://assets/sprites/bigger.png" id="22_aoe52"]
 [ext_resource type="Texture2D" uid="uid://cola4cek0ahvb" path="res://assets/sprites/infectedcake.png" id="23_pjab1"]
 [ext_resource type="Texture2D" uid="uid://bjiolof1im3xp" path="res://assets/sprites/squive2fast.png" id="25_tetid"]
+[ext_resource type="Texture2D" uid="uid://c3ig0d18wg80x" path="res://assets/sprites/boing.png" id="27_4ijth"]
+[ext_resource type="Texture2D" uid="uid://jkayeb6p5qfp" path="res://assets/sprites/boingrang.png" id="28_3jwyt"]
 [ext_resource type="Texture2D" uid="uid://ksd4qy1v6ua6" path="res://assets/sprites/hotarail.png" id="28_fdqj3"]
 [ext_resource type="Texture2D" uid="uid://cjj0c7r5u7biu" path="res://assets/sprites/coupon.png" id="28_jjyjs"]
 [ext_resource type="Texture2D" uid="uid://34w7krywykbd" path="res://assets/sprites/boom5holy.png" id="29_3s48g"]
 [ext_resource type="Texture2D" uid="uid://duq18vh8e5uu1" path="res://assets/sprites/cadeau_line_vide.png" id="29_b4kqe"]
+[ext_resource type="Texture2D" uid="uid://c6sernnhmkfb5" path="res://assets/sprites/photodefamille.png" id="29_bn51x"]
 [ext_resource type="Script" path="res://scripts/Ammo.gd" id="29_nd4gb"]
 [ext_resource type="Texture2D" uid="uid://cyp2s868e2p17" path="res://assets/sprites/multicadoR.png" id="30_k7icv"]
+[ext_resource type="Texture2D" uid="uid://o0oxw4gym1xp" path="res://assets/sprites/Sonic.png" id="30_p5rby"]
 [ext_resource type="Texture2D" uid="uid://wyvvjbtippsx" path="res://assets/sprites/schwooosh.png" id="30_tgke0"]
+[ext_resource type="Texture2D" uid="uid://bybwrh2nff3ai" path="res://assets/sprites/background/sky.png" id="30_vq0nj"]
 [ext_resource type="FontFile" uid="uid://c1vgjmpoevrgg" path="res://assets/fonts/MinecraftRegular-Bmg3.otf" id="30_wana7"]
 [ext_resource type="Texture2D" uid="uid://47yxma5yrmuy" path="res://assets/sprites/cadeau_line_white.png" id="30_wqi3r"]
-[ext_resource type="Texture2D" uid="uid://b3fb4wwvum1p3" path="res://assets/sprites/blocage.png" id="31_q2b1x"]
+[ext_resource type="Texture2D" uid="uid://c60xn66r54kx0" path="res://assets/sprites/background/stars1.png" id="31_raxv3"]
 [ext_resource type="Texture2D" uid="uid://dux7iy0wqtdut" path="res://assets/sprites/timezonerror.png" id="32_kiuk3"]
 [ext_resource type="Shader" path="res://Shader/mask.gdshader" id="32_lqem0"]
+[ext_resource type="Texture2D" uid="uid://dfidf7n8s7hi1" path="res://assets/sprites/background/stars2.png" id="32_r8lwe"]
+[ext_resource type="Texture2D" uid="uid://cg0kjdwkijxlo" path="res://assets/sprites/background/cloud1.png" id="33_0tbgk"]
 [ext_resource type="Texture2D" uid="uid://tha2vko3anog" path="res://shader/whitetoblack.png" id="33_blh7w"]
-[ext_resource type="Script" path="res://scripts/hp.gd" id="34_h1wl4"]
+[ext_resource type="Texture2D" uid="uid://b8jy74jpirks8" path="res://assets/sprites/background/moon.png" id="35_3n1bl"]
 [ext_resource type="AudioStream" uid="uid://7k2doc21mpa4" path="res://assets/audio/706994__nolit47__industrial_rusty_drums_loop180.ogg" id="35_s2fkl"]
 [ext_resource type="Texture2D" uid="uid://c1l3ltgatwycj" path="res://assets/sprites/Canne_barrc.png" id="36_61xrk"]
 [ext_resource type="AudioStream" uid="uid://c8xp8rt78c0ql" path="res://assets/audio/wind.ogg" id="36_jimut"]
-[ext_resource type="Texture2D" uid="uid://ds7r68e70uhtr" path="res://assets/sprites/Canne_brokec.png" id="37_drntl"]
-[ext_resource type="Texture2D" uid="uid://bgxxq44lqoqjo" path="res://shader/Canne_cacheb.png" id="37_rdydd"]
-[ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
-[ext_resource type="Shader" path="res://scenes/main.gdshader" id="39_acrwy"]
-[ext_resource type="Texture2D" uid="uid://bio0c531lmt" path="res://shader/Canne_cache.png" id="39_iriej"]
-[ext_resource type="Texture2D" uid="uid://cvqjsk2u7m7qj" path="res://shader/Canne_cache_carre.png" id="40_nivyf"]
-[ext_resource type="Texture2D" uid="uid://omwj84wan0br" path="res://assets/sprites/can_sprite.png" id="40_uclux"]
-[ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
-[ext_resource type="Texture2D" uid="uid://bybwrh2nff3ai" path="res://assets/sprites/background/sky.png" id="30_vq0nj"]
-[ext_resource type="Texture2D" uid="uid://c60xn66r54kx0" path="res://assets/sprites/background/stars1.png" id="31_raxv3"]
-[ext_resource type="Texture2D" uid="uid://dfidf7n8s7hi1" path="res://assets/sprites/background/stars2.png" id="32_r8lwe"]
-[ext_resource type="Texture2D" uid="uid://cg0kjdwkijxlo" path="res://assets/sprites/background/cloud1.png" id="33_0tbgk"]
-[ext_resource type="Texture2D" uid="uid://b8jy74jpirks8" path="res://assets/sprites/background/moon.png" id="35_3n1bl"]
 [ext_resource type="Texture2D" uid="uid://cr33jgcvrpqok" path="res://assets/sprites/background/planet.png" id="36_n81w4"]
 [ext_resource type="Texture2D" uid="uid://cgcm2wmdtiwyc" path="res://assets/sprites/background/trees.png" id="37_v8x45"]
 [ext_resource type="Shader" path="res://shader/snow.gdshader" id="38_p63ge"]
+[ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
+[ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
 [ext_resource type="Script" path="res://scripts/barre_hp_canne.gd" id="49_wvq3d"]
+[ext_resource type="FontFile" uid="uid://b28yu6nnm4vdl" path="res://assets/fonts/Kenney Mini Square.ttf" id="66_mr1i3"]
+[ext_resource type="Texture2D" uid="uid://3pmvky8j7371" path="res://assets/sprites/Levelup_cadre.png" id="67_ct30h"]
+[ext_resource type="Texture2D" uid="uid://rxeitf4634g2" path="res://assets/sprites/Levelup.png" id="68_g3br0"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -84,7 +83,7 @@ script = ExtResource("5_kqrhn")
 id = &"FRAG"
 name = "Multi-Present"
 icon = ExtResource("8_tdt6j")
-description = "Presents will create color=yellow]more presents[/color] when hitting the ground"
+description = "Presents will create [color=yellow]more presents[/color] when hitting the ground"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_306lq"]
@@ -100,7 +99,7 @@ script = ExtResource("5_kqrhn")
 id = &"FAST_PRESENTS"
 name = "Weighted Presents"
 icon = ExtResource("10_57xcf")
-description = "Add some weight into your presents to make them reach the ground color=yellow]faster[/color]"
+description = "Add some weight into your presents to make them reach the ground [color=yellow]faster[/color]"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_t402t"]
@@ -123,7 +122,7 @@ dependencies = Array[StringName]([])
 script = ExtResource("5_kqrhn")
 id = &"PARRY"
 name = "Magical Cane"
-icon = ExtResource("11_v50qq")
+icon = ExtResource("18_nigbi")
 description = "Throw a present right before hitting a building to make color=yellow]everyone happy[/color]"
 dependencies = Array[StringName]([&"BLOCK"])
 
@@ -132,7 +131,7 @@ script = ExtResource("5_kqrhn")
 id = &"RAINBOW"
 name = "Rainbow Cane"
 icon = ExtResource("12_sfbkc")
-description = "The Candy Cane now shoots [color=red]r[color=orange]a[color=yellow]i[wolor=green]n[color=cyan]b[color=blue]o[color=purple]w[color=pink]s[/color]"
+description = "The Candy Cane now shoots [color=red]r[color=orange]a[color=yellow]i[color=green]n[color=cyan]b[color=blue]o[color=purple]w[color=pink]s[/color]"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_tv622"]
@@ -180,7 +179,7 @@ script = ExtResource("5_kqrhn")
 id = &"BOMB"
 name = "Surprise Present"
 icon = ExtResource("14_lu857")
-description = "Press the [color=yellow]right[/color] [color=yellow]arrow[/color]  or D to send a \"susprise present\" to [color=yellow]remove obstacles[/color] "
+description = "Press the [color=yellow]right[/color] [color=yellow]arrow[/color] or [color=yellow]D[/color] to send a \"susprise present\" to [color=yellow]remove obstacles[/color] "
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_rccpv"]
@@ -195,6 +194,7 @@ dependencies = Array[StringName]([])
 script = ExtResource("5_kqrhn")
 id = &"BOUNCE"
 name = "Bouncy Presents"
+icon = ExtResource("27_4ijth")
 description = "Presents [color=yellow]bounce[/color] on the [color=yellow]ground[/color] once"
 dependencies = Array[StringName]([])
 
@@ -202,6 +202,7 @@ dependencies = Array[StringName]([])
 script = ExtResource("5_kqrhn")
 id = &"RICOCHET"
 name = "Ricochet"
+icon = ExtResource("28_3jwyt")
 description = "Presents [color=yellow]bounce[/color] on [color=yellow]houses[/color] once"
 dependencies = Array[StringName]([])
 
@@ -209,6 +210,7 @@ dependencies = Array[StringName]([])
 script = ExtResource("5_kqrhn")
 id = &"GROUP_BONUS"
 name = "Happy Family"
+icon = ExtResource("29_bn51x")
 description = "[color=yellow]Completing[/color] a building awards [color=yellow]2[/color] additional happy kids"
 dependencies = Array[StringName]([])
 
@@ -216,13 +218,14 @@ dependencies = Array[StringName]([])
 script = ExtResource("5_kqrhn")
 id = &"MARIO"
 name = "Christmas Cap"
+icon = ExtResource("30_p5rby")
 description = "Bounce on top of a building to [color=yellow]avoid damage[/color] and make [color=yellow]everyone happy[/color]"
 dependencies = Array[StringName]([&"WORLD_BOUNCE"])
 
 [sub_resource type="Resource" id="Resource_xhd2x"]
 script = ExtResource("5_kqrhn")
 id = &"RAIL"
-name = "Pannier-on-skis"
+name = "Pannier-on-rails"
 icon = ExtResource("28_fdqj3")
 description = "You can [color=yellow]slide[/color] on the ground [color=yellow]without taking damage[/color]"
 dependencies = Array[StringName]([&"WORLD_BOUNCE"])
@@ -255,7 +258,7 @@ dependencies = Array[StringName]([&"FRAG"])
 script = ExtResource("5_kqrhn")
 id = &"BLOCK"
 name = "Protective Cane"
-icon = ExtResource("31_q2b1x")
+icon = ExtResource("11_v50qq")
 description = "Throw a present right before hitting a building to [color=yellow]avoid all damage[/color]"
 dependencies = Array[StringName]([])
 
@@ -440,6 +443,7 @@ house_spawn_timing = Vector2(0.2, 0.8)
 children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
+canne_spawn_timing = Vector2(3, 8)
 initial_time = 180.0
 max_presents = 3
 dash_speed = 1.0
@@ -451,6 +455,7 @@ pipes = Array[PackedScene]([ExtResource("6_v6dun")])
 aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
 cannons = Array[PackedScene]([ExtResource("8_gv3ya")])
 childrens = Array[PackedScene]([ExtResource("11_vnvko")])
+cannes = Array[PackedScene]([ExtResource("9_anif7")])
 line_scene = ExtResource("7_rkfew")
 upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj"), SubResource("Resource_xhd2x"), SubResource("Resource_n82aa"), SubResource("Resource_lxu1p"), SubResource("Resource_yoqqk"), SubResource("Resource_1dpen"), SubResource("Resource_tdvxx")])
 repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
@@ -602,6 +607,11 @@ unique_name_in_owner = true
 position = Vector2(1030, 370)
 rotation = 0.902335
 
+[node name="CanneSpawnPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1071, 337)
+rotation = 0.902335
+
 [node name="UpgradeAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("35_s2fkl")
@@ -637,8 +647,8 @@ offset_left = 3.85
 offset_top = 4.0
 offset_right = 399.85
 offset_bottom = 36.0
-max_value = 1500.0
 scale = Vector2(0.645, 0.645)
+max_value = 1500.0
 texture_under = ExtResource("29_b4kqe")
 texture_progress = ExtResource("30_wqi3r")
 
@@ -653,22 +663,6 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Dash: READY"
-
-[node name="VBoxBotRight" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -137.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxBotRight"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Happy Kids: 0 / 10"
 
 [node name="VBoxTopMid" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 5
@@ -707,6 +701,47 @@ scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_f7q8s")
 frame = 8
 frame_progress = 0.435135
+
+[node name="VBoxBotMid" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+offset_right = -198.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="LevelProgressBar" type="TextureProgressBar" parent="CanvasLayer/VBoxBotMid"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+max_value = 10.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 8
+stretch_margin_top = 8
+stretch_margin_right = 8
+stretch_margin_bottom = 8
+texture_under = ExtResource("67_ct30h")
+texture_progress = ExtResource("68_g3br0")
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxBotMid/LevelProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("66_mr1i3")
+text = "Happy Kids: 0 / 10"
+horizontal_alignment = 1
 
 [node name="RectGround" type="ColorRect" parent="CanvasLayer"]
 unique_name_in_owner = true

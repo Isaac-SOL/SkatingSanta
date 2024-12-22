@@ -61,14 +61,21 @@ var score: int = 0 :
 	set(value):
 		score = value
 		%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
+		%LevelProgressBar.value = score
 var hp: int = 3 :
 	set(value):
-		hp = value
+		hp = mini(value, 9)
 		%HPLabel.text = "HP: " + str(hp)
+		%HP.update(hp)
 var time_left: float = 120 :
 	set(value):
 		time_left = value
-		%TimeLabel.text = str(ceili(time_left))
+		var rtime: int = 180 - value
+		var hrs: int = rtime / 60
+		var mins: int = rtime - (60 * hrs)
+		var str_mins := str(mins)
+		if str_mins.length() == 1: str_mins = "0" + str_mins
+		%TimeLabel.text = str(hrs + 9) + ":" + str_mins + " PM"
 var presents: int = 5 :
 	set(value):
 		presents = value
@@ -180,10 +187,10 @@ func process_spawn_canne(delta: float):
 	next_canne_spawn -= speed * delta * 1.3
 	if next_canne_spawn <= 0:
 		next_canne_spawn += randf_range(canne_spawn_timing.x, canne_spawn_timing.y)
-		var new_canne: Cannon = cannes.pick_random().instantiate()
+		var new_canne: CanneVolante = cannes.pick_random().instantiate()
 		%Earth.add_child(new_canne)
-		new_canne.global_position = %HouseSpawnLowerGround.global_position
-		new_canne.global_rotation = %HouseSpawnLowerGround.global_rotation
+		new_canne.global_position = %CanneSpawnPosition.global_position
+		new_canne.global_rotation = %CanneSpawnPosition.global_rotation
 
 func process_spawn_satellites(delta: float):
 	next_satellite_spawn -= speed * delta
@@ -324,7 +331,6 @@ func _on_house_destroyed_frfr():
 
 func _on_character_hit() -> void:
 	hp -= 1
-	%HP.update(hp)
 	if hp <= 0:
 		kill()
 
@@ -359,9 +365,12 @@ func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringNam
 	%Character.invincibility_left = %Character.invincibility_time
 	%Character.upgrade_effect()
 	
+	%LevelProgressBar.min_value = curr_level_need
 	base_level_need *= level_mult
 	curr_level_need += base_level_need
 	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
+	%LevelProgressBar.max_value = curr_level_need
+	%LevelProgressBar.value = score
 	
 	close_upgrades_screen()
 
@@ -402,8 +411,6 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		update_max_ammo_barr()
 	elif upgrade_id == &"MORE_HP":
 		hp += 1
-		%Character.start_hp += 1
-		%HP.update(hp)
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
 	elif upgrade_id == &"MORE_TIME":

@@ -9,6 +9,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var position_bounds: Vector2 = Vector2(20, 140)
 @export var speed_power: float = 2.0
 @export var house_spawn_timing: Vector2 = Vector2(1.0, 4.0)
+@export var children_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var satellite_spawn_timing: Vector2 = Vector2(2.0, 10.0)
 @export var pipe_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
@@ -28,6 +29,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var pipes: Array[PackedScene]
 @export var aliens: Array[PackedScene]
 @export var cannons: Array[PackedScene]
+@export var childrens: Array[PackedScene]
 
 @export var line_scene: PackedScene
 
@@ -43,6 +45,7 @@ var next_satellite_spawn: float
 var next_pipe_spawn: float
 var next_alien_spawn: float
 var next_cannon_spawn: float
+var next_children_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
@@ -135,6 +138,7 @@ func _process(delta: float) -> void:
 	process_spawn_aliens(delta)
 	process_spawn_houses(delta)
 	process_spawn_cannon(delta)
+	process_spawn_childrens(delta)
 	
 	process_present_reload(delta)
 	
@@ -197,6 +201,18 @@ func process_spawn_aliens(delta: float):
 		new_alien.global_position = %AlienSpawnPosition.global_position
 		new_alien.global_rotation = %AlienSpawnPosition.global_rotation
 		new_alien.hit.connect(_on_house_destroyed)
+		
+		
+func process_spawn_childrens(delta: float):
+	next_children_spawn -= speed * delta * 5
+	if next_children_spawn <= 0:
+		next_children_spawn += randf_range(children_spawn_timing.x, children_spawn_timing.y)
+		var new_children: House = childrens.pick_random().instantiate()
+		%Earth.add_child(new_children)
+		var children_pos: Vector2 = lerp(%ChildrenSpawn1.global_position, %ChildrenSpawn2.global_position, randf())
+		new_children.global_position = children_pos
+		new_children.global_rotation = %ChildrenSpawn1.global_rotation
+		new_children.hit.connect(_on_house_destroyed)
 
 func process_present_reload(delta: float):
 	if presents < max_presents:

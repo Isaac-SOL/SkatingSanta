@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=68 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -18,11 +18,13 @@
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
 [ext_resource type="Texture2D" uid="uid://ifgg83x4klcb" path="res://assets/sprites/boooost.png" id="9_gnnfb"]
 [ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
+[ext_resource type="PackedScene" uid="uid://dyx6nrciv5v2v" path="res://objects/alien_moyen.tscn" id="9_xltju"]
 [ext_resource type="Texture2D" uid="uid://1hems8ncj8ps" path="res://assets/sprites/planet.png" id="10_2dg3h"]
 [ext_resource type="Texture2D" uid="uid://chr4f3ff46s7f" path="res://assets/sprites/anvil.png" id="10_57xcf"]
 [ext_resource type="Texture2D" uid="uid://8x7c6jkwbq1i" path="res://assets/sprites/cloud1.png" id="11_8c04w"]
 [ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
 [ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
+[ext_resource type="PackedScene" uid="uid://mjcfyq10uyxg" path="res://objects/children.tscn" id="11_vnvko"]
 [ext_resource type="PackedScene" uid="uid://d1mp57ku7y5e" path="res://objects/repeatable_upgrade_button.tscn" id="12_784fy"]
 [ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
 [ext_resource type="Texture2D" uid="uid://bnvcxvlqc8mp" path="res://assets/sprites/sugar_rainbow4.png" id="12_sfbkc"]
@@ -200,8 +202,11 @@ name = "Dash reloads 20% faster"
 icon = ExtResource("6_h3cn5")
 dependencies = Array[StringName]([&"DASH"])
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ad0ei"]
+radius = 652.007
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
-radius = 652.13
+radius = 586.008
 
 [sub_resource type="Gradient" id="Gradient_dy0e4"]
 offsets = PackedFloat32Array(0.189474, 0.466667, 0.701754, 1)
@@ -248,8 +253,9 @@ level_mult = 1.4
 buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s"), ExtResource("4_1sbbi")])
 satellites = Array[PackedScene]([ExtResource("4_dlig4"), ExtResource("6_e2ad0")])
 pipes = Array[PackedScene]([ExtResource("6_v6dun")])
-aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
+aliens = Array[PackedScene]([ExtResource("6_ruiaf"), ExtResource("9_xltju")])
 cannons = Array[PackedScene]([ExtResource("8_gv3ya")])
+childrens = Array[PackedScene]([ExtResource("11_vnvko")])
 line_scene = ExtResource("7_rkfew")
 upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_7pejh"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a")])
 upgrade_button_scene = ExtResource("8_pnpyq")
@@ -315,6 +321,13 @@ texture = ExtResource("10_2dg3h")
 [node name="Earth" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(320, 896)
+collision_layer = 64
+
+[node name="DeathZone" type="Area2D" parent="Earth"]
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth/DeathZone"]
+shape = SubResource("CircleShape2D_ad0ei")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
 shape = SubResource("CircleShape2D_jundk")
@@ -346,6 +359,16 @@ present_launch_speed = 120.0
 unique_name_in_owner = true
 position = Vector2(826, 553)
 rotation = 0.921534
+
+[node name="ChildrenSpawn1" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(891, 597)
+rotation = 1.06989
+
+[node name="ChildrenSpawn2" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(845, 622)
+rotation = 1.06989
 
 [node name="HouseSpawnPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true

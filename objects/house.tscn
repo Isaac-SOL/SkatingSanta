@@ -47,14 +47,14 @@ interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
 colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_b5cmg"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_afukd"]
 gradient = SubResource("Gradient_ittdl")
 
 [sub_resource type="Curve" id="Curve_if0jh"]
 _data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_nfk3c"]
+[sub_resource type="CurveTexture" id="CurveTexture_8ocl5"]
 curve = SubResource("Curve_if0jh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bryn7"]
@@ -74,22 +74,22 @@ damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.3
 scale_max = 0.5
-scale_curve = SubResource("CurveTexture_nfk3c")
-color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
+scale_curve = SubResource("CurveTexture_8ocl5")
+color_initial_ramp = SubResource("GradientTexture1D_afukd")
 
 [sub_resource type="Curve" id="Curve_bklnx"]
 max_value = 100.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0734824, 14.7134), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_rcw6e"]
+[sub_resource type="CurveTexture" id="CurveTexture_4k4wk"]
 curve = SubResource("Curve_bklnx")
 
 [sub_resource type="Curve" id="Curve_u0q58"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.194888, 0), 0.0, 0.0, 0, 0, Vector2(0.421725, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ed2kb"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_5s33i"]
 curve_x = SubResource("Curve_u0q58")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t51ht"]
@@ -104,15 +104,15 @@ angular_velocity_min = -272.32
 angular_velocity_max = 169.17
 directional_velocity_min = 1.0
 directional_velocity_max = 1.0
-directional_velocity_curve = SubResource("CurveXYZTexture_ed2kb")
+directional_velocity_curve = SubResource("CurveXYZTexture_5s33i")
 gravity = Vector3(0, 0, 0)
 damping_min = 50.782
 damping_max = 100.0
-damping_curve = SubResource("CurveTexture_rcw6e")
+damping_curve = SubResource("CurveTexture_4k4wk")
 scale_min = 0.3
 scale_max = 0.5
-scale_curve = SubResource("CurveTexture_nfk3c")
-color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
+scale_curve = SubResource("CurveTexture_8ocl5")
+color_initial_ramp = SubResource("GradientTexture1D_afukd")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1w86f"]
 random_pitch = 1.05

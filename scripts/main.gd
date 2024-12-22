@@ -36,6 +36,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var repeatable_upgrades: Array[RepeatableUpgrade]
 @export var repeatable_upgrade_button_scene: PackedScene
 
+
 @export var picked_upgrades: Array[StringName] = []
 
 var game_state: GameState = GameState.RUNNING
@@ -67,11 +68,11 @@ var time_left: float = 120 :
 var presents: int = 5 :
 	set(value):
 		presents = value
-		update_ammo_text()
+		update_ammo_barr()
 var reload: float = 0 :
 	set(value):
 		reload = value
-		update_ammo_text()
+		update_ammo_barr()
 var dash_reload: float = 0.0 :
 	set(value):
 		dash_reload = value
@@ -86,6 +87,8 @@ func _ready() -> void:
 	hp = %Character.start_hp
 	time_left = initial_time
 	presents = max_presents
+	%HP.update()
+	update_max_ammo_barr()
 
 func _process(delta: float) -> void:
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
@@ -270,6 +273,12 @@ func end_game():
 	screen_click_protection()
 	%LabelEndPresents.text = "Presents offered: " + str(score)
 
+func update_ammo_barr():
+	%Ammo.set_value( 10 * (presents + reload / present_reload_time) )
+	
+func update_max_ammo_barr():
+	%Ammo.set_mask( max_presents - 5)
+
 func update_ammo_text():
 	%AmmoLabel.text = "Presents: " + str(presents) + " (" + str(floori(reload * 100 / present_reload_time)) + "%)"
 
@@ -286,6 +295,7 @@ func _on_house_destroyed_frfr():
 
 func _on_character_hit() -> void:
 	hp -= 1
+	%HP.update()
 	if hp <= 0:
 		kill()
 
@@ -335,9 +345,11 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		speed_bonus *= 1.1
 	elif upgrade_id == &"MORE_PRESENTS":
 		max_presents += 1
+		update_max_ammo_barr()
 	elif upgrade_id == &"MORE_HP":
 		hp += 2
 		%Character.start_hp += 1
+		%HP.update()
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
 	elif upgrade_id == &"MORE_TIME":

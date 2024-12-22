@@ -1,0 +1,111 @@
+[gd_scene load_steps=4 format=3 uid="uid://betsd6ni68ahl"]
+
+[ext_resource type="Script" path="res://scripts/double_upgrade_button.gd" id="1_bkue0"]
+[ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="2_do432"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qdbi"]
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Button" type="Button"]
+offset_right = 195.0
+offset_bottom = 245.0
+size_flags_horizontal = 3
+script = ExtResource("1_bkue0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginBase" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="IconBase" type="TextureRect" parent="VBoxContainer/MarginBase"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.588235)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_do432")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginBase"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginBase/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleBase" type="RichTextLabel" parent="VBoxContainer/MarginBase/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center][font_size=16]Upgrade Name"
+fit_content = true
+
+[node name="DescriptionBase" type="RichTextLabel" parent="VBoxContainer/MarginBase/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[font_size=12]Upgrade effect lorem ipsum dolor sit amet"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "+"
+label_settings = SubResource("LabelSettings_0qdbi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginRepeatable" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginRepeatable"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="IconRepeatable" type="TextureRect" parent="VBoxContainer/MarginRepeatable/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_do432")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginRepeatable/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleRepeatable" type="RichTextLabel" parent="VBoxContainer/MarginRepeatable/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center][font_size=16]Upgrade Name"
+fit_content = true

@@ -32,9 +32,8 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var line_scene: PackedScene
 
 @export var upgrades: Array[Upgrade]
-@export var upgrade_button_scene: PackedScene
 @export var repeatable_upgrades: Array[RepeatableUpgrade]
-@export var repeatable_upgrade_button_scene: PackedScene
+@export var double_upgrade_button_scene: PackedScene
 
 @export var picked_upgrades: Array[StringName] = []
 
@@ -239,19 +238,16 @@ func start_upgrade_screen():
 		while new_upgrade in proposed_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = upgrades.pick_random()
 		proposed_upgrades.append(new_upgrade)
-		var new_upgrade_button: UpgradeButton = upgrade_button_scene.instantiate()
-		%UpgradeButtonsContainer.add_child(new_upgrade_button)
-		new_upgrade_button.set_upgrade(new_upgrade)
 	
 	var proposed_repeatable_upgrades: Array[RepeatableUpgrade] = []
-	for i in range(min(2, repeatable_upgrades.size())):
+	for i in range(proposed_upgrades.size()):
 		var new_upgrade: RepeatableUpgrade = repeatable_upgrades.pick_random()
 		while new_upgrade in proposed_repeatable_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = repeatable_upgrades.pick_random()
 		proposed_repeatable_upgrades.append(new_upgrade)
-		var new_upgrade_button: RepeatableUpgradeButton = repeatable_upgrade_button_scene.instantiate()
-		%RepeatableUpgradeButtonsContainer.add_child(new_upgrade_button)
-		new_upgrade_button.set_upgrade(new_upgrade)
+		var new_upgrade_button: DoubleUpgradeButton = double_upgrade_button_scene.instantiate()
+		%UpgradeButtonsContainer.add_child(new_upgrade_button)
+		new_upgrade_button.set_upgrades(proposed_upgrades[i], new_upgrade)
 	
 	%CanvasLayerUpgrades.visible = true
 	screen_click_protection()
@@ -302,7 +298,7 @@ func _on_button_retry_pressed() -> void:
 	get_tree().reload_current_scene()
 	Engine.time_scale = 1
 
-func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
+func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringName) -> void:
 	if game_state != GameState.WAITING_UPGRADE:
 		return
 	
@@ -314,6 +310,7 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 	
 	level += 1
 	do_upgrade_instant_effect(upgrade_id)
+	do_upgrade_instant_effect(repeatable_id)
 	%UpgradeAudio.play()
 	%Character.invincibility_left = %Character.invincibility_time
 	%Character.upgrade_effect()
@@ -322,8 +319,6 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 
 func close_upgrades_screen():
 	for child: Button in %UpgradeButtonsContainer.get_children():
-		child.queue_free()
-	for child: Button in %RepeatableUpgradeButtonsContainer.get_children():
 		child.queue_free()
 	game_state = GameState.RUNNING
 	Engine.time_scale = 1
@@ -336,7 +331,7 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 	elif upgrade_id == &"MORE_PRESENTS":
 		max_presents += 1
 	elif upgrade_id == &"MORE_HP":
-		hp += 2
+		hp += 1
 		%Character.start_hp += 1
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
@@ -361,6 +356,8 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		%Character.mass *= 1.5
 	elif upgrade_id == &"LIGHT":
 		%Character.mass *= 0.6666
+	elif upgrade_id == &"MONEY":
+		level_mult -= 0.2
 
 func screen_click_protection():
 	%CanvasLayerClickProtection.visible = true

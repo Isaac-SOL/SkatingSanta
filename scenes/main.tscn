@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=90 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://y0abmmsddhcy" path="res://objects/pipe.tscn" id="6_v6dun"]
 [ext_resource type="PackedScene" uid="uid://cc6hm3f5wpuy2" path="res://objects/speed_line.tscn" id="7_rkfew"]
 [ext_resource type="PackedScene" uid="uid://bqbqqn6f1pim4" path="res://objects/cannon.tscn" id="8_gv3ya"]
-[ext_resource type="PackedScene" uid="uid://y5vhj87ha5ca" path="res://objects/upgrade_button_2.tscn" id="8_pnpyq"]
 [ext_resource type="Texture2D" uid="uid://bm36brk13r1ho" path="res://assets/sprites/multicado.png" id="8_tdt6j"]
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
 [ext_resource type="Texture2D" uid="uid://ifgg83x4klcb" path="res://assets/sprites/boooost.png" id="9_gnnfb"]
@@ -23,29 +22,42 @@
 [ext_resource type="Texture2D" uid="uid://8x7c6jkwbq1i" path="res://assets/sprites/cloud1.png" id="11_8c04w"]
 [ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
 [ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
-[ext_resource type="PackedScene" uid="uid://d1mp57ku7y5e" path="res://objects/repeatable_upgrade_button.tscn" id="12_784fy"]
+[ext_resource type="Texture2D" uid="uid://hatww0w5ysuh" path="res://assets/sprites/boom.png" id="12_3wedo"]
 [ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
 [ext_resource type="Texture2D" uid="uid://bnvcxvlqc8mp" path="res://assets/sprites/sugar_rainbow4.png" id="12_sfbkc"]
 [ext_resource type="Texture2D" uid="uid://c3yc0ti38d7w5" path="res://assets/sprites/sugar_rainbow5.png" id="13_fb388"]
 [ext_resource type="Texture2D" uid="uid://bppegucb8lano" path="res://assets/sprites/stars1.png" id="13_uj0hh"]
 [ext_resource type="Texture2D" uid="uid://h3cyaemysf0u" path="res://assets/sprites/stars2.png" id="14_2hypx"]
 [ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]
+[ext_resource type="Texture2D" uid="uid://b3hy8yc2rmw68" path="res://assets/sprites/wingz_cane.png" id="16_omgnt"]
 [ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
+[ext_resource type="Texture2D" uid="uid://ca6dnxfn686pq" path="res://assets/sprites/boooost2.png" id="17_rodsk"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
 [ext_resource type="Texture2D" uid="uid://bgnpxxdwjaxex" path="res://assets/sprites/squive.png" id="20_11ncr"]
+[ext_resource type="Texture2D" uid="uid://pwr76r3w4a8s" path="res://assets/sprites/parachute.png" id="20_yxr3p"]
 [ext_resource type="Script" path="res://scripts/shaker_2d.gd" id="21_7foa3"]
+[ext_resource type="Texture2D" uid="uid://qija3uaf5rp" path="res://assets/sprites/filetsurete.png" id="21_kra8r"]
+[ext_resource type="Texture2D" uid="uid://dqclvh5xqjnns" path="res://assets/sprites/bigger.png" id="22_aoe52"]
+[ext_resource type="Texture2D" uid="uid://cola4cek0ahvb" path="res://assets/sprites/infectedcake.png" id="23_pjab1"]
 [ext_resource type="Texture2D" uid="uid://bjiolof1im3xp" path="res://assets/sprites/squive2fast.png" id="25_tetid"]
+[ext_resource type="Texture2D" uid="uid://ksd4qy1v6ua6" path="res://assets/sprites/hotarail.png" id="28_fdqj3"]
+[ext_resource type="Texture2D" uid="uid://cjj0c7r5u7biu" path="res://assets/sprites/coupon.png" id="28_jjyjs"]
+[ext_resource type="Texture2D" uid="uid://34w7krywykbd" path="res://assets/sprites/boom5holy.png" id="29_3s48g"]
+[ext_resource type="Texture2D" uid="uid://cyp2s868e2p17" path="res://assets/sprites/multicadoR.png" id="30_k7icv"]
 [ext_resource type="Texture2D" uid="uid://wyvvjbtippsx" path="res://assets/sprites/schwooosh.png" id="30_tgke0"]
 [ext_resource type="FontFile" uid="uid://c1vgjmpoevrgg" path="res://assets/fonts/MinecraftRegular-Bmg3.otf" id="30_wana7"]
+[ext_resource type="Texture2D" uid="uid://b3fb4wwvum1p3" path="res://assets/sprites/blocage.png" id="31_q2b1x"]
+[ext_resource type="Texture2D" uid="uid://dux7iy0wqtdut" path="res://assets/sprites/timezonerror.png" id="32_kiuk3"]
 [ext_resource type="AudioStream" uid="uid://7k2doc21mpa4" path="res://assets/audio/706994__nolit47__industrial_rusty_drums_loop180.ogg" id="35_s2fkl"]
 [ext_resource type="AudioStream" uid="uid://c8xp8rt78c0ql" path="res://assets/audio/wind.ogg" id="36_jimut"]
 [ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
+[ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
 id = &"LOAD_SHOT"
 name = "Big Present"
-icon = ExtResource("6_h3cn5")
+icon = ExtResource("12_3wedo")
 description = "Hold the button to prepare a bigger, faster present for more kids"
 dependencies = Array[StringName]([])
 
@@ -62,7 +74,7 @@ script = ExtResource("5_kqrhn")
 id = &"DASH"
 name = "Sugar Burst"
 icon = ExtResource("9_gnnfb")
-description = "[Not Implemented] Send a present to the left to dash forward"
+description = "Send a present to the left to dash forward"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_bt1gb"]
@@ -76,26 +88,26 @@ dependencies = Array[StringName]([])
 [sub_resource type="Resource" id="Resource_t402t"]
 script = ExtResource("5_kqrhn")
 id = &"SPEED_HIGH"
-name = "Uppercane"
-icon = ExtResource("6_h3cn5")
-description = "Greatly increases speed in high orbit"
+name = "Winged Cane"
+icon = ExtResource("16_omgnt")
+description = "Increases speed in high orbit"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_fe4ix"]
 script = ExtResource("5_kqrhn")
 id = &"SPEED_LOW"
-name = "Lowercane"
-icon = ExtResource("6_h3cn5")
+name = "Surface boosters"
+icon = ExtResource("17_rodsk")
 description = "Greatly increases speed in low orbit"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_yuq2w"]
 script = ExtResource("5_kqrhn")
 id = &"PARRY"
-name = "Last-Minute Present"
+name = "Magical Cane"
 icon = ExtResource("11_v50qq")
-description = "Throw a present at the very last moment to  make an entire building happy"
-dependencies = Array[StringName]([])
+description = "Throw a present right before hitting a building to make everyone happy"
+dependencies = Array[StringName]([&"BLOCK"])
 
 [sub_resource type="Resource" id="Resource_42057"]
 script = ExtResource("5_kqrhn")
@@ -108,32 +120,32 @@ dependencies = Array[StringName]([])
 [sub_resource type="Resource" id="Resource_tv622"]
 script = ExtResource("5_kqrhn")
 id = &"WORLD_BOUNCE"
-name = "Bouncy Jelly"
-icon = ExtResource("6_h3cn5")
-description = "Allows you to bounce when hitting the ground, preventing an untimely demise (but still taking damage)"
+name = "Parachute"
+icon = ExtResource("20_yxr3p")
+description = "Hitting the ground only deals 1 damage"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_uy4bj"]
 script = ExtResource("5_kqrhn")
 id = &"TOP_BOUNCE"
-name = "Vertical Momentum Dampeners"
-icon = ExtResource("6_h3cn5")
-description = "Increases your mass at high altitudes, preventing accidental exit from orbit"
+name = "Reverse Parachute"
+icon = ExtResource("21_kra8r")
+description = "Increases your mass at high altitudes"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_ohgfx"]
 script = ExtResource("5_kqrhn")
 id = &"HEAVY"
-name = "Heavy Cane"
-icon = ExtResource("10_57xcf")
+name = "Hearty meal"
+icon = ExtResource("22_aoe52")
 description = "Makes you 50% heavier"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_yeuxv"]
 script = ExtResource("5_kqrhn")
 id = &"LIGHT"
-name = "Lightweight Cane"
-icon = ExtResource("6_h3cn5")
+name = "Dubious meal"
+icon = ExtResource("23_pjab1")
 description = "Makes you 33% lighter"
 dependencies = Array[StringName]([])
 
@@ -143,7 +155,7 @@ id = &"FLOATER"
 name = "Hovercane"
 icon = ExtResource("13_fb388")
 description = "You are no longer affected by gravity"
-dependencies = Array[StringName]([&"RAINBOW", &"DASH"])
+dependencies = Array[StringName]([&"RAINBOW"])
 
 [sub_resource type="Resource" id="Resource_1vr1a"]
 script = ExtResource("5_kqrhn")
@@ -186,48 +198,96 @@ dependencies = Array[StringName]([])
 script = ExtResource("5_kqrhn")
 id = &"MARIO"
 name = "Christmas Cap"
-description = "Bounce on top of a building to avoid damage and make 1 kid happy"
+description = "Bounce on top of a building to avoid damage and make everyone happy"
+dependencies = Array[StringName]([&"WORLD_BOUNCE"])
+
+[sub_resource type="Resource" id="Resource_xhd2x"]
+script = ExtResource("5_kqrhn")
+id = &"RAIL"
+name = "Pannier-on-skis"
+icon = ExtResource("28_fdqj3")
+description = "You can slide on the ground without taking damage"
+dependencies = Array[StringName]([&"WORLD_BOUNCE"])
+
+[sub_resource type="Resource" id="Resource_n82aa"]
+script = ExtResource("5_kqrhn")
+id = &"MONEY"
+name = "Voucher"
+icon = ExtResource("28_jjyjs")
+description = "Next upgrades will happen faster"
 dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_lxu1p"]
+script = ExtResource("5_kqrhn")
+id = &"HOLY"
+name = "Sacred Surprise"
+icon = ExtResource("29_3s48g")
+description = "Surprise presents create many presents on impact"
+dependencies = Array[StringName]([&"BOMB"])
+
+[sub_resource type="Resource" id="Resource_yoqqk"]
+script = ExtResource("5_kqrhn")
+id = &"SUPER_FRAG"
+name = "Rubik's Present"
+icon = ExtResource("30_k7icv")
+description = "Presents will create even more presents when hitting the ground"
+dependencies = Array[StringName]([&"FRAG"])
+
+[sub_resource type="Resource" id="Resource_1dpen"]
+script = ExtResource("5_kqrhn")
+id = &"BLOCK"
+name = "Protective Cane"
+icon = ExtResource("31_q2b1x")
+description = "Throw a present right before hitting a building to avoid all damage"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_tdvxx"]
+script = ExtResource("5_kqrhn")
+id = &"SUPER_DASH"
+name = "Super Sugar Burst"
+icon = ExtResource("17_rodsk")
+description = "Avoid all damage while dashing"
+dependencies = Array[StringName]([&"DASH"])
 
 [sub_resource type="Resource" id="Resource_wdxe3"]
 script = ExtResource("9_7qq88")
 id = &"MORE_PRESENTS"
-name = "Hold 1 more present"
-icon = ExtResource("17_gjkxn")
+name = "+1 Max Present"
+icon = ExtResource("28_fdqj3")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_y1h6y"]
 script = ExtResource("9_7qq88")
 id = &"MORE_HP"
-name = "Heal 2 HP"
+name = "+1 Max HP"
 icon = ExtResource("18_415e6")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_pyael"]
 script = ExtResource("9_7qq88")
 id = &"MORE_LOAD"
-name = "Load new presents 10% faster"
+name = "+10% Present reload"
 icon = ExtResource("17_gjkxn")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_bpf33"]
 script = ExtResource("9_7qq88")
 id = &"MORE_SPEED"
-name = "Increase speed by 10%"
+name = "+10% speed"
 icon = ExtResource("6_h3cn5")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_7smhc"]
 script = ExtResource("9_7qq88")
 id = &"MORE_TIME"
-name = "Rollback time by 20 seconds"
-icon = ExtResource("6_h3cn5")
+name = "+20 minutes"
+icon = ExtResource("32_kiuk3")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_pb6i8"]
 script = ExtResource("9_7qq88")
 id = &"DODGE_RELOAD"
-name = "[NI] Dodge reloads 5% faster"
+name = "+5% dodge reload"
 icon = ExtResource("25_tetid")
 dependencies = Array[StringName]([&"DODGE"])
 
@@ -282,10 +342,9 @@ pipes = Array[PackedScene]([ExtResource("6_v6dun")])
 aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
 cannons = Array[PackedScene]([ExtResource("8_gv3ya")])
 line_scene = ExtResource("7_rkfew")
-upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj")])
-upgrade_button_scene = ExtResource("8_pnpyq")
+upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj"), SubResource("Resource_xhd2x"), SubResource("Resource_n82aa"), SubResource("Resource_lxu1p"), SubResource("Resource_yoqqk"), SubResource("Resource_1dpen"), SubResource("Resource_tdvxx")])
 repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
-repeatable_upgrade_button_scene = ExtResource("12_784fy")
+double_upgrade_button_scene = ExtResource("41_cwkee")
 
 [node name="CameraRot" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -495,14 +554,7 @@ alignment = 1
 
 [node name="UpgradeButtonsContainer" type="HBoxContainer" parent="CanvasLayerUpgrades/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-size_flags_vertical = 4
-alignment = 1
-
-[node name="RepeatableUpgradeButtonsContainer" type="HBoxContainer" parent="CanvasLayerUpgrades/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 75)
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1

@@ -281,11 +281,10 @@ stream_3/stream = ExtResource("16_582la")
 stream_4/stream = ExtResource("17_16qui")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ru24s"]
-streams_count = 4
+streams_count = 3
 stream_0/stream = ExtResource("20_xwfdl")
-stream_1/stream = ExtResource("21_66b5v")
-stream_2/stream = ExtResource("22_utxr0")
-stream_3/stream = ExtResource("23_8uwx0")
+stream_1/stream = ExtResource("22_utxr0")
+stream_2/stream = ExtResource("23_8uwx0")
 
 [node name="Character" type="Area2D"]
 collision_layer = 2
@@ -375,6 +374,12 @@ max_polyphony = 4
 [node name="WahooAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_ru24s")
+volume_db = -10.0
+max_polyphony = 4
+
+[node name="OhYeahAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("21_66b5v")
 volume_db = -10.0
 max_polyphony = 4
 

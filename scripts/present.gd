@@ -57,16 +57,24 @@ func _on_area_entered(area: Area2D) -> void:
 			%AudioBounce.play()
 			has_gravity = true
 		else:
-			if can_frag and $/root/Main.has_upgrade(&"FRAG"):
-				for angle: float in [-135.0, -45.0, 45.0, 135.0]:
-					call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)))
+			if can_frag:
+				if $/root/Main.has_upgrade(&"FRAG"):
+					for angle: float in [-135.0, -45.0, 45.0, 135.0]:
+						call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)))
+				if $/root/Main.has_upgrade(&"SUPER_FRAG"):
+					for angle: float in [0, -90.0, 90.0, 180.0]:
+						call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)))
+				if surprise and $/root/Main.has_upgrade(&"HOLY"):
+					for angle: float in [-135, -90, -45, 0, 45, 90.0, 135.0, 180.0]:
+						call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)), true)
 			call_deferred("destroy", area)
 
-func spawn_frag(direction: Vector2):
+func spawn_frag(direction: Vector2, force_normal: bool = false):
 	var new_present: Present = frag.instantiate()
 	new_present.speed = direction * speed.length()
-	new_present.surprise = surprise
+	new_present.surprise = false if force_normal else surprise
 	new_present.points = points
+	new_present.has_gravity = force_normal
 	add_sibling(new_present)
 	new_present.global_position = global_position + direction * 5
 	new_present.scale = scale * 0.5

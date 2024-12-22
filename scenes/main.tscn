@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=72 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -32,24 +32,27 @@
 [ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]
 [ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
+[ext_resource type="Texture2D" uid="uid://bgnpxxdwjaxex" path="res://assets/sprites/squive.png" id="20_11ncr"]
 [ext_resource type="Script" path="res://scripts/shaker_2d.gd" id="21_7foa3"]
+[ext_resource type="Texture2D" uid="uid://bjiolof1im3xp" path="res://assets/sprites/squive2fast.png" id="25_tetid"]
 [ext_resource type="Texture2D" uid="uid://wyvvjbtippsx" path="res://assets/sprites/schwooosh.png" id="30_tgke0"]
 [ext_resource type="FontFile" uid="uid://c1vgjmpoevrgg" path="res://assets/fonts/MinecraftRegular-Bmg3.otf" id="30_wana7"]
 [ext_resource type="AudioStream" uid="uid://7k2doc21mpa4" path="res://assets/audio/706994__nolit47__industrial_rusty_drums_loop180.ogg" id="35_s2fkl"]
 [ext_resource type="AudioStream" uid="uid://c8xp8rt78c0ql" path="res://assets/audio/wind.ogg" id="36_jimut"]
+[ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
 id = &"LOAD_SHOT"
-name = "Strong Present"
+name = "Big Present"
 icon = ExtResource("6_h3cn5")
-description = "Hold the shooting button to load a stronger shot, sending the present faster and gaining more speed"
+description = "Hold the button to prepare a bigger, faster present for more kids"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_812a1"]
 script = ExtResource("5_kqrhn")
 id = &"FRAG"
-name = "Fragmentation Present"
+name = "Multi-Present"
 icon = ExtResource("8_tdt6j")
 description = "Presents will create more presents when hitting the ground"
 dependencies = Array[StringName]([])
@@ -59,7 +62,7 @@ script = ExtResource("5_kqrhn")
 id = &"DASH"
 name = "Sugar Burst"
 icon = ExtResource("9_gnnfb")
-description = "Allows you to dash forward by pressing the spacebar"
+description = "[Not Implemented] Send a present to the left to dash forward"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_bt1gb"]
@@ -73,7 +76,7 @@ dependencies = Array[StringName]([])
 [sub_resource type="Resource" id="Resource_t402t"]
 script = ExtResource("5_kqrhn")
 id = &"SPEED_HIGH"
-name = "Stellar Fuel"
+name = "Uppercane"
 icon = ExtResource("6_h3cn5")
 description = "Greatly increases speed in high orbit"
 dependencies = Array[StringName]([])
@@ -81,7 +84,7 @@ dependencies = Array[StringName]([])
 [sub_resource type="Resource" id="Resource_fe4ix"]
 script = ExtResource("5_kqrhn")
 id = &"SPEED_LOW"
-name = "Stylish Moves"
+name = "Lowercane"
 icon = ExtResource("6_h3cn5")
 description = "Greatly increases speed in low orbit"
 dependencies = Array[StringName]([])
@@ -100,14 +103,6 @@ id = &"RAINBOW"
 name = "Rainbow Cane"
 icon = ExtResource("12_sfbkc")
 description = "The Candy Cane now shoots rainbows"
-dependencies = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_7pejh"]
-script = ExtResource("5_kqrhn")
-id = &"OMNI_SHOT"
-name = "Omnidirectional Presents"
-icon = ExtResource("6_h3cn5")
-description = "Allows you to shoot presents in any direction with the mouse"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_tv622"]
@@ -155,7 +150,43 @@ script = ExtResource("5_kqrhn")
 id = &"BOMB"
 name = "Surprise Present"
 icon = ExtResource("14_lu857")
-description = "Use the right click to send a surprise present and remove obstacles."
+description = "Press the right arrow or D to send a \"susprise present\" to remove obstacles"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_rccpv"]
+script = ExtResource("5_kqrhn")
+id = &"DODGE"
+name = "Dodge"
+icon = ExtResource("20_11ncr")
+description = "Avoid up to 1 hit every 20 seconds"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_wdf5p"]
+script = ExtResource("5_kqrhn")
+id = &"BOUNCE"
+name = "Bouncy Presents"
+description = "Presents bounce on the ground once"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_6h1xm"]
+script = ExtResource("5_kqrhn")
+id = &"RICOCHET"
+name = "Ricochet"
+description = "Presents bounce on houses once"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_qjylm"]
+script = ExtResource("5_kqrhn")
+id = &"GROUP_BONUS"
+name = "Happy Family"
+description = "Completing a building awards 2 additional happy kids"
+dependencies = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_c6ebj"]
+script = ExtResource("5_kqrhn")
+id = &"MARIO"
+name = "Christmas Cap"
+description = "Bounce on top of a building to avoid damage and make 1 kid happy"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_wdxe3"]
@@ -193,12 +224,12 @@ name = "Rollback time by 20 seconds"
 icon = ExtResource("6_h3cn5")
 dependencies = Array[StringName]([])
 
-[sub_resource type="Resource" id="Resource_ey6rm"]
+[sub_resource type="Resource" id="Resource_pb6i8"]
 script = ExtResource("9_7qq88")
-id = &"DASH_RELOAD"
-name = "Dash reloads 20% faster"
-icon = ExtResource("6_h3cn5")
-dependencies = Array[StringName]([&"DASH"])
+id = &"DODGE_RELOAD"
+name = "[NI] Dodge reloads 5% faster"
+icon = ExtResource("25_tetid")
+dependencies = Array[StringName]([&"DODGE"])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
 radius = 652.13
@@ -251,9 +282,9 @@ pipes = Array[PackedScene]([ExtResource("6_v6dun")])
 aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
 cannons = Array[PackedScene]([ExtResource("8_gv3ya")])
 line_scene = ExtResource("7_rkfew")
-upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_7pejh"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a")])
+upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj")])
 upgrade_button_scene = ExtResource("8_pnpyq")
-repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_ey6rm")])
+repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
 repeatable_upgrade_button_scene = ExtResource("12_784fy")
 
 [node name="CameraRot" type="Node2D" parent="."]
@@ -375,6 +406,12 @@ volume_db = -20.0
 [node name="WindAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("36_jimut")
+autoplay = true
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("39_5rlis")
+volume_db = -25.0
 autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

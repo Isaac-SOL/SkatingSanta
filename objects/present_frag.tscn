@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwu24podrf7ng"]
+[gd_scene load_steps=20 format=3 uid="uid://bwu24podrf7ng"]
 
 [ext_resource type="Script" path="res://scripts/present.gd" id="1_727f3"]
 [ext_resource type="Texture2D" uid="uid://dwbsiwwowq5tv" path="res://assets/sprites/cadeau_surprise.png" id="3_a0ouq"]
@@ -8,6 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://c3p8uyetnivfw" path="res://assets/audio/footstep_wood_002.ogg" id="6_agxje"]
 [ext_resource type="AudioStream" uid="uid://clhbhf5oll7ej" path="res://assets/audio/footstep_wood_003.ogg" id="7_c5r3f"]
 [ext_resource type="AudioStream" uid="uid://bamhj0ags547i" path="res://assets/audio/footstep_wood_004.ogg" id="8_rnhdh"]
+[ext_resource type="AudioStream" uid="uid://bsan3leqrmilx" path="res://assets/audio/bounce1.ogg" id="9_gpvbh"]
+[ext_resource type="AudioStream" uid="uid://cw6dbgpdxvx6x" path="res://assets/audio/bounce2.ogg" id="10_hidyu"]
+[ext_resource type="AudioStream" uid="uid://b1hqkiix7sehe" path="res://assets/audio/bounce3.ogg" id="11_n5t3c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_guh1o"]
 atlas = ExtResource("3_ooa2r")
@@ -64,6 +67,12 @@ stream_2/stream = ExtResource("6_agxje")
 stream_3/stream = ExtResource("7_c5r3f")
 stream_4/stream = ExtResource("8_rnhdh")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_15p8d"]
+streams_count = 3
+stream_0/stream = ExtResource("9_gpvbh")
+stream_1/stream = ExtResource("10_hidyu")
+stream_2/stream = ExtResource("11_n5t3c")
+
 [node name="Present" type="Area2D"]
 collision_layer = 8
 collision_mask = 21
@@ -89,6 +98,12 @@ scale = Vector2(0.62, 0.8)
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_jny2f")
 volume_db = -10.0
+
+[node name="AudioBounce" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_15p8d")
+volume_db = -10.0
+max_polyphony = 2
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

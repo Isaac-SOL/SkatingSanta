@@ -17,32 +17,35 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if not voided and area is Present and not area.surprise and area not in already_hit:
-		already_hit.append(area)
-		hp -= 1
-		hit.emit(points_awarded)
-		var guy: Node2D = %Guys.get_children().pick_random()
-		guy.queue_free()
-		for i in range(points_awarded):
-			emit_smiley(guy.position)
-		#%HappyParticles.restart()
-		#%HappyParticles.emitting = true
-		%AudioHappy.play()
-		%AudioHappyHit.play()
-		if hp <= 0:
-			destroy()
-			%AudioConfetti.play()
+		for p in area.points:
+			already_hit.append(area)
+			hp -= 1
+			hit.emit(points_awarded)
+			var guy: Node2D = %Guys.get_children().pick_random()
+			guy.queue_free()
+			for i in range(points_awarded):
+				emit_smiley(guy.position)
+			#%HappyParticles.restart()
+			#%HappyParticles.emitting = true
+			%AudioHappy.play()
+			%AudioHappyHit.play()
+			if hp <= 0:
+				destroy()
+				%AudioConfetti.play()
+				break
 
 func parry():
-	while hp > 0:
-		hp -= 1
-		hit.emit(points_awarded)
-	for child: Node2D in %Guys.get_children():
-		child.queue_free()
-		for i in range(points_awarded):
-			emit_smiley(child.position)
-	%PoofParryParticles.emitting = true
-	%AudioHappy.play()
-	destroy()
+	if not voided:
+		while hp > 0:
+			hp -= 1
+			hit.emit(points_awarded)
+		for child: Node2D in %Guys.get_children():
+			child.queue_free()
+			for i in range(points_awarded):
+				emit_smiley(child.position)
+		%PoofParryParticles.emitting = true
+		%AudioHappy.play()
+		destroy()
 
 func emit_smiley(pos: Vector2):
 	var new_smiley: Sprite2D = smiley_scene.instantiate()
@@ -58,4 +61,23 @@ func destroy():
 	%Sprite.self_modulate = Color.DIM_GRAY
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
+	if $/root/Main.has_upgrade(&"GROUP_BONUS"):
+		emit_smiley(Vector2.ZERO)
+		emit_smiley(Vector2.ZERO)
 	destroyed.emit()
+
+func _on_wahoo_area_entered(area: Area2D) -> void:
+	if area.get_collision_layer_value(2) and hp > 0 and $/root/Main.has_upgrade(&"MARIO"): # Character
+		hp -= 1
+		hit.emit(points_awarded)
+		var guy: Node2D = %Guys.get_children().pick_random()
+		guy.queue_free()
+		for i in range(points_awarded):
+			emit_smiley(guy.position)
+		%AudioHappy.play()
+		%AudioHappyHit.play()
+		if hp <= 0:
+			destroy()
+			%AudioConfetti.play()
+	elif area.get_collision_layer_value(4): # Present
+		_on_area_entered(area)

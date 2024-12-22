@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://wm8oi46umfo0"]
+
+[ext_resource type="Texture2D" uid="uid://b3jsaystkmtnj" path="res://assets/sprites/smiley.png" id="1_xih01"]
+
+[sub_resource type="GDScript" id="GDScript_27re3"]
+script/source = "extends Sprite2D
+
+@export var gravity: float = -1
+@export var target_scale: Vector2 = Vector2.ONE
+
+var speed: Vector2 = Vector2.ZERO
+
+func _ready() -> void:
+	scale = Vector2.ZERO
+	var tween = create_tween().set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, \"scale\", target_scale, 0.1).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(0.5)
+	tween.tween_property(self, \"scale\", Vector2.ZERO, 0.2).set_ease(Tween.EASE_IN)
+	tween.tween_callback(queue_free)
+
+func _process(delta: float) -> void:
+	speed.y += gravity * delta
+	global_position += speed * delta
+"
+
+[node name="Smiley" type="Sprite2D"]
+texture = ExtResource("1_xih01")
+script = SubResource("GDScript_27re3")
+gravity = -100.0

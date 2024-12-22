@@ -10,17 +10,26 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var speed_power: float = 2.0
 @export var house_spawn_timing: Vector2 = Vector2(1.0, 4.0)
 @export var satellite_spawn_timing: Vector2 = Vector2(2.0, 10.0)
+@export var pipe_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
+@export var cannon_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var initial_time: float = 120.0
 @export var max_presents: int = 5
 @export var present_reload_time: float = 1.0
 @export var dash_reload_time: float = 5.0
 @export var dash_speed: float = 10
-@export var dash_falloff: float = 0.5
+@export var dash_falloff: float = 1
+@export var base_level_need: int = 10
+@export var level_mult: float = 1.5
+@export var top_kill: float = -75
 
 @export var buildings: Array[PackedScene]
 @export var satellites: Array[PackedScene]
+@export var pipes: Array[PackedScene]
 @export var aliens: Array[PackedScene]
+@export var cannons: Array[PackedScene]
+
+@export var line_scene: PackedScene
 
 @export var upgrades: Array[Upgrade]
 @export var upgrade_button_scene: PackedScene
@@ -28,21 +37,26 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var repeatable_upgrade_button_scene: PackedScene
 
 
+@export var picked_upgrades: Array[StringName] = []
+
 var game_state: GameState = GameState.RUNNING
 var speed: float = 1.0
 var next_house_spawn: float
 var next_satellite_spawn: float
+var next_pipe_spawn: float
 var next_alien_spawn: float
+var next_cannon_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
-
-var picked_upgrades: Array[StringName] = []
+var phase: int = 0
+@onready var curr_level_need: int = base_level_need
+var camera_target_y: float = 0.0
 
 var score: int = 0 :
 	set(value):
 		score = value
-		%ScoreLabel.text = "Happy Kids: " + str(score)
+		%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 var hp: int = 3 :
 	set(value):
 		hp = value
@@ -62,13 +76,15 @@ var reload: float = 0 :
 var dash_reload: float = 0.0 :
 	set(value):
 		dash_reload = value
-		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time))) + "%"
+		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time)) + "%")
 
 func _ready() -> void:
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
 	next_satellite_spawn = randf_range(satellite_spawn_timing.x, satellite_spawn_timing.y)
+	next_pipe_spawn = randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
 	next_alien_spawn = randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
-	hp = %Character.start_hp - 1
+	next_cannon_spawn = randf_range(cannon_spawn_timing.x, cannon_spawn_timing.y)
+	hp = %Character.start_hp
 	time_left = initial_time
 	presents = max_presents
 	%HP.update()
@@ -78,10 +94,17 @@ func _process(delta: float) -> void:
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
 	norm_pos = pow(clamp(norm_pos, 0, 1), speed_power)
 	speed = lerpf(speed_high, speed_low, pow(norm_pos, speed_power))
+	var bgm_speed = speed * speed_bonus
 	speed += dash_additional_speed
 	speed *= speed_bonus
 	
-	#Rotation Parallax
+	# Wind volume and pitch
+	var norm_speed_wind_db = clampf((speed - 0.1) / 0.2, 0, 1)
+	%WindAudio.volume_db = lerpf(-40, -5, norm_speed_wind_db)
+	var norm_speed_wind_pitch = clampf((speed - 0.25) / 0.1, 0, 1)
+	%WindAudio.pitch_scale = lerpf(1, 1.5, norm_speed_wind_pitch)
+	
+	# Rotation parallax
 	%Earth.rotation -= speed * delta
 	%EarthSprite.rotation -= speed * delta
 	%StarsSprite1.rotation -= speed * delta * 0.05
@@ -89,28 +112,39 @@ func _process(delta: float) -> void:
 	%CloudSprite2.rotation -= speed * delta * 0.5
 	%CloudSprite1.rotation -= speed * delta * 0.6
 	
-	if has_upgrade(&"DASH"):
-		if dash_reload > 0:
-			dash_reload -= delta
-			if dash_reload < 0:
-				dash_reload = 0
-		if Input.is_action_just_pressed("dash") and dash_reload <= 0:
-			start_dash()
-			dash_reload = dash_reload_time
+	# Speed lines
+	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)
+	%SpeedLines.modulate = Color(1, 1, 1, norm_speed)
 	
-	process_spawn_houses(delta)
-	process_spawn_satellites(delta)
+	# BGM pitch
+	var norm_speed_bgm = clampf((bgm_speed - 0.12) / 0.5, 0, 1)
+	%BGM.pitch_scale = lerpf(1, 1.1, norm_speed_bgm)
+	
+	# Move camera
+	var cam_target := clampf(%Character.position.y - 50, -75, 0)
+	%CameraRot.position.y = Util.decayf(%CameraRot.position.y, cam_target, 8 * delta)
+	
+	match phase:
+		0:
+			process_spawn_satellites(delta)
+		1:
+			process_spawn_pipe(delta)
+			
 	process_spawn_aliens(delta)
+	process_spawn_houses(delta)
+	process_spawn_cannon(delta)
 	
 	process_present_reload(delta)
 	
 	process_global_timer(delta)
-	
+	if time_left <= 100.0 and phase != 1:
+		phase = 1
 	process_pause()
 
 func start_dash():
 	dash_additional_speed = dash_speed
-	var tween = create_tween()
+	%Character.vertical_speed = -50
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "dash_additional_speed", 0.0, dash_falloff)
 
 func process_spawn_houses(delta: float):
@@ -122,6 +156,16 @@ func process_spawn_houses(delta: float):
 		new_house.global_position = %HouseSpawnPosition.global_position
 		new_house.global_rotation = %HouseSpawnPosition.global_rotation
 		new_house.hit.connect(_on_house_destroyed)
+		new_house.destroyed.connect(_on_house_destroyed_frfr)
+
+func process_spawn_cannon(delta: float):
+	next_cannon_spawn -= speed * delta * 1.3
+	if next_cannon_spawn <= 0:
+		next_cannon_spawn += randf_range(cannon_spawn_timing.x, cannon_spawn_timing.y)
+		var new_cannon: Cannon = cannons.pick_random().instantiate()
+		%Earth.add_child(new_cannon)
+		new_cannon.global_position = %HouseSpawnLowerGround.global_position
+		new_cannon.global_rotation = %HouseSpawnLowerGround.global_rotation
 
 func process_spawn_satellites(delta: float):
 	next_satellite_spawn -= speed * delta
@@ -132,16 +176,27 @@ func process_spawn_satellites(delta: float):
 		var satellite_pos: Vector2 = lerp(%SatelliteSpawnLow.global_position, %SatelliteSpawnHigh.global_position, randf())
 		new_satellite.global_position = satellite_pos
 		new_satellite.global_rotation = %SatelliteSpawnLow.global_rotation
+		
+func process_spawn_pipe(delta: float):
+	next_pipe_spawn -= speed * delta * 1.5
+	if next_pipe_spawn <= 0:
+		next_pipe_spawn += randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
+		var new_pipe: Pipe = pipes.pick_random().instantiate()
+		%Earth.add_child(new_pipe)
+		var pipe_pos: Vector2 = lerp(%SatelliteSpawnLow.global_position, %SatelliteSpawnHigh.global_position, randf())
+		new_pipe.global_position = pipe_pos
+		new_pipe.global_rotation = %SatelliteSpawnLow.global_rotation
+
 
 func process_spawn_aliens(delta: float):
 	next_alien_spawn -= speed * delta
 	if next_alien_spawn <= 0:
 		next_alien_spawn += randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
-		var new_alien: Alien = aliens.pick_random().instantiate()
+		var new_alien: House = aliens.pick_random().instantiate()
 		%Earth.add_child(new_alien)
 		new_alien.global_position = %AlienSpawnPosition.global_position
 		new_alien.global_rotation = %AlienSpawnPosition.global_rotation
-		new_alien.hit.connect(_on_alien_destroyed)
+		new_alien.hit.connect(_on_house_destroyed)
 
 func process_present_reload(delta: float):
 	if presents < max_presents:
@@ -172,7 +227,11 @@ func has_upgrade(upgrade_id: StringName) -> bool:
 
 func start_upgrade_screen():
 	if upgrades.is_empty():
+		curr_level_need = 1000000
 		return
+	base_level_need *= level_mult
+	curr_level_need += base_level_need
+	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 	
 	game_state = GameState.WAITING_UPGRADE
 	Engine.time_scale = 0
@@ -198,17 +257,20 @@ func start_upgrade_screen():
 		new_upgrade_button.set_upgrade(new_upgrade)
 	
 	%CanvasLayerUpgrades.visible = true
+	screen_click_protection()
 
 func kill():
 	Engine.time_scale = 0
 	game_state = GameState.END_GAME
 	%CanvasLayerGameOver.visible = true
+	screen_click_protection()
 	%Character.visible = false
 
 func end_game():
 	Engine.time_scale = 0
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
+	screen_click_protection()
 	%LabelEndPresents.text = "Presents offered: " + str(score)
 
 func update_ammo_barr():
@@ -216,16 +278,20 @@ func update_ammo_barr():
 	
 func update_max_ammo_barr():
 	%Ammo.set_mask( max_presents - 5)
-	
-func _on_house_destroyed():
-	score += 1
-	if score % 2 == 0:
+
+func update_ammo_text():
+	%AmmoLabel.text = "Presents: " + str(presents) + " (" + str(floori(reload * 100 / present_reload_time)) + "%)"
+
+func _on_house_destroyed(points_awarded: int):
+	score += points_awarded
+	if score >= curr_level_need:
 		start_upgrade_screen()
-		
-func _on_alien_destroyed():
-	score += 3
-	if score % 10 == 0: # TODO change this
-		start_upgrade_screen()
+
+func _on_house_destroyed_frfr():
+	if has_upgrade(&"GROUP_BONUS"):
+		score += 2
+		if game_state != GameState.WAITING_UPGRADE and score >= curr_level_need:
+			start_upgrade_screen()
 
 func _on_character_hit() -> void:
 	hp -= 1
@@ -235,6 +301,7 @@ func _on_character_hit() -> void:
 
 func _on_character_hit_ground() -> void:
 	hp = 0
+	%RectGround.visible = true
 	kill()
 
 func _on_character_exited_screen() -> void:
@@ -257,6 +324,9 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 	
 	level += 1
 	do_upgrade_instant_effect(upgrade_id)
+	%UpgradeAudio.play()
+	%Character.invincibility_left = %Character.invincibility_time
+	%Character.upgrade_effect()
 	
 	close_upgrades_screen()
 
@@ -277,7 +347,7 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		max_presents += 1
 		update_max_ammo_barr()
 	elif upgrade_id == &"MORE_HP":
-		hp += 1
+		hp += 2
 		%Character.start_hp += 1
 		%HP.update()
 	elif upgrade_id == &"MORE_LOAD":
@@ -286,6 +356,8 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		time_left += 20
 	elif upgrade_id == &"DASH_RELOAD":
 		dash_reload_time *= 0.8
+	elif upgrade_id == &"DODGE_RELOAD":
+		%Character.dodge_reload_time *= 0.95
 	
 	# Non-repeatables
 	elif upgrade_id == &"SPEED_LOW":
@@ -297,9 +369,21 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 	elif upgrade_id == &"RAINBOW":
 		%RainbowLine.running = true
 		%RainbowLine.visible = true
-	elif upgrade_id == &"DASH":
-		%DashLabel.visible = true
 	elif upgrade_id == &"HEAVY":
 		%Character.mass *= 1.5
 	elif upgrade_id == &"LIGHT":
 		%Character.mass *= 0.6666
+
+func screen_click_protection():
+	%CanvasLayerClickProtection.visible = true
+	await get_tree().create_timer(0.7, true, false, true).timeout
+	%CanvasLayerClickProtection.visible = false
+
+func screenshake(amount: float, duration: float):
+	%Shaker2D.shake(amount, duration)
+
+func hitstop(duration: float):
+	get_tree().paused = true
+	await get_tree().create_timer(duration, true, false, true).timeout
+	get_tree().paused = false
+	

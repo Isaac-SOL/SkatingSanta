@@ -1,8 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://co3nfgr6pq3ga"]
+[gd_scene load_steps=31 format=3 uid="uid://co3nfgr6pq3ga"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
+[ext_resource type="PackedScene" uid="uid://wm8oi46umfo0" path="res://objects/smiley.tscn" id="2_nwek5"]
 [ext_resource type="Texture2D" uid="uid://ckhu4fsxyxwnm" path="res://assets/sprites/maison_rouge.png" id="2_otsd3"]
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_vm2sc"]
+[ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="4_ps47y"]
+[ext_resource type="AudioStream" uid="uid://8edqmpyac841" path="res://assets/audio/impactMetal_medium_000.ogg" id="6_av7a0"]
+[ext_resource type="AudioStream" uid="uid://bsxjqafkpkee4" path="res://assets/audio/wiii.ogg" id="6_sxi4y"]
+[ext_resource type="AudioStream" uid="uid://dd37448r4myhi" path="res://assets/audio/impactMetal_medium_003.ogg" id="7_ht6oi"]
+[ext_resource type="AudioStream" uid="uid://bn038c3p87nlr" path="res://assets/audio/party1.ogg" id="8_q1r52"]
 
 [sub_resource type="Gradient" id="Gradient_ogiuy"]
 colors = PackedColorArray(0, 0, 0, 1, 0.696886, 0.696886, 0.696886, 1)
@@ -10,40 +16,159 @@ colors = PackedColorArray(0, 0, 0, 1, 0.696886, 0.696886, 0.696886, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_van3s"]
 gradient = SubResource("Gradient_ogiuy")
 
+[sub_resource type="Curve" id="Curve_bllyk"]
+_data = [Vector2(0, 0), 0.0, 3.34607, 0, 0, Vector2(0.811502, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -16.6967, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_52030"]
+curve = SubResource("Curve_bllyk")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2fabr"]
 particle_flag_disable_z = true
 angle_min = -90.0
 angle_max = 90.0
-direction = Vector3(1, 1, 0)
-initial_velocity_max = 2.0
-gravity = Vector3(0, -10, 0)
-scale_min = 0.5
-scale_max = 0.5
+direction = Vector3(1, -1, 0)
+spread = 10.0
+initial_velocity_min = 5.73
+initial_velocity_max = 13.46
+gravity = Vector3(0, -15, 0)
+damping_min = 7.895
+damping_max = 7.895
+scale_min = 4.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_52030")
 color_ramp = SubResource("GradientTexture1D_van3s")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp85y"]
-size = Vector2(25.345, 31.745)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2y0u"]
+size = Vector2(25.345, 24.8725)
+
+[sub_resource type="Gradient" id="Gradient_ittdl"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b5cmg"]
+gradient = SubResource("Gradient_ittdl")
+
+[sub_resource type="Curve" id="Curve_if0jh"]
+_data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_nfk3c"]
+curve = SubResource("Curve_if0jh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bryn7"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 32.92
+initial_velocity_max = 75.5
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_nfk3c")
+color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
+
+[sub_resource type="Curve" id="Curve_bklnx"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0734824, 14.7134), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rcw6e"]
+curve = SubResource("Curve_bklnx")
+
+[sub_resource type="Curve" id="Curve_u0q58"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.194888, 0), 0.0, 0.0, 0, 0, Vector2(0.421725, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ed2kb"]
+curve_x = SubResource("Curve_u0q58")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t51ht"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 25.0
+initial_velocity_min = 169.96
+initial_velocity_max = 353.44
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_ed2kb")
+gravity = Vector3(0, 0, 0)
+damping_min = 50.782
+damping_max = 100.0
+damping_curve = SubResource("CurveTexture_rcw6e")
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_nfk3c")
+color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
+
+[sub_resource type="GDScript" id="GDScript_fy0da"]
+script/source = "extends Area2D
+
+var voided: bool :
+	get:
+		return get_parent().voided
+
+func parry():
+	get_parent().parry()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fg2ui"]
+size = Vector2(25.345, 6.8725)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1w86f"]
+random_pitch = 1.05
+streams_count = 1
+stream_0/stream = ExtResource("6_sxi4y")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_illv8"]
+random_pitch = 1.05
+streams_count = 2
+stream_0/stream = ExtResource("6_av7a0")
+stream_1/stream = ExtResource("7_ht6oi")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ignk1"]
+playback_mode = 1
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("8_q1r52")
 
 [node name="House" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_2rqh5")
+smiley_scene = ExtResource("2_nwek5")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 scale = Vector2(0.384, 0.384)
 texture = ExtResource("2_otsd3")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-visible = false
 position = Vector2(6, -10)
-amount = 30
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_2fabr")
+lifetime = 3.0
 preprocess = 1.0
+randomness = 0.5
+local_coords = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.76837e-07, 0)
-shape = SubResource("RectangleShape2D_mp85y")
+position = Vector2(-4.76837e-07, 3.43625)
+shape = SubResource("RectangleShape2D_c2y0u")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-4.76837e-07, 1.66893e-06)
@@ -55,5 +180,55 @@ unique_name_in_owner = true
 [node name="LittleGuy" parent="Guys" instance=ExtResource("3_vm2sc")]
 position = Vector2(0, 4)
 
+[node name="PoofParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_bryn7")
+texture = ExtResource("4_ps47y")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="PoofParryParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_t51ht")
+texture = ExtResource("4_ps47y")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="Wahoo" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 10
+script = SubResource("GDScript_fy0da")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wahoo"]
+position = Vector2(-4.76837e-07, -12.4363)
+shape = SubResource("RectangleShape2D_fg2ui")
+
+[node name="AudioHappy" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_1w86f")
+volume_db = -35.0
+max_polyphony = 4
+
+[node name="AudioHappyHit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_illv8")
+volume_db = -10.0
+max_polyphony = 4
+
+[node name="AudioConfetti" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ignk1")
+volume_db = -30.0
+max_polyphony = 4
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Wahoo" to="." method="_on_wahoo_area_entered"]

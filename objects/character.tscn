@@ -1,10 +1,30 @@
-[gd_scene load_steps=18 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=44 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
 [ext_resource type="Texture2D" uid="uid://0k4qldwxq17s" path="res://assets/sprites/Santa_sprite_sheet.png" id="3_5i80b"]
+[ext_resource type="PackedScene" uid="uid://cysx1jkbtkfri" path="res://objects/flash.tscn" id="3_dmu4p"]
 [ext_resource type="Texture2D" uid="uid://b2emuwix2vrs6" path="res://assets/sprites/cane.png" id="3_ecoa4"]
+[ext_resource type="Texture2D" uid="uid://7aenkc6wso2l" path="res://assets/sprites/ballYellow.png" id="4_inetx"]
 [ext_resource type="PackedScene" uid="uid://dxpqlebyvk2kb" path="res://objects/load_line.tscn" id="5_0pxab"]
+[ext_resource type="Texture2D" uid="uid://c8jeyvlmto6ue" path="res://assets/sprites/santa_fast.png" id="5_ooh18"]
+[ext_resource type="AudioStream" uid="uid://dp6cl62e2wakl" path="res://assets/audio/footstep_snow_000.ogg" id="8_vm51p"]
+[ext_resource type="AudioStream" uid="uid://d4fvbhly8renv" path="res://assets/audio/footstep_snow_001.ogg" id="9_r0qhe"]
+[ext_resource type="AudioStream" uid="uid://vc41nqsxtjew" path="res://assets/audio/footstep_snow_002.ogg" id="10_fr76n"]
+[ext_resource type="AudioStream" uid="uid://cdxnjiji1wfcu" path="res://assets/audio/footstep_snow_003.ogg" id="11_jf12v"]
+[ext_resource type="AudioStream" uid="uid://lub0igey7sa5" path="res://assets/audio/footstep_snow_004.ogg" id="12_71usc"]
+[ext_resource type="AudioStream" uid="uid://uv5ynmllpbkw" path="res://assets/audio/impactPunch_medium_000.ogg" id="13_3l1d7"]
+[ext_resource type="AudioStream" uid="uid://cpfremgrlcyh5" path="res://assets/audio/impactPunch_medium_001.ogg" id="14_3nymp"]
+[ext_resource type="AudioStream" uid="uid://kdfvij7uiecg" path="res://assets/audio/impactPunch_medium_002.ogg" id="15_n405a"]
+[ext_resource type="AudioStream" uid="uid://drhiixswkdkn" path="res://assets/audio/impactPunch_medium_003.ogg" id="16_582la"]
+[ext_resource type="AudioStream" uid="uid://b18xwul1wjfa5" path="res://assets/audio/impactPunch_medium_004.ogg" id="17_16qui"]
+[ext_resource type="AudioStream" uid="uid://dpswq0wx1a7ww" path="res://assets/audio/parry.ogg" id="18_0eq0e"]
+[ext_resource type="AudioStream" uid="uid://br640ojkphcgo" path="res://assets/audio/hohoho.ogg" id="19_eu5he"]
+[ext_resource type="AudioStream" uid="uid://bjcuvkhmkigwh" path="res://assets/audio/oof.ogg" id="19_i55gc"]
+[ext_resource type="AudioStream" uid="uid://cqu12wv1nwti6" path="res://assets/audio/waha.ogg" id="20_xwfdl"]
+[ext_resource type="AudioStream" uid="uid://cscmfb2nhdvch" path="res://assets/audio/ohyeah.ogg" id="21_66b5v"]
+[ext_resource type="AudioStream" uid="uid://bpmln7tet4fa" path="res://assets/audio/whohoho.ogg" id="22_utxr0"]
+[ext_resource type="AudioStream" uid="uid://dvv4b67ggx7c3" path="res://assets/audio/wahou.ogg" id="23_8uwx0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aonbj"]
 atlas = ExtResource("3_5i80b")
@@ -40,15 +60,19 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ooh18")
+}],
+"loop": true,
+"name": &"fast",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0jxee"]
 radius = 5.0
-height = 23.43
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_my1uq"]
-radius = 3.0
-height = 20.0
+height = 17.37
 
 [sub_resource type="Gradient" id="Gradient_34qtd"]
 offsets = PackedFloat32Array(0, 0.447917, 1)
@@ -78,20 +102,214 @@ scale_max = 4.0
 scale_curve = SubResource("CurveTexture_w3ey2")
 color_ramp = SubResource("GradientTexture1D_tng0t")
 
+[sub_resource type="Animation" id="Animation_jkwyw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CaneSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 6.855)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CaneSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CaneSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CaneSprite2D:flip_v")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_q2fjk"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CaneSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 6.855)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CaneSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CaneSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CaneSprite2D:flip_v")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_r4l3n"]
+resource_name = "parry"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CaneSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.12, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -7), Vector2(7, -4), Vector2(8, 4), Vector2(0, 6.855)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CaneSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.12, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-1.19405, -0.944202, -0.466879, -0.00734484]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CaneSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.785, 0.785), Vector2(0.785, 0.785), Vector2(0.5, 0.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CaneSprite2D:flip_v")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_khcxs"]
+_data = {
+"RESET": SubResource("Animation_jkwyw"),
+"idle": SubResource("Animation_q2fjk"),
+"parry": SubResource("Animation_r4l3n")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0feps"]
+streams_count = 5
+stream_0/stream = ExtResource("8_vm51p")
+stream_1/stream = ExtResource("9_r0qhe")
+stream_2/stream = ExtResource("10_fr76n")
+stream_3/stream = ExtResource("11_jf12v")
+stream_4/stream = ExtResource("12_71usc")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u1nxg"]
+streams_count = 5
+stream_0/stream = ExtResource("13_3l1d7")
+stream_1/stream = ExtResource("14_3nymp")
+stream_2/stream = ExtResource("15_n405a")
+stream_3/stream = ExtResource("16_582la")
+stream_4/stream = ExtResource("17_16qui")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ru24s"]
+streams_count = 4
+stream_0/stream = ExtResource("20_xwfdl")
+stream_1/stream = ExtResource("21_66b5v")
+stream_2/stream = ExtResource("22_utxr0")
+stream_3/stream = ExtResource("23_8uwx0")
+
 [node name="Character" type="Area2D"]
 collision_layer = 2
-collision_mask = 21
+collision_mask = 53
 script = ExtResource("1_g5wu1")
+start_hp = 5
 mass = 100.0
 upwards_impulse = 100.0
 downwards_impulse = 50.0
 impulse_override_speed = false
 hit_updards_impulse = 100.0
 angle_by_speed = 0.2
+speed_animation_limit = 0.3
 present_scene = ExtResource("2_ek7se")
 present_launch_speed = 60.0
 present_parry_time = 0.15
 present_max_load_mult = 2.5
+flash_scene = ExtResource("3_dmu4p")
+
+[node name="BallSprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_inetx")
 
 [node name="CaneSprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -105,17 +323,12 @@ texture_filter = 1
 position = Vector2(0, -7.375)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_rrjhe")
+animation = &"fast"
 autoplay = "default"
-frame_progress = 0.920633
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6.685)
+position = Vector2(0, -4.685)
 shape = SubResource("CapsuleShape2D_0jxee")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-rotation = 1.57079
-shape = SubResource("CapsuleShape2D_my1uq")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0.5, -0.499999)
@@ -133,6 +346,49 @@ position = Vector2(-7, 4)
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_pw0b7")
 preprocess = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_khcxs")
+}
+autoplay = "idle"
+
+[node name="ThrowAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_0feps")
+volume_db = -25.0
+max_polyphony = 4
+
+[node name="HitAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_u1nxg")
+volume_db = 5.0
+max_polyphony = 4
+
+[node name="DodgeAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("19_eu5he")
+volume_db = -15.0
+max_polyphony = 4
+
+[node name="WahooAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ru24s")
+volume_db = -10.0
+max_polyphony = 4
+
+[node name="OofAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("19_i55gc")
+volume_db = -10.0
+max_polyphony = 4
+
+[node name="ParryAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("18_0eq0e")
+volume_db = -5.0
+max_polyphony = 4
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

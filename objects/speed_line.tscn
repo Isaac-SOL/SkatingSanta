@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc6hm3f5wpuy2"]
+
+[ext_resource type="Texture2D" uid="uid://wyvvjbtippsx" path="res://assets/sprites/schwooosh.png" id="1_fkpqp"]
+
+[node name="SpeedLine" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fkpqp")

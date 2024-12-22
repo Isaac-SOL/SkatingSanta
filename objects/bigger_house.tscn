@@ -1,22 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgepofsrw6blq"]
+[gd_scene load_steps=6 format=3 uid="uid://bgepofsrw6blq"]
 
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="1_6kdpd"]
 [ext_resource type="Texture2D" uid="uid://1tinr280x03i" path="res://assets/sprites/appartement_grand.png" id="2_b42lw"]
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_4xwt1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bgard"]
-size = Vector2(24, 67)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohhwe"]
+size = Vector2(24, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqlmw"]
+size = Vector2(24, 7)
 
 [node name="BiggerHouse" instance=ExtResource("1_6kdpd")]
 hp = 5
 
-[node name="Sprite2D2" parent="." index="0"]
-position = Vector2(1.90735e-06, -18.1179)
+[node name="Sprite" parent="." index="0"]
+position = Vector2(0, -18.615)
 texture = ExtResource("2_b42lw")
 
+[node name="GPUParticles2D" parent="." index="1"]
+position = Vector2(6, -47)
+
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(4.76837e-07, -17.5)
-shape = SubResource("RectangleShape2D_bgard")
+position = Vector2(4.76837e-07, -14.5)
+shape = SubResource("RectangleShape2D_ohhwe")
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="3"]
 position = Vector2(-1.19209e-07, -18)
@@ -33,3 +39,7 @@ position = Vector2(1, -14)
 
 [node name="LittleGuy2" parent="Guys" index="3" instance=ExtResource("3_4xwt1")]
 position = Vector2(-9, -5)
+
+[node name="CollisionShape2D" parent="Wahoo" index="0"]
+position = Vector2(-4.76837e-07, -48.5)
+shape = SubResource("RectangleShape2D_nqlmw")

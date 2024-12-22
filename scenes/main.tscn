@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=78 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -28,6 +28,19 @@
 [ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]
 [ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
+[ext_resource type="Texture2D" uid="uid://duq18vh8e5uu1" path="res://assets/sprites/cadeau_line_vide.png" id="29_b4kqe"]
+[ext_resource type="Script" path="res://scripts/Ammo.gd" id="29_nd4gb"]
+[ext_resource type="Texture2D" uid="uid://47yxma5yrmuy" path="res://assets/sprites/cadeau_line_white.png" id="30_wqi3r"]
+[ext_resource type="Shader" path="res://Shader/mask.gdshader" id="32_lqem0"]
+[ext_resource type="Texture2D" uid="uid://tha2vko3anog" path="res://shader/whitetoblack.png" id="33_blh7w"]
+[ext_resource type="Script" path="res://scripts/hp.gd" id="34_h1wl4"]
+[ext_resource type="Texture2D" uid="uid://c1l3ltgatwycj" path="res://assets/sprites/Canne_barrc.png" id="36_61xrk"]
+[ext_resource type="Texture2D" uid="uid://ds7r68e70uhtr" path="res://assets/sprites/Canne_brokec.png" id="37_drntl"]
+[ext_resource type="Texture2D" uid="uid://bgxxq44lqoqjo" path="res://shader/Canne_cacheb.png" id="37_rdydd"]
+[ext_resource type="Shader" path="res://scenes/main.gdshader" id="39_acrwy"]
+[ext_resource type="Texture2D" uid="uid://bio0c531lmt" path="res://shader/Canne_cache.png" id="39_iriej"]
+[ext_resource type="Texture2D" uid="uid://cvqjsk2u7m7qj" path="res://shader/Canne_cache_carre.png" id="40_nivyf"]
+[ext_resource type="Texture2D" uid="uid://omwj84wan0br" path="res://assets/sprites/can_sprite.png" id="40_uclux"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -194,6 +207,99 @@ dependencies = Array[StringName]([&"DASH"])
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
 radius = 652.13
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbyh"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.167, -0.167)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("33_blh7w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1elso"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.111, -0.111)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("39_iriej")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jg06"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.111, -0.111)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("37_rdydd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yohqp"]
+shader = ExtResource("39_acrwy")
+shader_parameter/mask_texture = ExtResource("40_nivyf")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwigj"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tgkr"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 392, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt35w"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 784, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1uws"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 1176, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm10x"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 1568, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trv70"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 1960, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7yho"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 2352, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odhrf"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 2744, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfwjd"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 3136, 1675, 392)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7q8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwigj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tgkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xt35w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1uws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm10x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trv70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7yho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odhrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfwjd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Main" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_0wmhh")
@@ -307,6 +413,22 @@ rotation = 0.753982
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Ammo" type="Control" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("29_nd4gb")
+
+[node name="Ammo_Bar" type="TextureProgressBar" parent="CanvasLayer/VBoxTopLeft/Ammo"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_vtbyh")
+layout_mode = 0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 36.0
+max_value = 150.0
+texture_under = ExtResource("29_b4kqe")
+texture_progress = ExtResource("30_wqi3r")
+
 [node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -317,16 +439,38 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "HP: 3"
 
-[node name="AmmoLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Presents: 5 (0%)"
-
 [node name="DashLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Dash: READY"
+
+[node name="HP" type="Control" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("34_h1wl4")
+
+[node name="HP_bar" type="Sprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
+visible = false
+material = SubResource("ShaderMaterial_1elso")
+position = Vector2(87, -1.5)
+scale = Vector2(0.0966667, 0.104326)
+texture = ExtResource("36_61xrk")
+
+[node name="HP_Perdu_bar" type="Sprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
+visible = false
+material = SubResource("ShaderMaterial_0jg06")
+position = Vector2(87.5, -1.5)
+scale = Vector2(0.0972222, 0.104326)
+texture = ExtResource("37_drntl")
+
+[node name="Canabar" type="AnimatedSprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_yohqp")
+position = Vector2(108.5, 1.99998)
+scale = Vector2(0.129552, 0.112245)
+sprite_frames = SubResource("SpriteFrames_f7q8s")
+frame = 6
 
 [node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 1

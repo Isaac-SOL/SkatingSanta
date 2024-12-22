@@ -15,6 +15,7 @@ var running: bool = true
 var bounces_left: int = 0
 var ricochets_left: int = 0
 var has_gravity: bool = false
+var hit_houses: Array[Area2D] = []
 
 func _ready() -> void:
 	rotation_speed = randf_range(rotation_speed_bounds.x, rotation_speed_bounds.y)
@@ -43,13 +44,15 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_collision_layer_value(5) or area.get_collision_layer_value(6): # Houses
-		if ricochets_left > 0:
-			ricochets_left -= 1
-			speed = Vector2.UP.rotated(randf_range(-PI/4, 0)) * speed.length()
-			%AudioBounce.play()
-			has_gravity = true
-		else:
-			call_deferred("destroy", area)
+		if area not in hit_houses and area.get_parent() not in hit_houses:
+			if ricochets_left > 0:
+				ricochets_left -= 1
+				speed = Vector2.UP.rotated(randf_range(-PI/4, 0)) * speed.length()
+				%AudioBounce.play()
+				has_gravity = true
+				hit_houses.append(area if area is House else area.get_parent())
+			else:
+				call_deferred("destroy", area)
 	else: # World, enemies, etc
 		if bounces_left > 0:
 			bounces_left -= 1
@@ -57,16 +60,24 @@ func _on_area_entered(area: Area2D) -> void:
 			%AudioBounce.play()
 			has_gravity = true
 		else:
-			if can_frag and $/root/Main.has_upgrade(&"FRAG"):
-				for angle: float in [-135.0, -45.0, 45.0, 135.0]:
-					call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)))
+			if can_frag:
+				if $/root/Main.has_upgrade(&"FRAG"):
+					for angle: float in [-135.0, -45.0, 45.0, 135.0]:
+						call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)))
+				if $/root/Main.has_upgrade(&"SUPER_FRAG"):
+					for angle: float in [0, -90.0, 90.0, 180.0]:
+						call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)))
+				if surprise and $/root/Main.has_upgrade(&"HOLY"):
+					for angle: float in [-135, -90, -45, 0, 45, 90.0, 135.0, 180.0]:
+						call_deferred(&"spawn_frag", Vector2.UP.rotated(deg_to_rad(angle)), true)
 			call_deferred("destroy", area)
 
-func spawn_frag(direction: Vector2):
+func spawn_frag(direction: Vector2, force_normal: bool = false):
 	var new_present: Present = frag.instantiate()
 	new_present.speed = direction * speed.length()
-	new_present.surprise = surprise
+	new_present.surprise = false if force_normal else surprise
 	new_present.points = points
+	new_present.has_gravity = force_normal
 	add_sibling(new_present)
 	new_present.global_position = global_position + direction * 5
 	new_present.scale = scale * 0.5

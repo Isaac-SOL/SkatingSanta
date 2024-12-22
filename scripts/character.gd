@@ -100,6 +100,8 @@ func process_shoot_loaded(delta: float):
 		main.presents -= 1
 		shoot_present(Vector2.LEFT * 3)
 		main.start_dash()
+		if main.has_upgrade(&"SUPER_DASH"):
+			invincibility_left = 0.5
 		last_was_loading = false
 		curr_load = 0.0
 	
@@ -200,7 +202,7 @@ func shoot_present(dir_vector: Vector2, surprise: bool = false, points: int = 1)
 		var load_ratio := curr_load / present_max_load_time
 		new_present.speed *= 1.0 + ((present_max_load_mult - 1.0) * load_ratio)
 		new_present.scale *= lerpf(1.0, 2.0, load_ratio)
-	if main.has_upgrade(&"PARRY"):
+	if main.has_upgrade(&"BLOCK"):
 		parry_time_left = present_parry_time
 		%AnimationPlayer.play("parry")
 		%SantaSprite2D.modulate = Color.GREEN
@@ -216,7 +218,14 @@ func _on_area_entered(area: Area2D) -> void:
 		rot_tween.tween_property(self, "bonus_rotation", TAU, 0.3)
 		rot_tween.tween_callback(func(): bonus_rotation = 0.0)
 	elif area.get_collision_layer_value(1) and invincibility_left <= 0.0:  # World
-		if main.has_upgrade(&"WORLD_BOUNCE"):
+		if main.has_upgrade(&"RAIL"):
+			var flash := spawn_flash_at(lerp(global_position, area.global_position, 0.02))
+			flash.scale.x *= 3
+			flash.scale.y *= 0.5
+			flash.global_rotation = 0
+			flash.frame = 1
+			%OhYeahAudio.play()
+		elif main.has_upgrade(&"WORLD_BOUNCE"):
 			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.02))
 			main.hitstop(0.05)
@@ -244,6 +253,9 @@ func _on_area_entered(area: Area2D) -> void:
 		get_hit_normal()
 		spawn_flash_at(lerp(global_position, area.global_position, 0.4))
 		main.hitstop(0.05)
+	elif area.get_collision_layer_value(6):  # Canne volante
+		main.hp +=1
+		%BonusAudio.play()
 
 func get_hit_normal():
 	invincibility_left = invincibility_time

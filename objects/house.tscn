@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://co3nfgr6pq3ga"]
+[gd_scene load_steps=35 format=3 uid="uid://co3nfgr6pq3ga"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
 [ext_resource type="PackedScene" uid="uid://wm8oi46umfo0" path="res://objects/smiley.tscn" id="2_nwek5"]
@@ -47,14 +47,14 @@ interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
 colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_afukd"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_01v5c"]
 gradient = SubResource("Gradient_ittdl")
 
 [sub_resource type="Curve" id="Curve_if0jh"]
 _data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_8ocl5"]
+[sub_resource type="CurveTexture" id="CurveTexture_ywa6l"]
 curve = SubResource("Curve_if0jh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bryn7"]
@@ -74,8 +74,16 @@ damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.3
 scale_max = 0.5
-scale_curve = SubResource("CurveTexture_8ocl5")
-color_initial_ramp = SubResource("GradientTexture1D_afukd")
+scale_curve = SubResource("CurveTexture_ywa6l")
+color_initial_ramp = SubResource("GradientTexture1D_01v5c")
+
+[sub_resource type="Gradient" id="Gradient_ogfj0"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_afukd"]
+gradient = SubResource("Gradient_ogfj0")
 
 [sub_resource type="Curve" id="Curve_bklnx"]
 max_value = 100.0
@@ -91,6 +99,13 @@ point_count = 3
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_5s33i"]
 curve_x = SubResource("Curve_u0q58")
+
+[sub_resource type="Curve" id="Curve_gsww6"]
+_data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ocl5"]
+curve = SubResource("Curve_gsww6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t51ht"]
 lifetime_randomness = 0.35

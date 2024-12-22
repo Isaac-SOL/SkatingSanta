@@ -36,9 +36,8 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var line_scene: PackedScene
 
 @export var upgrades: Array[Upgrade]
-@export var upgrade_button_scene: PackedScene
 @export var repeatable_upgrades: Array[RepeatableUpgrade]
-@export var repeatable_upgrade_button_scene: PackedScene
+@export var double_upgrade_button_scene: PackedScene
 
 
 @export var picked_upgrades: Array[StringName] = []
@@ -55,7 +54,6 @@ var next_children_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
-var phase: int = 0
 @onready var curr_level_need: int = base_level_need
 var camera_target_y: float = 0.0
 
@@ -63,14 +61,21 @@ var score: int = 0 :
 	set(value):
 		score = value
 		%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
+		%LevelProgressBar.value = score
 var hp: int = 3 :
 	set(value):
-		hp = value
+		hp = mini(value, 9)
 		%HPLabel.text = "HP: " + str(hp)
+		%HP.update(hp)
 var time_left: float = 120 :
 	set(value):
 		time_left = value
-		%TimeLabel.text = str(ceili(time_left))
+		var rtime: int = 180 - value
+		var hrs: int = rtime / 60
+		var mins: int = rtime - (60 * hrs)
+		var str_mins := str(mins)
+		if str_mins.length() == 1: str_mins = "0" + str_mins
+		%TimeLabel.text = str(hrs + 9) + ":" + str_mins + " PM"
 var presents: int = 5 :
 	set(value):
 		presents = value
@@ -133,23 +138,22 @@ func _process(delta: float) -> void:
 	var cam_target := clampf(%Character.position.y - 50, -75, 0)
 	%CameraRot.position.y = Util.decayf(%CameraRot.position.y, cam_target, 8 * delta)
 	
-	match phase:
-		0:
-			process_spawn_satellites(delta)
-		1:
-			process_spawn_pipe(delta)
-			
-	process_spawn_aliens(delta)
-	process_spawn_houses(delta)
-	process_spawn_cannon(delta)
-	process_spawn_childrens(delta)
-	process_spawn_canne(delta)
+	if level >= 1:
+		process_spawn_houses(delta)
+		process_spawn_satellites(delta)
+		process_spawn_canne(delta)
+	if level >= 2:
+		process_spawn_aliens(delta)
+	if level >= 3:
+		process_spawn_childrens(delta)
+	if level >= 5:
+		process_spawn_cannon(delta)
+	if level >= 7:
+		process_spawn_pipe(delta)
 	
 	process_present_reload(delta)
 	
 	process_global_timer(delta)
-	if time_left <= 100.0 and phase != 1:
-		phase = 1
 	process_pause()
 
 func start_dash():
@@ -183,10 +187,10 @@ func process_spawn_canne(delta: float):
 	next_canne_spawn -= speed * delta * 1.3
 	if next_canne_spawn <= 0:
 		next_canne_spawn += randf_range(canne_spawn_timing.x, canne_spawn_timing.y)
-		var new_canne: Cannon = cannes.pick_random().instantiate()
+		var new_canne: CanneVolante = cannes.pick_random().instantiate()
 		%Earth.add_child(new_canne)
-		new_canne.global_position = %HouseSpawnLowerGround.global_position
-		new_canne.global_rotation = %HouseSpawnLowerGround.global_rotation
+		new_canne.global_position = %CanneSpawnPosition.global_position
+		new_canne.global_rotation = %CanneSpawnPosition.global_rotation
 
 func process_spawn_satellites(delta: float):
 	next_satellite_spawn -= speed * delta
@@ -259,15 +263,15 @@ func has_upgrade(upgrade_id: StringName) -> bool:
 	return upgrade_id in picked_upgrades
 
 func start_upgrade_screen():
-	if upgrades.is_empty():
-		curr_level_need = 1000000
+	if game_state == GameState.WAITING_UPGRADE:
 		return
-	base_level_need *= level_mult
-	curr_level_need += base_level_need
-	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
 	
 	game_state = GameState.WAITING_UPGRADE
 	Engine.time_scale = 0
+	
+	if upgrades.is_empty():
+		curr_level_need = 1000000
+		return
 	
 	var proposed_upgrades: Array[Upgrade] = []
 	for i in range(min(3, upgrades.size())):
@@ -275,19 +279,18 @@ func start_upgrade_screen():
 		while new_upgrade in proposed_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = upgrades.pick_random()
 		proposed_upgrades.append(new_upgrade)
-		var new_upgrade_button: UpgradeButton = upgrade_button_scene.instantiate()
-		%UpgradeButtonsContainer.add_child(new_upgrade_button)
-		new_upgrade_button.set_upgrade(new_upgrade)
 	
 	var proposed_repeatable_upgrades: Array[RepeatableUpgrade] = []
-	for i in range(min(2, repeatable_upgrades.size())):
+	for i in range(proposed_upgrades.size()):
 		var new_upgrade: RepeatableUpgrade = repeatable_upgrades.pick_random()
 		while new_upgrade in proposed_repeatable_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
 			new_upgrade = repeatable_upgrades.pick_random()
 		proposed_repeatable_upgrades.append(new_upgrade)
-		var new_upgrade_button: RepeatableUpgradeButton = repeatable_upgrade_button_scene.instantiate()
-		%RepeatableUpgradeButtonsContainer.add_child(new_upgrade_button)
-		new_upgrade_button.set_upgrade(new_upgrade)
+		var new_upgrade_button: DoubleUpgradeButton = double_upgrade_button_scene.instantiate()
+		%UpgradeButtonsContainer.add_child(new_upgrade_button)
+		new_upgrade_button.set_upgrades(proposed_upgrades[i], new_upgrade)
+		if i == 0:
+			new_upgrade_button.grab_focus()
 	
 	%CanvasLayerUpgrades.visible = true
 	screen_click_protection()
@@ -307,7 +310,7 @@ func end_game():
 	%LabelEndPresents.text = "Presents offered: " + str(score)
 
 func update_ammo_barr():
-	%Ammo.set_value( 10 * (presents + reload / present_reload_time) )
+	%Ammo.set_value( 100 * (presents + reload / present_reload_time) )
 	
 func update_max_ammo_barr():
 	%Ammo.set_mask( max_presents - 5)
@@ -328,7 +331,6 @@ func _on_house_destroyed_frfr():
 
 func _on_character_hit() -> void:
 	hp -= 1
-	%HP.update(hp)
 	if hp <= 0:
 		kill()
 
@@ -345,7 +347,7 @@ func _on_button_retry_pressed() -> void:
 	get_tree().reload_current_scene()
 	Engine.time_scale = 1
 
-func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
+func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringName) -> void:
 	if game_state != GameState.WAITING_UPGRADE:
 		return
 	
@@ -356,21 +358,49 @@ func _on_upgrade_button_pressed(upgrade_id: StringName) -> void:
 			break
 	
 	level += 1
+	apply_new_level()
 	do_upgrade_instant_effect(upgrade_id)
+	do_upgrade_instant_effect(repeatable_id)
 	%UpgradeAudio.play()
 	%Character.invincibility_left = %Character.invincibility_time
 	%Character.upgrade_effect()
+	
+	%LevelProgressBar.min_value = curr_level_need
+	base_level_need *= level_mult
+	curr_level_need += base_level_need
+	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
+	%LevelProgressBar.max_value = curr_level_need
+	%LevelProgressBar.value = score
 	
 	close_upgrades_screen()
 
 func close_upgrades_screen():
 	for child: Button in %UpgradeButtonsContainer.get_children():
 		child.queue_free()
-	for child: Button in %RepeatableUpgradeButtonsContainer.get_children():
-		child.queue_free()
 	game_state = GameState.RUNNING
 	Engine.time_scale = 1
 	%CanvasLayerUpgrades.visible = false
+
+func apply_new_level():
+	house_spawn_timing *= 0.95
+	satellite_spawn_timing *= 0.95
+	pipe_spawn_timing *= 0.95
+	alien_spawn_timing *= 0.95
+	cannon_spawn_timing *= 0.95
+	children_spawn_timing *= 0.95
+	
+	match level:
+		3:
+			satellite_spawn_timing /= 2
+			buildings.append(preload("res://objects/bigger_house.tscn"))
+		4:
+			satellites.append(preload("res://objects/bird.tscn"))
+		5:
+			aliens.append(preload("res://objects/alien_moyen.tscn"))
+		6:
+			children_spawn_timing /= 2
+		7:
+			satellite_spawn_timing *= 2
 
 func do_upgrade_instant_effect(upgrade_id: StringName):
 	# Repeatables
@@ -380,9 +410,7 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		max_presents += 1
 		update_max_ammo_barr()
 	elif upgrade_id == &"MORE_HP":
-		hp += 2
-		%Character.start_hp += 1
-		%HP.update(hp)
+		hp += 1
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
 	elif upgrade_id == &"MORE_TIME":
@@ -406,6 +434,10 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		%Character.mass *= 1.5
 	elif upgrade_id == &"LIGHT":
 		%Character.mass *= 0.6666
+	elif upgrade_id == &"MONEY":
+		level_mult -= 0.2
+	elif upgrade_id == &"FLOATER":
+		%Character.downwards_impulse *= 3
 
 func screen_click_protection():
 	%CanvasLayerClickProtection.visible = true

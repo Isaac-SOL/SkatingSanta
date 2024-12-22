@@ -28,24 +28,24 @@ func _on_area_entered(area: Area2D) -> void:
 			#%HappyParticles.restart()
 			#%HappyParticles.emitting = true
 			%AudioHappy.play()
-			%AudioHappyHit.play()
 			if hp <= 0:
 				destroy()
 				%AudioConfetti.play()
 				break
 
 func parry():
-	if not voided:
-		while hp > 0:
-			hp -= 1
-			hit.emit(points_awarded)
-		for child: Node2D in %Guys.get_children():
-			child.queue_free()
-			for i in range(points_awarded):
-				emit_smiley(child.position)
-		%PoofParryParticles.emitting = true
-		%AudioHappy.play()
-		destroy()
+	if $/root/Main.has_upgrade(&"PARRY"):
+		if not voided:
+			while hp > 0:
+				hp -= 1
+				hit.emit(points_awarded)
+			for child: Node2D in %Guys.get_children():
+				child.queue_free()
+				for i in range(points_awarded):
+					emit_smiley(child.position)
+			%PoofParryParticles.emitting = true
+			%AudioHappy.play()
+			destroy()
 
 func emit_smiley(pos: Vector2):
 	var new_smiley: Sprite2D = smiley_scene.instantiate()
@@ -68,16 +68,16 @@ func destroy():
 
 func _on_wahoo_area_entered(area: Area2D) -> void:
 	if area.get_collision_layer_value(2) and hp > 0 and $/root/Main.has_upgrade(&"MARIO"): # Character
-		hp -= 1
-		hit.emit(points_awarded)
-		var guy: Node2D = %Guys.get_children().pick_random()
-		guy.queue_free()
-		for i in range(points_awarded):
-			emit_smiley(guy.position)
-		%AudioHappy.play()
-		%AudioHappyHit.play()
-		if hp <= 0:
-			destroy()
+		if not voided:
+			while hp > 0:
+				hp -= 1
+				hit.emit(points_awarded)
+			for child: Node2D in %Guys.get_children():
+				child.queue_free()
+				for i in range(points_awarded):
+					emit_smiley(child.position)
+			%AudioHappy.play()
 			%AudioConfetti.play()
+			destroy()
 	elif area.get_collision_layer_value(4): # Present
 		_on_area_entered(area)

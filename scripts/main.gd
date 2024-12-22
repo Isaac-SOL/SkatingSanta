@@ -13,6 +13,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var satellite_spawn_timing: Vector2 = Vector2(2.0, 10.0)
 @export var pipe_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
+@export var canne_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var cannon_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var initial_time: float = 120.0
 @export var max_presents: int = 5
@@ -30,6 +31,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var aliens: Array[PackedScene]
 @export var cannons: Array[PackedScene]
 @export var childrens: Array[PackedScene]
+@export var cannes: Array[PackedScene]
 
 @export var line_scene: PackedScene
 
@@ -47,6 +49,7 @@ var next_satellite_spawn: float
 var next_pipe_spawn: float
 var next_alien_spawn: float
 var next_cannon_spawn: float
+var next_canne_spawn: float
 var next_children_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
@@ -85,10 +88,11 @@ func _ready() -> void:
 	next_pipe_spawn = randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
 	next_alien_spawn = randf_range(alien_spawn_timing.x, alien_spawn_timing.y)
 	next_cannon_spawn = randf_range(cannon_spawn_timing.x, cannon_spawn_timing.y)
+	next_canne_spawn = randf_range(cannon_spawn_timing.x, cannon_spawn_timing.y)
 	hp = %Character.start_hp
 	time_left = initial_time
 	presents = max_presents
-	%HP.update()
+	%HP.update(hp)
 	update_max_ammo_barr()
 
 func _process(delta: float) -> void:
@@ -108,10 +112,12 @@ func _process(delta: float) -> void:
 	# Rotation parallax
 	%Earth.rotation -= speed * delta
 	%EarthSprite.rotation -= speed * delta
+	%TreesSprite.rotation -= speed * delta
 	%StarsSprite1.rotation -= speed * delta * 0.05
 	%StarsSprite2.rotation -= speed * delta * 0.1
 	%CloudSprite2.rotation -= speed * delta * 0.5
 	%CloudSprite1.rotation -= speed * delta * 0.6
+	%MoonSprite.rotation -= speed * delta * 0.4
 	
 	# Speed lines
 	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)
@@ -128,6 +134,7 @@ func _process(delta: float) -> void:
 	if level >= 1:
 		process_spawn_houses(delta)
 		process_spawn_satellites(delta)
+		process_spawn_canne(delta)
 	if level >= 2:
 		process_spawn_aliens(delta)
 	if level >= 3:
@@ -167,6 +174,16 @@ func process_spawn_cannon(delta: float):
 		%Earth.add_child(new_cannon)
 		new_cannon.global_position = %HouseSpawnLowerGround.global_position
 		new_cannon.global_rotation = %HouseSpawnLowerGround.global_rotation
+		
+		
+func process_spawn_canne(delta: float):
+	next_canne_spawn -= speed * delta * 1.3
+	if next_canne_spawn <= 0:
+		next_canne_spawn += randf_range(canne_spawn_timing.x, canne_spawn_timing.y)
+		var new_canne: Cannon = cannes.pick_random().instantiate()
+		%Earth.add_child(new_canne)
+		new_canne.global_position = %HouseSpawnLowerGround.global_position
+		new_canne.global_rotation = %HouseSpawnLowerGround.global_rotation
 
 func process_spawn_satellites(delta: float):
 	next_satellite_spawn -= speed * delta
@@ -307,7 +324,7 @@ func _on_house_destroyed_frfr():
 
 func _on_character_hit() -> void:
 	hp -= 1
-	%HP.update()
+	%HP.update(hp)
 	if hp <= 0:
 		kill()
 
@@ -386,7 +403,7 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 	elif upgrade_id == &"MORE_HP":
 		hp += 1
 		%Character.start_hp += 1
-		%HP.update()
+		%HP.update(hp)
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
 	elif upgrade_id == &"MORE_TIME":

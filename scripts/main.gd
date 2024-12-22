@@ -36,6 +36,8 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var repeatable_upgrades: Array[RepeatableUpgrade]
 @export var repeatable_upgrade_button_scene: PackedScene
 
+@export var picked_upgrades: Array[StringName] = []
+
 var game_state: GameState = GameState.RUNNING
 var speed: float = 1.0
 var next_house_spawn: float
@@ -49,8 +51,6 @@ var level: int = 1
 var phase: int = 0
 @onready var curr_level_need: int = base_level_need
 var camera_target_y: float = 0.0
-
-var picked_upgrades: Array[StringName] = []
 
 var score: int = 0 :
 	set(value):
@@ -91,6 +91,7 @@ func _process(delta: float) -> void:
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
 	norm_pos = pow(clamp(norm_pos, 0, 1), speed_power)
 	speed = lerpf(speed_high, speed_low, pow(norm_pos, speed_power))
+	var bgm_speed = speed * speed_bonus
 	speed += dash_additional_speed
 	speed *= speed_bonus
 	
@@ -112,19 +113,13 @@ func _process(delta: float) -> void:
 	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)
 	%SpeedLines.modulate = Color(1, 1, 1, norm_speed)
 	
+	# BGM pitch
+	var norm_speed_bgm = clampf((bgm_speed - 0.12) / 0.5, 0, 1)
+	%BGM.pitch_scale = lerpf(1, 1.1, norm_speed_bgm)
+	
 	# Move camera
 	var cam_target := clampf(%Character.position.y - 50, -75, 0)
 	%CameraRot.position.y = Util.decayf(%CameraRot.position.y, cam_target, 8 * delta)
-	
-	if has_upgrade(&"DASH"):
-		if dash_reload > 0:
-			dash_reload -= delta
-			if dash_reload < 0:
-				dash_reload = 0
-		if Input.is_action_just_pressed("dash") and dash_reload <= 0:
-			start_dash()
-			dash_reload = dash_reload_time
-	
 	
 	match phase:
 		0:
@@ -145,6 +140,7 @@ func _process(delta: float) -> void:
 
 func start_dash():
 	dash_additional_speed = dash_speed
+	%Character.vertical_speed = -50
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "dash_additional_speed", 0.0, dash_falloff)
 
@@ -157,6 +153,7 @@ func process_spawn_houses(delta: float):
 		new_house.global_position = %HouseSpawnPosition.global_position
 		new_house.global_rotation = %HouseSpawnPosition.global_rotation
 		new_house.hit.connect(_on_house_destroyed)
+		new_house.destroyed.connect(_on_house_destroyed_frfr)
 
 func process_spawn_cannon(delta: float):
 	next_cannon_spawn -= speed * delta * 1.3
@@ -281,6 +278,12 @@ func _on_house_destroyed(points_awarded: int):
 	if score >= curr_level_need:
 		start_upgrade_screen()
 
+func _on_house_destroyed_frfr():
+	if has_upgrade(&"GROUP_BONUS"):
+		score += 2
+		if game_state != GameState.WAITING_UPGRADE and score >= curr_level_need:
+			start_upgrade_screen()
+
 func _on_character_hit() -> void:
 	hp -= 1
 	if hp <= 0:
@@ -341,6 +344,8 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		time_left += 20
 	elif upgrade_id == &"DASH_RELOAD":
 		dash_reload_time *= 0.8
+	elif upgrade_id == &"DODGE_RELOAD":
+		%Character.dodge_reload_time *= 0.95
 	
 	# Non-repeatables
 	elif upgrade_id == &"SPEED_LOW":
@@ -352,8 +357,6 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 	elif upgrade_id == &"RAINBOW":
 		%RainbowLine.running = true
 		%RainbowLine.visible = true
-	elif upgrade_id == &"DASH":
-		%DashLabel.visible = true
 	elif upgrade_id == &"HEAVY":
 		%Character.mass *= 1.5
 	elif upgrade_id == &"LIGHT":

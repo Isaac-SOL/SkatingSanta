@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://co3nfgr6pq3ga"]
+[gd_scene load_steps=31 format=3 uid="uid://co3nfgr6pq3ga"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_2rqh5"]
 [ext_resource type="PackedScene" uid="uid://wm8oi46umfo0" path="res://objects/smiley.tscn" id="2_nwek5"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c4sgae8l2qjjp" path="res://objects/little_guy.tscn" id="3_vm2sc"]
 [ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="4_ps47y"]
 [ext_resource type="AudioStream" uid="uid://8edqmpyac841" path="res://assets/audio/impactMetal_medium_000.ogg" id="6_av7a0"]
-[ext_resource type="AudioStream" uid="uid://clcmqx3p4x6k0" path="res://assets/audio/323703__reitanna__funny-yay.wav" id="6_e1hd5"]
+[ext_resource type="AudioStream" uid="uid://bsxjqafkpkee4" path="res://assets/audio/wiii.ogg" id="6_sxi4y"]
 [ext_resource type="AudioStream" uid="uid://dd37448r4myhi" path="res://assets/audio/impactMetal_medium_003.ogg" id="7_ht6oi"]
 [ext_resource type="AudioStream" uid="uid://bn038c3p87nlr" path="res://assets/audio/party1.ogg" id="8_q1r52"]
 
@@ -39,8 +39,8 @@ scale_max = 6.0
 scale_curve = SubResource("CurveTexture_52030")
 color_ramp = SubResource("GradientTexture1D_van3s")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp85y"]
-size = Vector2(25.345, 31.745)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2y0u"]
+size = Vector2(25.345, 24.8725)
 
 [sub_resource type="Gradient" id="Gradient_ittdl"]
 interpolation_mode = 1
@@ -114,10 +114,24 @@ scale_max = 0.5
 scale_curve = SubResource("CurveTexture_nfk3c")
 color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
 
+[sub_resource type="GDScript" id="GDScript_fy0da"]
+script/source = "extends Area2D
+
+var voided: bool :
+	get:
+		return get_parent().voided
+
+func parry():
+	get_parent().parry()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fg2ui"]
+size = Vector2(25.345, 6.8725)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1w86f"]
 random_pitch = 1.05
 streams_count = 1
-stream_0/stream = ExtResource("6_e1hd5")
+stream_0/stream = ExtResource("6_sxi4y")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_illv8"]
 random_pitch = 1.05
@@ -153,8 +167,8 @@ randomness = 0.5
 local_coords = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.76837e-07, 0)
-shape = SubResource("RectangleShape2D_mp85y")
+position = Vector2(-4.76837e-07, 3.43625)
+shape = SubResource("RectangleShape2D_c2y0u")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-4.76837e-07, 1.66893e-06)
@@ -188,10 +202,19 @@ one_shot = true
 explosiveness = 1.0
 local_coords = true
 
+[node name="Wahoo" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 10
+script = SubResource("GDScript_fy0da")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wahoo"]
+position = Vector2(-4.76837e-07, -12.4363)
+shape = SubResource("RectangleShape2D_fg2ui")
+
 [node name="AudioHappy" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_1w86f")
-volume_db = -30.0
+volume_db = -35.0
 max_polyphony = 4
 
 [node name="AudioHappyHit" type="AudioStreamPlayer" parent="."]
@@ -208,3 +231,4 @@ max_polyphony = 4
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Wahoo" to="." method="_on_wahoo_area_entered"]

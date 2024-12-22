@@ -1,0 +1,186 @@
+[gd_scene load_steps=26 format=3 uid="uid://mjcfyq10uyxg"]
+
+[ext_resource type="Script" path="res://scripts/children.gd" id="1_73pbi"]
+[ext_resource type="PackedScene" uid="uid://wm8oi46umfo0" path="res://objects/smiley.tscn" id="2_oia6u"]
+[ext_resource type="Texture2D" uid="uid://401kl4dhox76" path="res://assets/sprites/enfant.png" id="2_rg4t5"]
+[ext_resource type="Texture2D" uid="uid://d2ywhallius0w" path="res://assets/sprites/confetti.png" id="3_wk3vi"]
+[ext_resource type="AudioStream" uid="uid://clcmqx3p4x6k0" path="res://assets/audio/323703__reitanna__funny-yay.wav" id="4_nmecy"]
+[ext_resource type="AudioStream" uid="uid://8edqmpyac841" path="res://assets/audio/impactMetal_medium_000.ogg" id="5_dl5rm"]
+[ext_resource type="AudioStream" uid="uid://dd37448r4myhi" path="res://assets/audio/impactMetal_medium_003.ogg" id="6_vcaq1"]
+[ext_resource type="AudioStream" uid="uid://bn038c3p87nlr" path="res://assets/audio/party1.ogg" id="7_tfql1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4b4rx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2edda"]
+atlas = ExtResource("2_rg4t5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xe6d"]
+atlas = ExtResource("2_rg4t5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a0r0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2edda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xe6d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_ttq1q"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b5cmg"]
+gradient = SubResource("Gradient_ttq1q")
+
+[sub_resource type="Curve" id="Curve_for36"]
+_data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_nfk3c"]
+curve = SubResource("Curve_for36")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2hwcw"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 32.92
+initial_velocity_max = 75.5
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_nfk3c")
+color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
+
+[sub_resource type="Curve" id="Curve_yj3v5"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0734824, 14.7134), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rcw6e"]
+curve = SubResource("Curve_yj3v5")
+
+[sub_resource type="Curve" id="Curve_cloc5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.194888, 0), 0.0, 0.0, 0, 0, Vector2(0.421725, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ed2kb"]
+curve_x = SubResource("Curve_cloc5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ghvwh"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 25.0
+initial_velocity_min = 169.96
+initial_velocity_max = 353.44
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_ed2kb")
+gravity = Vector3(0, 0, 0)
+damping_min = 50.782
+damping_max = 100.0
+damping_curve = SubResource("CurveTexture_rcw6e")
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_nfk3c")
+color_initial_ramp = SubResource("GradientTexture1D_b5cmg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lrpie"]
+random_pitch = 1.05
+streams_count = 1
+stream_0/stream = ExtResource("4_nmecy")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ar2gq"]
+random_pitch = 1.05
+streams_count = 2
+stream_0/stream = ExtResource("5_dl5rm")
+stream_1/stream = ExtResource("6_vcaq1")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6qgyv"]
+playback_mode = 1
+random_pitch = 1.07
+streams_count = 1
+stream_0/stream = ExtResource("7_tfql1")
+
+[node name="Children" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("1_73pbi")
+smiley_scene = ExtResource("2_oia6u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_4b4rx")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_a0r0m")
+autoplay = "default"
+frame_progress = 0.984003
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4.76837e-07, 1.66893e-06)
+scale = Vector2(1.3, 1.6)
+
+[node name="PoofParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_2hwcw")
+texture = ExtResource("3_wk3vi")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="PoofParryParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_ghvwh")
+texture = ExtResource("3_wk3vi")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="AudioHappy" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_lrpie")
+volume_db = -30.0
+max_polyphony = 4
+
+[node name="AudioHappyHit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ar2gq")
+volume_db = -10.0
+max_polyphony = 4
+
+[node name="AudioConfetti" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_6qgyv")
+volume_db = -30.0
+max_polyphony = 4
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

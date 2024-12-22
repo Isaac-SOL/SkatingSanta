@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyx6nrciv5v2v"]
+
+[ext_resource type="PackedScene" uid="uid://gyabx1wd7q0g" path="res://objects/alien.tscn" id="1_yvelm"]
+[ext_resource type="Texture2D" uid="uid://disarx4hufkt6" path="res://assets/sprites/alien_moyen.png" id="2_6qwo8"]
+[ext_resource type="PackedScene" uid="uid://cq5756fqwkyjj" path="res://objects/little_green_guy.tscn" id="3_aghmk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2kl8"]
+atlas = ExtResource("2_6qwo8")
+region = Rect2(0, 0, 117, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0jle"]
+atlas = ExtResource("2_6qwo8")
+region = Rect2(117, 0, 117, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_midnd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2kl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0jle")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="AlienMoyen" instance=ExtResource("1_yvelm")]
+hp = 3
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_midnd")
+frame_progress = 0.233483
+
+[node name="LittleGuy2" parent="Guys" index="0"]
+position = Vector2(0, -15)
+
+[node name="LittleGuy3" parent="Guys" index="1" instance=ExtResource("3_aghmk")]
+position = Vector2(-29, -7)
+scale = Vector2(1.5, 1.5)
+
+[node name="LittleGuy4" parent="Guys" index="2" instance=ExtResource("3_aghmk")]
+position = Vector2(26, -7)
+scale = Vector2(1.5, 1.5)

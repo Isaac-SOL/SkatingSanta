@@ -1,12 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqbqqn6f1pim4"]
+[gd_scene load_steps=13 format=3 uid="uid://bqbqqn6f1pim4"]
 
 [ext_resource type="Script" path="res://scripts/cannon.gd" id="1_rtb7q"]
 [ext_resource type="Texture2D" uid="uid://dyanh7ly22r17" path="res://assets/sprites/canon.png" id="1_v5fgs"]
-[ext_resource type="Texture2D" uid="uid://dyd0bsi0pftbw" path="res://assets/sprites/bullet.png" id="2_khwx6"]
+[ext_resource type="Texture2D" uid="uid://d047yjngel056" path="res://assets/sprites/snow_cannon.png" id="2_qvoxh"]
+[ext_resource type="Texture2D" uid="uid://daojsqo0v2vxb" path="res://assets/sprites/snow_ball.png" id="4_12jwp"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0h5cf"]
-atlas = ExtResource("1_v5fgs")
-region = Rect2(0, 0, 47, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_n00c2"]
+atlas = ExtResource("2_qvoxh")
+region = Rect2(0, 0, 40, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frett"]
+atlas = ExtResource("2_qvoxh")
+region = Rect2(40, 0, 40, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irmhv"]
 atlas = ExtResource("1_v5fgs")
@@ -20,7 +25,10 @@ region = Rect2(0, 0, 47, 38)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0h5cf")
+"texture": SubResource("AtlasTexture_n00c2")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_frett")
 }],
 "loop": true,
 "name": &"default",
@@ -47,9 +55,8 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mdja"]
-radius = 6.3678
-height = 21.2138
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5ra6"]
+radius = 8.48528
 
 [node name="cannon" type="Area2D"]
 collision_layer = 4
@@ -81,15 +88,15 @@ rotates = false
 collision_layer = 4
 collision_mask = 160
 
-[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/bullet"]
+[node name="BulletSprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/bullet"]
 texture_filter = 1
 rotation = 2.31431
-texture = ExtResource("2_khwx6")
+texture = ExtResource("4_12jwp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/bullet"]
-position = Vector2(1.41419, -0.00787127)
+position = Vector2(2.38419e-07, 5.96046e-08)
 rotation = -1.57593
-shape = SubResource("CapsuleShape2D_1mdja")
+shape = SubResource("CircleShape2D_u5ra6")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

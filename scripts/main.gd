@@ -9,6 +9,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var position_bounds: Vector2 = Vector2(20, 140)
 @export var speed_power: float = 2.0
 @export var house_spawn_timing: Vector2 = Vector2(1.0, 4.0)
+@export var children_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var satellite_spawn_timing: Vector2 = Vector2(2.0, 10.0)
 @export var pipe_spawn_timing: Vector2 = Vector2(1.0, 2.0)
 @export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
@@ -28,12 +29,14 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var pipes: Array[PackedScene]
 @export var aliens: Array[PackedScene]
 @export var cannons: Array[PackedScene]
+@export var childrens: Array[PackedScene]
 
 @export var line_scene: PackedScene
 
 @export var upgrades: Array[Upgrade]
 @export var repeatable_upgrades: Array[RepeatableUpgrade]
 @export var double_upgrade_button_scene: PackedScene
+
 
 @export var picked_upgrades: Array[StringName] = []
 
@@ -44,6 +47,7 @@ var next_satellite_spawn: float
 var next_pipe_spawn: float
 var next_alien_spawn: float
 var next_cannon_spawn: float
+var next_children_spawn: float
 var speed_bonus: float = 1.0
 var dash_additional_speed: float = 0.0
 var level: int = 1
@@ -66,11 +70,11 @@ var time_left: float = 120 :
 var presents: int = 5 :
 	set(value):
 		presents = value
-		update_ammo_text()
+		update_ammo_barr()
 var reload: float = 0 :
 	set(value):
 		reload = value
-		update_ammo_text()
+		update_ammo_barr()
 var dash_reload: float = 0.0 :
 	set(value):
 		dash_reload = value
@@ -85,6 +89,8 @@ func _ready() -> void:
 	hp = %Character.start_hp
 	time_left = initial_time
 	presents = max_presents
+	%HP.update()
+	update_max_ammo_barr()
 
 func _process(delta: float) -> void:
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
@@ -129,6 +135,7 @@ func _process(delta: float) -> void:
 	process_spawn_aliens(delta)
 	process_spawn_houses(delta)
 	process_spawn_cannon(delta)
+	process_spawn_childrens(delta)
 	
 	process_present_reload(delta)
 	
@@ -193,6 +200,18 @@ func process_spawn_aliens(delta: float):
 		new_alien.global_position = %AlienSpawnPosition.global_position
 		new_alien.global_rotation = %AlienSpawnPosition.global_rotation
 		new_alien.hit.connect(_on_house_destroyed)
+		
+		
+func process_spawn_childrens(delta: float):
+	next_children_spawn -= speed * delta * 5
+	if next_children_spawn <= 0:
+		next_children_spawn += randf_range(children_spawn_timing.x, children_spawn_timing.y)
+		var new_children: House = childrens.pick_random().instantiate()
+		%Earth.add_child(new_children)
+		var children_pos: Vector2 = lerp(%ChildrenSpawn1.global_position, %ChildrenSpawn2.global_position, randf())
+		new_children.global_position = children_pos
+		new_children.global_rotation = %ChildrenSpawn1.global_rotation
+		new_children.hit.connect(_on_house_destroyed)
 
 func process_present_reload(delta: float):
 	if presents < max_presents:
@@ -266,6 +285,12 @@ func end_game():
 	screen_click_protection()
 	%LabelEndPresents.text = "Presents offered: " + str(score)
 
+func update_ammo_barr():
+	%Ammo.set_value( 10 * (presents + reload / present_reload_time) )
+	
+func update_max_ammo_barr():
+	%Ammo.set_mask( max_presents - 5)
+
 func update_ammo_text():
 	%AmmoLabel.text = "Presents: " + str(presents) + " (" + str(floori(reload * 100 / present_reload_time)) + "%)"
 
@@ -282,6 +307,7 @@ func _on_house_destroyed_frfr():
 
 func _on_character_hit() -> void:
 	hp -= 1
+	%HP.update()
 	if hp <= 0:
 		kill()
 
@@ -330,9 +356,11 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 		speed_bonus *= 1.1
 	elif upgrade_id == &"MORE_PRESENTS":
 		max_presents += 1
+		update_max_ammo_barr()
 	elif upgrade_id == &"MORE_HP":
 		hp += 1
 		%Character.start_hp += 1
+		%HP.update()
 	elif upgrade_id == &"MORE_LOAD":
 		present_reload_time *= 0.9
 	elif upgrade_id == &"MORE_TIME":

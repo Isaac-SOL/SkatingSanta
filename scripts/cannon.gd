@@ -5,8 +5,10 @@ signal destroyed
 @export var hp: int = 1
 @onready var path_follow_2d = $Path2D/PathFollow2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var bullet_sprite_2d = $Path2D/PathFollow2D/bullet/BulletSprite2D
 
 func _process(delta):
+	bullet_sprite_2d.global_rotation -= delta *5
 	if path_follow_2d.progress_ratio < 1.0:
 		path_follow_2d.progress_ratio += delta * 0.3
 	else:

@@ -17,12 +17,15 @@
 [ext_resource type="Script" path="res://scripts/repeatable_upgrade.gd" id="9_7qq88"]
 [ext_resource type="Texture2D" uid="uid://ifgg83x4klcb" path="res://assets/sprites/boooost.png" id="9_gnnfb"]
 [ext_resource type="Texture2D" uid="uid://bk5dynh6sydti" path="res://assets/sprites/sky.png" id="9_w0pw6"]
+[ext_resource type="PackedScene" uid="uid://dyx6nrciv5v2v" path="res://objects/alien_moyen.tscn" id="9_xltju"]
 [ext_resource type="Texture2D" uid="uid://1hems8ncj8ps" path="res://assets/sprites/planet.png" id="10_2dg3h"]
 [ext_resource type="Texture2D" uid="uid://chr4f3ff46s7f" path="res://assets/sprites/anvil.png" id="10_57xcf"]
 [ext_resource type="Texture2D" uid="uid://8x7c6jkwbq1i" path="res://assets/sprites/cloud1.png" id="11_8c04w"]
 [ext_resource type="PackedScene" uid="uid://dw3e2fl4rn5am" path="res://objects/rainbow_line.tscn" id="11_lm4cc"]
 [ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
 [ext_resource type="Texture2D" uid="uid://hatww0w5ysuh" path="res://assets/sprites/boom.png" id="12_3wedo"]
+[ext_resource type="PackedScene" uid="uid://mjcfyq10uyxg" path="res://objects/children.tscn" id="11_vnvko"]
+[ext_resource type="PackedScene" uid="uid://d1mp57ku7y5e" path="res://objects/repeatable_upgrade_button.tscn" id="12_784fy"]
 [ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
 [ext_resource type="Texture2D" uid="uid://bnvcxvlqc8mp" path="res://assets/sprites/sugar_rainbow4.png" id="12_sfbkc"]
 [ext_resource type="Texture2D" uid="uid://c3yc0ti38d7w5" path="res://assets/sprites/sugar_rainbow5.png" id="13_fb388"]
@@ -33,6 +36,19 @@
 [ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
 [ext_resource type="Texture2D" uid="uid://ca6dnxfn686pq" path="res://assets/sprites/boooost2.png" id="17_rodsk"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
+[ext_resource type="Texture2D" uid="uid://duq18vh8e5uu1" path="res://assets/sprites/cadeau_line_vide.png" id="29_b4kqe"]
+[ext_resource type="Script" path="res://scripts/Ammo.gd" id="29_nd4gb"]
+[ext_resource type="Texture2D" uid="uid://47yxma5yrmuy" path="res://assets/sprites/cadeau_line_white.png" id="30_wqi3r"]
+[ext_resource type="Shader" path="res://Shader/mask.gdshader" id="32_lqem0"]
+[ext_resource type="Texture2D" uid="uid://tha2vko3anog" path="res://shader/whitetoblack.png" id="33_blh7w"]
+[ext_resource type="Script" path="res://scripts/hp.gd" id="34_h1wl4"]
+[ext_resource type="Texture2D" uid="uid://c1l3ltgatwycj" path="res://assets/sprites/Canne_barrc.png" id="36_61xrk"]
+[ext_resource type="Texture2D" uid="uid://ds7r68e70uhtr" path="res://assets/sprites/Canne_brokec.png" id="37_drntl"]
+[ext_resource type="Texture2D" uid="uid://bgxxq44lqoqjo" path="res://shader/Canne_cacheb.png" id="37_rdydd"]
+[ext_resource type="Shader" path="res://scenes/main.gdshader" id="39_acrwy"]
+[ext_resource type="Texture2D" uid="uid://bio0c531lmt" path="res://shader/Canne_cache.png" id="39_iriej"]
+[ext_resource type="Texture2D" uid="uid://cvqjsk2u7m7qj" path="res://shader/Canne_cache_carre.png" id="40_nivyf"]
+[ext_resource type="Texture2D" uid="uid://omwj84wan0br" path="res://assets/sprites/can_sprite.png" id="40_uclux"]
 [ext_resource type="Texture2D" uid="uid://bgnpxxdwjaxex" path="res://assets/sprites/squive.png" id="20_11ncr"]
 [ext_resource type="Texture2D" uid="uid://pwr76r3w4a8s" path="res://assets/sprites/parachute.png" id="20_yxr3p"]
 [ext_resource type="Script" path="res://scripts/shaker_2d.gd" id="21_7foa3"]
@@ -291,9 +307,104 @@ name = "+5% dodge reload"
 icon = ExtResource("25_tetid")
 dependencies = Array[StringName]([&"DODGE"])
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
-radius = 652.13
+[sub_resource type="CircleShape2D" id="CircleShape2D_ad0ei"]
+radius = 652.007
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
+radius = 586.008
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbyh"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.167, -0.167)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("33_blh7w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1elso"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.111, -0.111)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("39_iriej")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jg06"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.111, -0.111)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("37_rdydd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yohqp"]
+shader = ExtResource("39_acrwy")
+shader_parameter/mask_texture = ExtResource("40_nivyf")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwigj"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 0, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tgkr"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 392, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt35w"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 784, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1uws"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 1176, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm10x"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 1568, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trv70"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 1960, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7yho"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 2352, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odhrf"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 2744, 1675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfwjd"]
+atlas = ExtResource("40_uclux")
+region = Rect2(0, 3136, 1675, 392)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7q8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwigj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tgkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xt35w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1uws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm10x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trv70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7yho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odhrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfwjd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 [sub_resource type="Gradient" id="Gradient_dy0e4"]
 offsets = PackedFloat32Array(0.189474, 0.466667, 0.701754, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -339,8 +450,9 @@ level_mult = 1.4
 buildings = Array[PackedScene]([ExtResource("2_es5xx"), ExtResource("3_sv75s"), ExtResource("4_1sbbi")])
 satellites = Array[PackedScene]([ExtResource("4_dlig4"), ExtResource("6_e2ad0")])
 pipes = Array[PackedScene]([ExtResource("6_v6dun")])
-aliens = Array[PackedScene]([ExtResource("6_ruiaf")])
+aliens = Array[PackedScene]([ExtResource("6_ruiaf"), ExtResource("9_xltju")])
 cannons = Array[PackedScene]([ExtResource("8_gv3ya")])
+childrens = Array[PackedScene]([ExtResource("11_vnvko")])
 line_scene = ExtResource("7_rkfew")
 upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj"), SubResource("Resource_xhd2x"), SubResource("Resource_n82aa"), SubResource("Resource_lxu1p"), SubResource("Resource_yoqqk"), SubResource("Resource_1dpen"), SubResource("Resource_tdvxx")])
 repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
@@ -405,6 +517,13 @@ texture = ExtResource("10_2dg3h")
 [node name="Earth" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(320, 896)
+collision_layer = 64
+
+[node name="DeathZone" type="Area2D" parent="Earth"]
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth/DeathZone"]
+shape = SubResource("CircleShape2D_ad0ei")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
 shape = SubResource("CircleShape2D_jundk")
@@ -436,6 +555,16 @@ present_launch_speed = 120.0
 unique_name_in_owner = true
 position = Vector2(826, 553)
 rotation = 0.921534
+
+[node name="ChildrenSpawn1" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(891, 597)
+rotation = 1.06989
+
+[node name="ChildrenSpawn2" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(845, 622)
+rotation = 1.06989
 
 [node name="HouseSpawnPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true
@@ -479,6 +608,22 @@ autoplay = true
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Ammo" type="Control" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("29_nd4gb")
+
+[node name="Ammo_Bar" type="TextureProgressBar" parent="CanvasLayer/VBoxTopLeft/Ammo"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_vtbyh")
+layout_mode = 0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 36.0
+max_value = 150.0
+texture_under = ExtResource("29_b4kqe")
+texture_progress = ExtResource("30_wqi3r")
+
 [node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -489,16 +634,38 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "HP: 3"
 
-[node name="AmmoLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Presents: 5 (0%)"
-
 [node name="DashLabel" type="Label" parent="CanvasLayer/VBoxTopLeft"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Dash: READY"
+
+[node name="HP" type="Control" parent="CanvasLayer/VBoxTopLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("34_h1wl4")
+
+[node name="HP_bar" type="Sprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
+visible = false
+material = SubResource("ShaderMaterial_1elso")
+position = Vector2(87, -1.5)
+scale = Vector2(0.0966667, 0.104326)
+texture = ExtResource("36_61xrk")
+
+[node name="HP_Perdu_bar" type="Sprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
+visible = false
+material = SubResource("ShaderMaterial_0jg06")
+position = Vector2(87.5, -1.5)
+scale = Vector2(0.0972222, 0.104326)
+texture = ExtResource("37_drntl")
+
+[node name="Canabar" type="AnimatedSprite2D" parent="CanvasLayer/VBoxTopLeft/HP"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_yohqp")
+position = Vector2(108.5, 1.99998)
+scale = Vector2(0.129552, 0.112245)
+sprite_frames = SubResource("SpriteFrames_f7q8s")
+frame = 6
 
 [node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 1

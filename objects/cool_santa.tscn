@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://00ctufg4tex"]
+
+[ext_resource type="PackedScene" uid="uid://wm8oi46umfo0" path="res://objects/smiley.tscn" id="1_4ophj"]
+[ext_resource type="Texture2D" uid="uid://cms1qi0v5xhps" path="res://assets/sprites/santaclasse.png" id="2_xd7dl"]
+
+[node name="CoolSanta" instance=ExtResource("1_4ophj")]
+texture = ExtResource("2_xd7dl")

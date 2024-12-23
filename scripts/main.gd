@@ -121,6 +121,7 @@ func _process(delta: float) -> void:
 	%CloudSprite2.rotation -= speed * delta * 0.5
 	%CloudSprite1.rotation -= speed * delta * 0.6
 	%MoonSprite.rotation -= speed * delta * 0.4
+	%SkySprite.rotation -= speed * delta * 0.5
 	
 	# Speed lines
 	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)

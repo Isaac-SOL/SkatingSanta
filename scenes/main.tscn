@@ -314,7 +314,7 @@ dependencies = Array[StringName]([&"DODGE"])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1bt6w"]
 shader = ExtResource("38_p63ge")
-shader_parameter/layers = 100.0
+shader_parameter/layers = 80.0
 shader_parameter/layer_min = 70.0
 shader_parameter/depth = 0.47
 shader_parameter/density = 0.35
@@ -482,6 +482,7 @@ script = ExtResource("21_7foa3")
 [node name="Background" type="Node2D" parent="."]
 
 [node name="SkySprite" type="Sprite2D" parent="Background"]
+unique_name_in_owner = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_1bt6w")
 position = Vector2(320, 896)

@@ -143,7 +143,7 @@ func _process(delta: float) -> void:
 	process_spawn_houses(delta)
 	process_spawn_cannon(delta)
 	process_spawn_childrens(delta)
-	process_spawn_canne(delta)
+	#process_spawn_canne(delta)
 	
 	process_present_reload(delta)
 	

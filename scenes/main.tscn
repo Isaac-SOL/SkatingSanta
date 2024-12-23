@@ -314,11 +314,12 @@ dependencies = Array[StringName]([&"DODGE"])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1bt6w"]
 shader = ExtResource("38_p63ge")
-shader_parameter/layers = 50.0
-shader_parameter/depth = 0.5
-shader_parameter/density = 0.5
-shader_parameter/speed = 0.5
-shader_parameter/wind = 0.5
+shader_parameter/layers = 84.8
+shader_parameter/layer_min = 20.0
+shader_parameter/depth = 0.47
+shader_parameter/density = 0.35
+shader_parameter/speed = 1.8
+shader_parameter/wind = -1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ad0ei"]
 radius = 652.007
@@ -481,10 +482,9 @@ script = ExtResource("21_7foa3")
 [node name="Background" type="Node2D" parent="."]
 
 [node name="SkySprite" type="Sprite2D" parent="Background"]
-unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(320, 896)
-scale = Vector2(2, 2)
+material = SubResource("ShaderMaterial_1bt6w")
+position = Vector2(320, 200)
 texture = ExtResource("30_vq0nj")
 
 [node name="StarsSprite1" type="Sprite2D" parent="Background"]
@@ -537,10 +537,6 @@ texture_filter = 1
 position = Vector2(320, 896)
 scale = Vector2(3.25, 3.25)
 texture = ExtResource("37_v8x45")
-
-[node name="SnowSprite" type="Sprite2D" parent="Forground"]
-visible = false
-material = SubResource("ShaderMaterial_1bt6w")
 
 [node name="Earth" type="Area2D" parent="."]
 unique_name_in_owner = true

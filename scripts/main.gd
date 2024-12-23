@@ -56,6 +56,7 @@ var dash_additional_speed: float = 0.0
 var level: int = 1
 @onready var curr_level_need: int = base_level_need
 var camera_target_y: float = 0.0
+var time_semicolon: String = ":"
 
 var score: int = 0 :
 	set(value):
@@ -70,12 +71,7 @@ var hp: int = 3 :
 var time_left: float = 120 :
 	set(value):
 		time_left = value
-		var rtime: int = 180 - value
-		var hrs: int = rtime / 60
-		var mins: int = rtime - (60 * hrs)
-		var str_mins := str(mins)
-		if str_mins.length() == 1: str_mins = "0" + str_mins
-		%TimeLabel.text = str(hrs + 9) + ":" + str_mins + " PM"
+		update_time_text()
 var presents: int = 5 :
 	set(value):
 		presents = value
@@ -318,6 +314,14 @@ func update_max_ammo_barr():
 func update_ammo_text():
 	%AmmoLabel.text = "Presents: " + str(presents) + " (" + str(floori(reload * 100 / present_reload_time)) + "%)"
 
+func update_time_text():
+	var rtime: int = 180 - time_left
+	var hrs: int = rtime / 60
+	var mins: int = rtime - (60 * hrs)
+	var str_mins := str(mins)
+	if str_mins.length() == 1: str_mins = "0" + str_mins
+	%TimeLabel.text = str(hrs + 9) + time_semicolon + str_mins
+
 func _on_house_destroyed(points_awarded: int):
 	score += points_awarded
 	if score >= curr_level_need:
@@ -403,41 +407,45 @@ func apply_new_level():
 			satellite_spawn_timing *= 2
 
 func do_upgrade_instant_effect(upgrade_id: StringName):
-	# Repeatables
-	if upgrade_id == &"MORE_SPEED":
-		speed_bonus *= 1.1
-	elif upgrade_id == &"MORE_PRESENTS":
-		max_presents += 1
-		update_max_ammo_barr()
-	elif upgrade_id == &"MORE_HP":
-		hp += 1
-	elif upgrade_id == &"MORE_LOAD":
-		present_reload_time *= 0.9
-	elif upgrade_id == &"MORE_TIME":
-		time_left += 20
-	elif upgrade_id == &"DASH_RELOAD":
-		dash_reload_time *= 0.8
-	elif upgrade_id == &"DODGE_RELOAD":
-		%Character.dodge_reload_time *= 0.95
 	
-	# Non-repeatables
-	elif upgrade_id == &"SPEED_LOW":
-		speed_low *= 1.7
-	elif upgrade_id == &"SPEED_HIGH":
-		speed_high *= 2
-	elif upgrade_id == &"FAST_PRESENTS":
-		%Character.present_launch_speed *= 2
-	elif upgrade_id == &"RAINBOW":
-		%RainbowLine.running = true
-		%RainbowLine.visible = true
-	elif upgrade_id == &"HEAVY":
-		%Character.mass *= 1.5
-	elif upgrade_id == &"LIGHT":
-		%Character.mass *= 0.6666
-	elif upgrade_id == &"MONEY":
-		level_mult -= 0.2
-	elif upgrade_id == &"FLOATER":
-		%Character.downwards_impulse *= 3
+	match upgrade_id:
+		# Repeatables
+		&"MORE_SPEED":
+			speed_bonus *= 1.1
+		&"MORE_PRESENTS":
+			max_presents += 1
+			update_max_ammo_barr()
+		&"MORE_HP":
+			hp += 1
+		&"MORE_LOAD":
+			present_reload_time *= 0.9
+		&"MORE_TIME":
+			time_left += 20
+		&"DASH_RELOAD":
+			dash_reload_time *= 0.8
+		&"DODGE_RELOAD":
+			%Character.dodge_reload_time *= 0.95
+		
+		# Non-repeatables
+		&"SPEED_LOW":
+			speed_low *= 1.7
+		&"SPEED_HIGH":
+			speed_high *= 2
+		&"FAST_PRESENTS":
+			%Character.present_launch_speed *= 2
+		&"RAINBOW":
+			%RainbowLine.running = true
+			%RainbowLine.visible = true
+		&"HEAVY":
+			%Character.mass *= 1.5
+		&"LIGHT":
+			%Character.mass *= 0.6666
+		&"MONEY":
+			level_mult -= 0.2
+		&"FLOATER":
+			%Character.downwards_impulse *= 3
+	
+	%Character.apply_upgrade(upgrade_id)
 
 func screen_click_protection():
 	%CanvasLayerClickProtection.visible = true
@@ -451,4 +459,7 @@ func hitstop(duration: float):
 	get_tree().paused = true
 	await get_tree().create_timer(duration, true, false, true).timeout
 	get_tree().paused = false
-	
+
+func _on_semicolon_timer_timeout() -> void:
+	time_semicolon = ":" if time_semicolon == " " else " "
+	update_time_text()

@@ -1,15 +1,15 @@
 [gd_scene load_steps=15 format=3 uid="uid://betsd6ni68ahl"]
 
+[ext_resource type="FontFile" uid="uid://b28yu6nnm4vdl" path="res://assets/fonts/Kenney Mini Square.ttf" id="1_3ixor"]
 [ext_resource type="Script" path="res://scripts/double_upgrade_button.gd" id="1_bkue0"]
 [ext_resource type="Texture2D" uid="uid://d4ki4faxxldnj" path="res://assets/sprites/Kenney/Green/Default/button_rectangle_depth_gradient.png" id="1_tr3i6"]
-[ext_resource type="FontFile" uid="uid://b1wc4bgussd83" path="res://assets/fonts/Kenney Mini Square Mono.ttf" id="1_w8udo"]
 [ext_resource type="Texture2D" uid="uid://c8kfkoxrasch" path="res://assets/sprites/Kenney/Red/Default/button_rectangle_gradient.png" id="2_57183"]
 [ext_resource type="Texture2D" uid="uid://rjqa0a5toi03" path="res://icon.svg" id="2_do432"]
 [ext_resource type="Texture2D" uid="uid://degjqmr1kgh2x" path="res://assets/sprites/Kenney/Red/Default/button_rectangle_depth_gradient.png" id="3_272ql"]
 [ext_resource type="Texture2D" uid="uid://vgl5qvs44pye" path="res://assets/sprites/Kenney/Grey/Default/button_rectangle_depth_border.png" id="5_7rtlg"]
 
 [sub_resource type="Theme" id="Theme_2njsh"]
-default_font = ExtResource("1_w8udo")
+default_font = ExtResource("1_3ixor")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_shaf6"]
 texture = ExtResource("1_tr3i6")
@@ -132,7 +132,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.588235)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.588235)
 theme_override_constants/outline_size = 2
 bbcode_enabled = true
-text = "[font_size=12]Upgrade effect lorem ipsum dolor sit amet"
+text = "[font_size=14]Upgrade effect lorem ipsum dolor sit amet"
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2

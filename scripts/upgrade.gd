@@ -1,8 +1,11 @@
 class_name Upgrade extends Resource
 
+enum UpgradeType { PRESENT, SPEED, UTILITY }
+
 @export var id: StringName
 @export var name: String
 @export var icon: Texture2D
+@export var type: UpgradeType
 @export_multiline var description: String
 @export var dependencies: Array[StringName]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyx6nrciv5v2v"]
+[gd_scene load_steps=9 format=3 uid="uid://dyx6nrciv5v2v"]
 
 [ext_resource type="PackedScene" uid="uid://gyabx1wd7q0g" path="res://objects/alien.tscn" id="1_yvelm"]
 [ext_resource type="Texture2D" uid="uid://disarx4hufkt6" path="res://assets/sprites/alien_moyen.png" id="2_6qwo8"]
@@ -27,8 +27,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8moas"]
-radius = 15.0
+radius = 9.00001
 height = 112.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgtfe"]
+size = Vector2(81, 7)
 
 [node name="AlienMoyen" instance=ExtResource("1_yvelm")]
 hp = 3
@@ -38,7 +41,7 @@ sprite_frames = SubResource("SpriteFrames_midnd")
 frame_progress = 0.233483
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, 1)
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_8moas")
 
 [node name="LittleGuy2" parent="Guys" index="0"]
@@ -51,3 +54,7 @@ scale = Vector2(1.5, 1.5)
 [node name="LittleGuy4" parent="Guys" index="2" instance=ExtResource("3_aghmk")]
 position = Vector2(26, -7)
 scale = Vector2(1.5, 1.5)
+
+[node name="CollisionShape2D" parent="Wahoo" index="0"]
+position = Vector2(-0.500001, -9.5)
+shape = SubResource("RectangleShape2D_rgtfe")

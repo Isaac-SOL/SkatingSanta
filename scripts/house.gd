@@ -9,6 +9,7 @@ signal hit(points_awarded: int)
 
 var already_hit: Array[Area2D] = []
 var voided: bool = false
+var blocked: bool = false
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
@@ -34,6 +35,8 @@ func _on_area_entered(area: Area2D) -> void:
 				break
 
 func parry():
+	if not blocked:
+		blocked = true
 	if $/root/Main.has_upgrade(&"PARRY"):
 		if not voided:
 			while hp > 0:

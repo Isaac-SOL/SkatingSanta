@@ -145,7 +145,7 @@ func _process(delta: float) -> void:
 		process_spawn_childrens(delta)
 	if level >= 5:
 		process_spawn_cannon(delta)
-	if level >= 7:
+	if level >= 6:
 		process_spawn_pipe(delta)
 	
 	process_present_reload(delta)
@@ -161,6 +161,7 @@ func start_dash():
 	screenshake(1, 0.5)
 	if has_upgrade(&"SUPER_DASH"):
 		%Character.invincibility_left = 0.5
+		%Character/SantaSprite2D.modulate = Color.GREEN
 
 func process_spawn_houses(delta: float):
 	next_house_spawn -= speed * delta
@@ -245,7 +246,14 @@ func process_present_reload(delta: float):
 		reload = 0
 
 func process_global_timer(delta: float):
+	var prev_time_left := time_left
 	time_left -= delta
+	if (prev_time_left > 120 and time_left < 120) \
+		or (prev_time_left > 60 and time_left < 60) \
+		or (prev_time_left > 30 and time_left < 30):
+			%Beep4Audio.play()
+	if time_left < 5 and (floori(time_left) < floori(prev_time_left)):
+		%BeepAudio.play()
 	if time_left <= 0:
 		time_finished.emit()
 		end_game()
@@ -266,18 +274,22 @@ func start_upgrade_screen():
 	if game_state == GameState.WAITING_UPGRADE:
 		return
 	
-	game_state = GameState.WAITING_UPGRADE
-	Engine.time_scale = 0
-	
 	if upgrades.is_empty():
 		curr_level_need = 1000000
 		return
 	
+	game_state = GameState.WAITING_UPGRADE
+	Engine.time_scale = 0
+	
 	var proposed_upgrades: Array[Upgrade] = []
-	for i in range(min(3, upgrades.size())):
-		var new_upgrade: Upgrade = upgrades.pick_random()
-		while new_upgrade in proposed_upgrades or not new_upgrade.check_dependencies(picked_upgrades):
-			new_upgrade = upgrades.pick_random()
+	for t in [Upgrade.UpgradeType.PRESENT, Upgrade.UpgradeType.SPEED, Upgrade.UpgradeType.UTILITY]:
+		var valid_upgrades: Array[Upgrade] = []
+		for u: Upgrade in upgrades:
+			if u.type == t and u not in proposed_upgrades and u.check_dependencies(picked_upgrades):
+				valid_upgrades.append(u)
+		if valid_upgrades.is_empty():
+			continue
+		var new_upgrade: Upgrade = valid_upgrades.pick_random()
 		proposed_upgrades.append(new_upgrade)
 	
 	var proposed_repeatable_upgrades: Array[RepeatableUpgrade] = []
@@ -298,9 +310,11 @@ func start_upgrade_screen():
 func kill():
 	Engine.time_scale = 0
 	game_state = GameState.END_GAME
-	%CanvasLayerGameOver.visible = true
+	%CanvasLayerEnd.visible = true
 	screen_click_protection()
-	%Character.visible = false
+	%LabelEnd.text = "Game Over"
+	%LabelEndPresents.text = "Presents offered: " + str(score)
+	%ButtonRetry.grab_focus()
 
 func end_game():
 	Engine.time_scale = 0
@@ -308,23 +322,24 @@ func end_game():
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
 	%LabelEndPresents.text = "Presents offered: " + str(score)
+	%ButtonRetry.grab_focus()
 
 func update_ammo_barr():
 	%Ammo.set_value( 100 * (presents + reload / present_reload_time) )
 	
 func update_max_ammo_barr():
-	%Ammo.set_mask( max_presents - 5)
+	%Ammo.set_mask(max_presents)
 
 func update_ammo_text():
 	%AmmoLabel.text = "Presents: " + str(presents) + " (" + str(floori(reload * 100 / present_reload_time)) + "%)"
 
 func update_time_text():
-	var rtime: int = 180 - time_left
+	var rtime: int = initial_time - time_left + (9 * 60)
 	var hrs: int = rtime / 60
 	var mins: int = rtime - (60 * hrs)
 	var str_mins := str(mins)
 	if str_mins.length() == 1: str_mins = "0" + str_mins
-	%TimeLabel.text = str(hrs + 9) + time_semicolon + str_mins
+	%TimeLabel.text = str(hrs) + time_semicolon + str_mins
 
 func _on_house_destroyed(points_awarded: int):
 	score += points_awarded
@@ -358,6 +373,8 @@ func _on_button_retry_pressed() -> void:
 func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringName) -> void:
 	if game_state != GameState.WAITING_UPGRADE:
 		return
+	if %CanvasLayerClickProtection.visible:
+		return
 	
 	picked_upgrades.append(upgrade_id)
 	for i in range(upgrades.size()):
@@ -371,6 +388,7 @@ func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringNam
 	do_upgrade_instant_effect(repeatable_id)
 	%UpgradeAudio.play()
 	%Character.invincibility_left = %Character.invincibility_time
+	%Character/SantaSprite2D.modulate = Color.GREEN
 	%Character.upgrade_effect()
 	
 	%LevelProgressBar.min_value = curr_level_need
@@ -390,12 +408,12 @@ func close_upgrades_screen():
 	%CanvasLayerUpgrades.visible = false
 
 func apply_new_level():
-	house_spawn_timing *= 0.95
-	satellite_spawn_timing *= 0.95
-	pipe_spawn_timing *= 0.95
-	alien_spawn_timing *= 0.95
-	cannon_spawn_timing *= 0.95
-	children_spawn_timing *= 0.95
+	house_spawn_timing *= 0.93
+	satellite_spawn_timing *= 0.93
+	pipe_spawn_timing *= 0.93
+	alien_spawn_timing *= 0.93
+	cannon_spawn_timing *= 0.93
+	children_spawn_timing *= 0.93
 	
 	match level:
 		3:
@@ -415,20 +433,17 @@ func do_upgrade_instant_effect(upgrade_id: StringName):
 	match upgrade_id:
 		# Repeatables
 		&"MORE_SPEED":
-			speed_bonus *= 1.1
+			speed_bonus *= 1.3
 		&"MORE_PRESENTS":
 			max_presents += 1
+			present_reload_time *= 0.85
 			update_max_ammo_barr()
 		&"MORE_HP":
 			hp += 1
-		&"MORE_LOAD":
-			present_reload_time *= 0.9
 		&"MORE_TIME":
 			time_left += 20
-		&"DASH_RELOAD":
-			dash_reload_time *= 0.8
 		&"DODGE_RELOAD":
-			%Character.dodge_reload_time *= 0.95
+			%Character.dodge_reload_time *= 0.85
 		
 		# Non-repeatables
 		&"SPEED_LOW":

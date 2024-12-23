@@ -44,6 +44,7 @@ var rpara_out: bool = false
 var default_anim := &"default"
 var fast_anim := &"fast"
 @onready var main_flames: GPUParticles2D = %StartFlames
+var sliding: bool = false
 
 func _process(delta: float) -> void:
 	var height_mass_norm_pos = 1 - clampf((position.y + 75) / (height_mass_start_y + 75), 0, 1)
@@ -84,6 +85,8 @@ func _process(delta: float) -> void:
 	
 	if invincibility_left > 0.0:
 		invincibility_left -= delta
+		if invincibility_left <= 0.0:
+			%SantaSprite2D.modulate = Color.WHITE
 	
 	if main.game_state == Main.GameState.RUNNING:
 		if main.presents > 0:
@@ -252,13 +255,15 @@ func _on_area_entered(area: Area2D) -> void:
 			flash.frame = 1
 			%OhYeahAudio.play()
 			%RailFlames.emitting = true
+			sliding = true
 		elif main.has_upgrade(&"WORLD_BOUNCE"):
 			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.02))
 		else:
 			hit_ground.emit()
 			%OofAudio.play()
-	elif (area.get_collision_layer_value(5) or area.get_collision_layer_value(6)) and not area.voided:  # Houses
+	elif (area.get_collision_layer_value(5) or area.get_collision_layer_value(6)) \
+		 and not area.voided and not area.blocked:  # Houses
 		if parry_time_left > 0.0:
 			parry_time_left = 0.0
 			%SantaSprite2D.modulate = Color.WHITE
@@ -271,7 +276,7 @@ func _on_area_entered(area: Area2D) -> void:
 			main.screenshake(1, 1)
 			main.hitstop(0.05)
 			%ParryAudio.play()
-		elif invincibility_left <= 0.0:
+		elif invincibility_left <= 0.0 and not sliding:
 			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.4))
 	elif area.get_collision_layer_value(3) and invincibility_left <= 0.0:  # Enemies
@@ -284,9 +289,11 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_area_exited(area: Area2D) -> void:
 	if area.get_collision_layer_value(1): # World
 		%RailFlames.emitting = false
+		sliding = false
 
 func get_hit_normal():
 	invincibility_left = invincibility_time
+	%SantaSprite2D.modulate = Color.GREEN
 	if dodge_load <= 0.0 and main.has_upgrade(&"DODGE"):
 		%DodgeAudio.play()
 		dodge_load = dodge_reload_time
@@ -314,7 +321,7 @@ func process_parachute():
 		rpara_out = false
 		parachute_anim(%ReverseParachute, false)
 	
-	if global_position.y > 200 and not para_out:
+	if global_position.y > 200 and not para_out and not main.has_upgrade(&"RAIL"):
 		para_out = true
 		parachute_anim(%Parachute, true)
 	elif global_position.y < 175 and para_out:

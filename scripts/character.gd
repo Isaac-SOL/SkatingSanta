@@ -42,6 +42,7 @@ var para_out: bool = false
 var rpara_out: bool = false 
 var default_anim := &"default"
 var fast_anim := &"fast"
+@onready var main_flames: GPUParticles2D = %StartFlames
 
 func _process(delta: float) -> void:
 	var height_mass_norm_pos = 1 - clampf((position.y + 75) / (height_mass_start_y + 75), 0, 1)
@@ -61,10 +62,19 @@ func _process(delta: float) -> void:
 	
 	if main.speed > speed_animation_limit and %SantaSprite2D.animation != fast_anim:
 		%SantaSprite2D.play(fast_anim)
+		%HotteBGSprite.play(fast_anim)
+		%VoucherSprite.play(fast_anim)
+		%BombSprite.play(fast_anim)
+		%HotteFGSprite.play(fast_anim)
 	elif main.speed < speed_animation_limit and %SantaSprite2D.animation != default_anim:
-		%SantaSprite2D.play(default_anim) 
+		%SantaSprite2D.play(default_anim)
+		%HotteBGSprite.play(default_anim)
+		%VoucherSprite.play(default_anim)
+		%BombSprite.play(default_anim)
+		%HotteFGSprite.play(default_anim)
 	
 	process_parachute()
+	process_flames_burst()
 	
 	if parry_time_left > 0.0:
 		parry_time_left -= delta
@@ -106,8 +116,7 @@ func process_shoot_loaded(delta: float):
 		main.presents -= 1
 		shoot_present(Vector2.LEFT * 3)
 		main.start_dash()
-		if main.has_upgrade(&"SUPER_DASH"):
-			invincibility_left = 0.5
+		%BoosterBurst.emitting = true
 		last_was_loading = false
 		curr_load = 0.0
 	
@@ -171,6 +180,7 @@ func process_shoot_instant():
 		main.presents -= 1
 		shoot_present(Vector2.LEFT * 3)
 		main.start_dash()
+		%BoosterBurst.emitting = true
 	
 	elif Input.is_action_just_pressed("shoot_right") and main.has_upgrade(&"BOMB"):
 		main.presents -= 1
@@ -299,6 +309,19 @@ func parachute_anim(para: Node2D, out: bool):
 	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(para, "scale", Vector2.ONE if out else Vector2.ZERO, 0.5)
 
+func process_flames_burst():
+	if main.has_upgrade(&"SPEED_LOW"):
+		if global_position.y > 185 and not %SurfaceFlames.emitting:
+			%StartFlames.emitting = false
+			%BoosterFlames.emitting = false
+			%SurfaceFlames.emitting = true
+			%SurfaceBurst.emitting = true
+			main.screenshake(0.5, 0.5)
+			%SurfaceStartAudio.play()
+		if global_position.y < 160 and %SurfaceFlames.emitting:
+			%SurfaceFlames.emitting = false
+			main_flames.emitting = true
+
 func upgrade_effect():
 	%BallSprite2D.scale = Vector2.ONE * 0.2
 	%BallSprite2D.visible = true
@@ -312,6 +335,10 @@ func apply_upgrade(upgrade_id: StringName):
 	match upgrade_id:
 		&"DASH":
 			%DashSprite1.visible = true
+			main_flames = %BoosterFlames
+			if %StartFlames.emitting:
+				%StartFlames.emitting = false
+				main_flames.emitting = true
 		&"SUPER_DASH":
 			%DashSprite1.visible = false
 			%DashSprite2.visible = true
@@ -323,7 +350,7 @@ func apply_upgrade(upgrade_id: StringName):
 			%GoldSprite.visible = true
 		&"SPEED_LOW":
 			%SurfaceSprite.visible = true
-		&"RAILS":
+		&"RAIL":
 			%RailsSprite.visible = true
 		&"FLOATER":
 			%RainbowSprite.play("hover")
@@ -337,6 +364,14 @@ func apply_upgrade(upgrade_id: StringName):
 		&"HEAVY":
 			default_anim = &"default_big"
 			fast_anim = &"fast_big"
+		&"BOMB":
+			%HotteBGSprite.visible = true
+			%HotteFGSprite.visible = true
+			%BombSprite.visible = true
+		&"MONEY":
+			%HotteBGSprite.visible = true
+			%HotteFGSprite.visible = true
+			%VoucherSprite.visible = true
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	exited_screen.emit()

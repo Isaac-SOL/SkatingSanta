@@ -157,6 +157,9 @@ func start_dash():
 	%Character.vertical_speed = -50
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "dash_additional_speed", 0.0, dash_falloff)
+	screenshake(1, 0.5)
+	if has_upgrade(&"SUPER_DASH"):
+		%Character.invincibility_left = 0.5
 
 func process_spawn_houses(delta: float):
 	next_house_spawn -= speed * delta

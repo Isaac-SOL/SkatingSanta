@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 uniform float layers: hint_range(10.0, 200.0, 0.1) = 50.0;
-uniform float layer_min: hint_range(0.0, 30.0, 0.1) = 0.0;
+uniform float layer_min: hint_range(0.0, 100.0, 0.1) = 0.0;
 uniform float depth: hint_range(0.0, 1.0, 0.01) = 0.5;
 uniform float density: hint_range(0.0, 1.0, 0.01) = 0.5;
 uniform float speed: hint_range(0.0, 2.0, 0.01) = 0.5;

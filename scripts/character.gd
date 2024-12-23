@@ -25,6 +25,7 @@ signal exited_screen
 @export var present_max_load_mult: float = 2.0
 
 @export var flash_scene: PackedScene
+@export var smiley_scene: PackedScene
 
 
 var vertical_speed: float = 0
@@ -92,6 +93,15 @@ func _process(delta: float) -> void:
 				process_shoot_instant()
 		if main.has_upgrade(&"DODGE") and dodge_load > 0.0:
 			dodge_load -= delta
+			if dodge_load <= 0.0:
+				# Dodge ready
+				%GlassesSprite.visible = true
+				var tween_scale := create_tween().set_trans(Tween.TRANS_QUAD)
+				tween_scale.tween_property(%ShineSprite, "scale", Vector2(0.4, 0.4), 0.5).set_ease(Tween.EASE_OUT)
+				tween_scale.tween_property(%ShineSprite, "scale", Vector2.ZERO, 0.5).set_ease(Tween.EASE_IN)
+				%ShineSprite.rotation = 0
+				var tween_rot := create_tween()
+				tween_rot.tween_property(%ShineSprite, "rotation", TAU, 1);
 	
 	last_frame_mouse_left_pressed = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 
@@ -241,6 +251,7 @@ func _on_area_entered(area: Area2D) -> void:
 			flash.global_rotation = 0
 			flash.frame = 1
 			%OhYeahAudio.play()
+			%RailFlames.emitting = true
 		elif main.has_upgrade(&"WORLD_BOUNCE"):
 			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.02))
@@ -270,11 +281,17 @@ func _on_area_entered(area: Area2D) -> void:
 		main.hp +=1
 		%BonusAudio.play()
 
+func _on_area_exited(area: Area2D) -> void:
+	if area.get_collision_layer_value(1): # World
+		%RailFlames.emitting = false
+
 func get_hit_normal():
 	invincibility_left = invincibility_time
 	if dodge_load <= 0.0 and main.has_upgrade(&"DODGE"):
 		%DodgeAudio.play()
 		dodge_load = dodge_reload_time
+		%GlassesSprite.visible = false
+		emit_smiley()
 	else:
 		hit.emit()
 		main.screenshake(1.5, 0.7)
@@ -305,7 +322,6 @@ func process_parachute():
 		parachute_anim(%Parachute, false)
 
 func parachute_anim(para: Node2D, out: bool):
-	print(para.name, out)
 	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(para, "scale", Vector2.ONE if out else Vector2.ZERO, 0.5)
 
@@ -314,13 +330,22 @@ func process_flames_burst():
 		if global_position.y > 185 and not %SurfaceFlames.emitting:
 			%StartFlames.emitting = false
 			%BoosterFlames.emitting = false
+			%HoverFlames.emitting = false
 			%SurfaceFlames.emitting = true
 			%SurfaceBurst.emitting = true
-			main.screenshake(0.5, 0.5)
+			main.screenshake(0.8, 0.7)
 			%SurfaceStartAudio.play()
 		if global_position.y < 160 and %SurfaceFlames.emitting:
 			%SurfaceFlames.emitting = false
 			main_flames.emitting = true
+
+func emit_smiley():
+	var new_smiley: Sprite2D = smiley_scene.instantiate()
+	var exit_vec = Vector2.RIGHT.rotated(randf_range(-PI/8, PI/8))
+	new_smiley.speed = exit_vec * 50
+	%RotationCancel.add_child(new_smiley)
+	new_smiley.position = Vector2.ZERO
+	new_smiley.scale = Vector2.ONE * 0.8
 
 func upgrade_effect():
 	%BallSprite2D.scale = Vector2.ONE * 0.2
@@ -335,7 +360,8 @@ func apply_upgrade(upgrade_id: StringName):
 	match upgrade_id:
 		&"DASH":
 			%DashSprite1.visible = true
-			main_flames = %BoosterFlames
+			if not main.has_upgrade(&"FLOATER"):
+				main_flames = %BoosterFlames
 			if %StartFlames.emitting:
 				%StartFlames.emitting = false
 				main_flames.emitting = true
@@ -354,6 +380,10 @@ func apply_upgrade(upgrade_id: StringName):
 			%RailsSprite.visible = true
 		&"FLOATER":
 			%RainbowSprite.play("hover")
+			main_flames = %HoverFlames
+			if %StartFlames.emitting:
+				%StartFlames.emitting = false
+				main_flames.emitting = true
 		&"WORLD_BOUNCE":
 			%Parachute.visible = true
 		&"TOP_BOUNCE":
@@ -372,6 +402,9 @@ func apply_upgrade(upgrade_id: StringName):
 			%HotteBGSprite.visible = true
 			%HotteFGSprite.visible = true
 			%VoucherSprite.visible = true
+		&"DODGE":
+			dodge_load = 0.0
+			%GlassesSprite.visible = true
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	exited_screen.emit()

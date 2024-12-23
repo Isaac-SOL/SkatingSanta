@@ -467,6 +467,7 @@ line_scene = ExtResource("7_rkfew")
 upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj"), SubResource("Resource_xhd2x"), SubResource("Resource_n82aa"), SubResource("Resource_lxu1p"), SubResource("Resource_yoqqk"), SubResource("Resource_1dpen"), SubResource("Resource_tdvxx")])
 repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
 double_upgrade_button_scene = ExtResource("41_cwkee")
+picked_upgrades = Array[StringName]([&"DODGE"])
 
 [node name="CameraRot" type="Node2D" parent="."]
 unique_name_in_owner = true

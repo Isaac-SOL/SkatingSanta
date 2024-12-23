@@ -1,10 +1,11 @@
-[gd_scene load_steps=115 format=3 uid="uid://b7055nlbpufhw"]
+[gd_scene load_steps=123 format=3 uid="uid://b7055nlbpufhw"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_g5wu1"]
 [ext_resource type="PackedScene" uid="uid://diivk1ejveqva" path="res://objects/present.tscn" id="2_ek7se"]
 [ext_resource type="Texture2D" uid="uid://0k4qldwxq17s" path="res://assets/sprites/Santa_sprite_sheet.png" id="3_5i80b"]
 [ext_resource type="PackedScene" uid="uid://cysx1jkbtkfri" path="res://objects/flash.tscn" id="3_dmu4p"]
 [ext_resource type="Texture2D" uid="uid://b2emuwix2vrs6" path="res://assets/sprites/cane.png" id="3_ecoa4"]
+[ext_resource type="PackedScene" uid="uid://00ctufg4tex" path="res://objects/cool_santa.tscn" id="4_0ot14"]
 [ext_resource type="Texture2D" uid="uid://7aenkc6wso2l" path="res://assets/sprites/ballYellow.png" id="4_inetx"]
 [ext_resource type="PackedScene" uid="uid://dxpqlebyvk2kb" path="res://objects/load_line.tscn" id="5_0pxab"]
 [ext_resource type="Texture2D" uid="uid://c8jeyvlmto6ue" path="res://assets/sprites/santa_fast.png" id="5_ooh18"]
@@ -39,8 +40,11 @@
 [ext_resource type="AudioStream" uid="uid://bjcuvkhmkigwh" path="res://assets/audio/oof.ogg" id="19_i55gc"]
 [ext_resource type="AudioStream" uid="uid://cqu12wv1nwti6" path="res://assets/audio/waha.ogg" id="20_xwfdl"]
 [ext_resource type="AudioStream" uid="uid://cscmfb2nhdvch" path="res://assets/audio/ohyeah.ogg" id="21_66b5v"]
+[ext_resource type="Texture2D" uid="uid://dgyuinepl0cgs" path="res://assets/sprites/glasses.png" id="22_t5bbi"]
 [ext_resource type="AudioStream" uid="uid://bpmln7tet4fa" path="res://assets/audio/whohoho.ogg" id="22_utxr0"]
 [ext_resource type="AudioStream" uid="uid://dvv4b67ggx7c3" path="res://assets/audio/wahou.ogg" id="23_8uwx0"]
+[ext_resource type="Texture2D" uid="uid://dps8h7hkflls5" path="res://assets/sprites/shine.png" id="23_u6iku"]
+[ext_resource type="Texture2D" uid="uid://fthqhqpca6yi" path="res://assets/sprites/star.png" id="25_rurw3"]
 [ext_resource type="AudioStream" uid="uid://lewefcjuh3d6" path="res://assets/audio/powerUp9b.ogg" id="26_7sn2d"]
 [ext_resource type="AudioStream" uid="uid://cd7eqmc3pu2f5" path="res://assets/audio/lowFrequency_explosion_001.ogg" id="43_6gmgg"]
 
@@ -664,6 +668,25 @@ scale_max = 4.0
 scale_curve = SubResource("CurveTexture_w3ey2")
 color_ramp = SubResource("GradientTexture1D_tng0t")
 
+[sub_resource type="Curve" id="Curve_nio11"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.798722, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -16.3145, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_oeovm"]
+curve = SubResource("Curve_nio11")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uryaq"]
+particle_flag_disable_z = true
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(-1, 0, 0)
+spread = 5.0
+initial_velocity_min = 100.0
+initial_velocity_max = 120.0
+gravity = Vector3(100, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_oeovm")
+
 [sub_resource type="Gradient" id="Gradient_b26pl"]
 offsets = PackedFloat32Array(0, 0.447917, 1)
 colors = PackedColorArray(1, 0, 0, 1, 0.862745, 0.313726, 1, 1, 0, 0.698039, 0.698039, 1)
@@ -742,6 +765,23 @@ scale_min = 4.0
 scale_max = 6.0
 scale_curve = SubResource("CurveTexture_gbg37")
 color_ramp = SubResource("GradientTexture1D_bqcux")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y38x2"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 1)
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(-1, 0, 0)
+spread = 5.0
+initial_velocity_min = 100.0
+initial_velocity_max = 120.0
+gravity = Vector3(200, -50, 0)
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_wyvk7")
+color_ramp = SubResource("GradientTexture1D_7bna2")
+color_initial_ramp = SubResource("GradientTexture1D_ppjqw")
 
 [sub_resource type="Animation" id="Animation_jkwyw"]
 length = 0.001
@@ -910,6 +950,7 @@ present_launch_speed = 60.0
 present_parry_time = 0.15
 present_max_load_mult = 2.5
 flash_scene = ExtResource("3_dmu4p")
+smiley_scene = ExtResource("4_0ot14")
 
 [node name="BallSprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -1006,6 +1047,19 @@ scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_rrjhe")
 autoplay = "default"
 
+[node name="GlassesSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-5.68434e-14, -14)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("22_t5bbi")
+
+[node name="ShineSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(3, -16)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("23_u6iku")
+
 [node name="WingsSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -1065,6 +1119,14 @@ emitting = false
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_pw0b7")
 
+[node name="HoverFlames" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-11, 4)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_uryaq")
+texture = ExtResource("25_rurw3")
+
 [node name="BoosterBurst" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-11, 4)
@@ -1091,6 +1153,15 @@ process_material = SubResource("ParticleProcessMaterial_eyi3v")
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+
+[node name="RailFlames" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, 11)
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_y38x2")
+lifetime = 0.5
+randomness = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -1155,4 +1226,5 @@ pitch_scale = 1.2
 max_polyphony = 4
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

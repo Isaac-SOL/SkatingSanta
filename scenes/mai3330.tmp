@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://c3yc0ti38d7w5" path="res://assets/sprites/sugar_rainbow5.png" id="13_fb388"]
 [ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]
 [ext_resource type="Texture2D" uid="uid://b3hy8yc2rmw68" path="res://assets/sprites/wingz_cane.png" id="16_omgnt"]
+[ext_resource type="Texture2D" uid="uid://c3mb6jqlg4k8g" path="res://assets/sprites/usine.png" id="17_gjkxn"]
 [ext_resource type="Texture2D" uid="uid://ca6dnxfn686pq" path="res://assets/sprites/boooost2.png" id="17_rodsk"]
 [ext_resource type="Texture2D" uid="uid://vh4xt8fmfthk" path="res://assets/sprites/heal.png" id="18_415e6"]
 [ext_resource type="Texture2D" uid="uid://dtk7cxcbwmofy" path="res://assets/sprites/parade2.png" id="18_nigbi"]
@@ -50,35 +51,32 @@
 [ext_resource type="Texture2D" uid="uid://47yxma5yrmuy" path="res://assets/sprites/cadeau_line_white.png" id="30_wqi3r"]
 [ext_resource type="Texture2D" uid="uid://c60xn66r54kx0" path="res://assets/sprites/background/stars1.png" id="31_raxv3"]
 [ext_resource type="Texture2D" uid="uid://dux7iy0wqtdut" path="res://assets/sprites/timezonerror.png" id="32_kiuk3"]
+[ext_resource type="Shader" path="res://Shader/mask.gdshader" id="32_lqem0"]
 [ext_resource type="Texture2D" uid="uid://dfidf7n8s7hi1" path="res://assets/sprites/background/stars2.png" id="32_r8lwe"]
 [ext_resource type="Texture2D" uid="uid://cg0kjdwkijxlo" path="res://assets/sprites/background/cloud1.png" id="33_0tbgk"]
+[ext_resource type="Texture2D" uid="uid://tha2vko3anog" path="res://shader/whitetoblack.png" id="33_blh7w"]
 [ext_resource type="Texture2D" uid="uid://b8jy74jpirks8" path="res://assets/sprites/background/moon.png" id="35_3n1bl"]
 [ext_resource type="AudioStream" uid="uid://7k2doc21mpa4" path="res://assets/audio/706994__nolit47__industrial_rusty_drums_loop180.ogg" id="35_s2fkl"]
 [ext_resource type="Texture2D" uid="uid://c1l3ltgatwycj" path="res://assets/sprites/Canne_barrc.png" id="36_61xrk"]
 [ext_resource type="AudioStream" uid="uid://c8xp8rt78c0ql" path="res://assets/audio/wind.ogg" id="36_jimut"]
 [ext_resource type="Texture2D" uid="uid://cr33jgcvrpqok" path="res://assets/sprites/background/planet.png" id="36_n81w4"]
-[ext_resource type="Texture2D" uid="uid://bscynl1lhqhlb" path="res://assets/sprites/3usine.png" id="37_ew65x"]
 [ext_resource type="Texture2D" uid="uid://cgcm2wmdtiwyc" path="res://assets/sprites/background/trees.png" id="37_v8x45"]
 [ext_resource type="Shader" path="res://shader/snow.gdshader" id="38_p63ge"]
 [ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
 [ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
 [ext_resource type="Script" path="res://scripts/barre_hp_canne.gd" id="49_wvq3d"]
-[ext_resource type="AudioStream" uid="uid://canj3j51rqjs0" path="res://assets/audio/beep4.ogg" id="58_j4oup"]
-[ext_resource type="AudioStream" uid="uid://bltr5k3llyav7" path="res://assets/audio/beep.ogg" id="59_0hul8"]
 [ext_resource type="FontFile" uid="uid://bv01xdxovsvy0" path="res://assets/fonts/e1234-font/E1234Italic-Jpawx.ttf" id="64_jol62"]
 [ext_resource type="FontFile" uid="uid://b28yu6nnm4vdl" path="res://assets/fonts/Kenney Mini Square.ttf" id="66_mr1i3"]
 [ext_resource type="Texture2D" uid="uid://3pmvky8j7371" path="res://assets/sprites/Levelup_cadre.png" id="67_ct30h"]
 [ext_resource type="Texture2D" uid="uid://rxeitf4634g2" path="res://assets/sprites/Levelup.png" id="68_g3br0"]
-[ext_resource type="Texture2D" uid="uid://d4ki4faxxldnj" path="res://assets/sprites/Kenney/Green/Default/button_rectangle_depth_gradient.png" id="70_lm3tw"]
-[ext_resource type="Texture2D" uid="uid://dpm6sn8rx6e6" path="res://assets/sprites/Kenney/Green/Default/button_rectangle_gradient.png" id="71_hic1s"]
 [ext_resource type="PackedScene" uid="uid://41iw3r017qm6" path="res://scenes/menus/pause_menu.tscn" id="70_bj3f7"]
+[ext_resource type="PackedScene" uid="uid://72qg1qjaa2jj" path="res://scenes/menus/victory_screen.tscn" id="70_tonoo"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
 id = &"LOAD_SHOT"
 name = "Big Present"
 icon = ExtResource("12_3wedo")
-type = 2
 description = "[color=yellow]Hold[/color] the button to prepare a bigger, faster present for [color=yellow]more kids[/color]"
 dependencies = Array[StringName]([])
 
@@ -87,7 +85,6 @@ script = ExtResource("5_kqrhn")
 id = &"FRAG"
 name = "Multi-Present"
 icon = ExtResource("8_tdt6j")
-type = 0
 description = "Presents will create [color=yellow]more presents[/color] when hitting the ground"
 dependencies = Array[StringName]([])
 
@@ -96,8 +93,7 @@ script = ExtResource("5_kqrhn")
 id = &"DASH"
 name = "Sugar Burst"
 icon = ExtResource("9_gnnfb")
-type = 1
-description = "Send a present to the [color=yellow]left[/color] to [color=yellow]dash[/color] forward"
+description = "Send a present to the left to [color=yellow]dash[/color] forward"
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_bt1gb"]
@@ -105,7 +101,6 @@ script = ExtResource("5_kqrhn")
 id = &"FAST_PRESENTS"
 name = "Weighted Presents"
 icon = ExtResource("10_57xcf")
-type = 2
 description = "Add some weight into your presents to make them reach the ground [color=yellow]faster[/color]"
 dependencies = Array[StringName]([])
 
@@ -114,7 +109,6 @@ script = ExtResource("5_kqrhn")
 id = &"SPEED_HIGH"
 name = "Winged Cane"
 icon = ExtResource("16_omgnt")
-type = 1
 description = "Increases speed in [color=yellow]high[/color] orbit"
 dependencies = Array[StringName]([])
 
@@ -123,7 +117,6 @@ script = ExtResource("5_kqrhn")
 id = &"SPEED_LOW"
 name = "Surface boosters"
 icon = ExtResource("17_rodsk")
-type = 1
 description = "Greatly increases speed in [color=yellow]low[/color] orbit"
 dependencies = Array[StringName]([])
 
@@ -132,7 +125,6 @@ script = ExtResource("5_kqrhn")
 id = &"PARRY"
 name = "Magical Cane"
 icon = ExtResource("18_nigbi")
-type = 1
 description = "Throw a present right before hitting a building to make [color=green]everyone happy[/color]"
 dependencies = Array[StringName]([&"BLOCK"])
 
@@ -141,7 +133,6 @@ script = ExtResource("5_kqrhn")
 id = &"RAINBOW"
 name = "Rainbow Cane"
 icon = ExtResource("12_sfbkc")
-type = 2
 description = "The Candy Cane now shoots [color=red]r[color=orange]a[color=yellow]i[color=green]n[color=cyan]b[color=blue]o[color=purple]w[color=pink]s[/color]"
 dependencies = Array[StringName]([])
 
@@ -150,7 +141,6 @@ script = ExtResource("5_kqrhn")
 id = &"WORLD_BOUNCE"
 name = "Parachute"
 icon = ExtResource("20_yxr3p")
-type = 1
 description = "Hitting the ground only deals [color=yellow]1 damage[/color]"
 dependencies = Array[StringName]([])
 
@@ -159,7 +149,6 @@ script = ExtResource("5_kqrhn")
 id = &"TOP_BOUNCE"
 name = "Reverse Parachute"
 icon = ExtResource("21_kra8r")
-type = 2
 description = "Increases your mass at [color=yellow]high[/color] altitudes"
 dependencies = Array[StringName]([])
 
@@ -168,7 +157,6 @@ script = ExtResource("5_kqrhn")
 id = &"HEAVY"
 name = "Hearty meal"
 icon = ExtResource("22_aoe52")
-type = 2
 description = "Makes you [color=yellow]50% heavier[/color]"
 dependencies = Array[StringName]([])
 
@@ -177,7 +165,6 @@ script = ExtResource("5_kqrhn")
 id = &"LIGHT"
 name = "Dubious meal"
 icon = ExtResource("23_pjab1")
-type = 2
 description = "Makes you [color=yellow]33% lighter[/color]"
 dependencies = Array[StringName]([])
 
@@ -186,7 +173,6 @@ script = ExtResource("5_kqrhn")
 id = &"FLOATER"
 name = "Hovercane"
 icon = ExtResource("13_fb388")
-type = 2
 description = "You are no longer affected by [color=yellow]gravity[/color]"
 dependencies = Array[StringName]([&"RAINBOW"])
 
@@ -195,8 +181,7 @@ script = ExtResource("5_kqrhn")
 id = &"BOMB"
 name = "Surprise Present"
 icon = ExtResource("14_lu857")
-type = 2
-description = "Press the [color=yellow]right arrow[/color] to send a \"susprise present\" to [color=yellow]remove obstacles[/color] "
+description = "Press the [color=yellow]right[/color] [color=yellow]arrow[/color] or [color=yellow]D[/color] to send a \"susprise present\" to [color=yellow]remove obstacles[/color] "
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_rccpv"]
@@ -204,7 +189,6 @@ script = ExtResource("5_kqrhn")
 id = &"DODGE"
 name = "Dodge"
 icon = ExtResource("20_11ncr")
-type = 2
 description = "[color=yellow]Avoid[/color] up to 1 hit every 20 seconds"
 dependencies = Array[StringName]([])
 
@@ -213,7 +197,6 @@ script = ExtResource("5_kqrhn")
 id = &"BOUNCE"
 name = "Bouncy Presents"
 icon = ExtResource("27_4ijth")
-type = 0
 description = "Presents [color=yellow]bounce[/color] on the [color=yellow]ground[/color] once"
 dependencies = Array[StringName]([])
 
@@ -222,7 +205,6 @@ script = ExtResource("5_kqrhn")
 id = &"RICOCHET"
 name = "Ricochet"
 icon = ExtResource("28_3jwyt")
-type = 0
 description = "Presents [color=yellow]bounce[/color] on [color=yellow]houses[/color] once"
 dependencies = Array[StringName]([])
 
@@ -231,7 +213,6 @@ script = ExtResource("5_kqrhn")
 id = &"GROUP_BONUS"
 name = "Happy Family"
 icon = ExtResource("29_bn51x")
-type = 0
 description = "[color=yellow]Completing[/color] a building awards [color=yellow]2[/color] additional happy kids"
 dependencies = Array[StringName]([])
 
@@ -240,8 +221,7 @@ script = ExtResource("5_kqrhn")
 id = &"MARIO"
 name = "Christmas Cap"
 icon = ExtResource("30_p5rby")
-type = 1
-description = "Bounce on top of a building to [color=yellow]avoid damage[/color] and make [color=green]everyone happy[/color]"
+description = "Bounce on top of a building to [color=yellow]avoid damage[/color] and make [color=yellow]everyone happy[/color]"
 dependencies = Array[StringName]([&"WORLD_BOUNCE"])
 
 [sub_resource type="Resource" id="Resource_xhd2x"]
@@ -249,8 +229,7 @@ script = ExtResource("5_kqrhn")
 id = &"RAIL"
 name = "Pannier-on-rails"
 icon = ExtResource("28_fdqj3")
-type = 1
-description = "You can [color=yellow]slide[/color] on the ground to [color=yellow]avoid all buildings[/color]"
+description = "You can [color=yellow]slide[/color] on the ground [color=yellow]without taking damage[/color]"
 dependencies = Array[StringName]([&"WORLD_BOUNCE"])
 
 [sub_resource type="Resource" id="Resource_n82aa"]
@@ -258,7 +237,6 @@ script = ExtResource("5_kqrhn")
 id = &"MONEY"
 name = "Voucher"
 icon = ExtResource("28_jjyjs")
-type = 2
 description = "Next [color=yellow]upgrades[/color] will happen [color=yellow]faster[/color]"
 dependencies = Array[StringName]([])
 
@@ -267,7 +245,6 @@ script = ExtResource("5_kqrhn")
 id = &"HOLY"
 name = "Sacred Surprise"
 icon = ExtResource("29_3s48g")
-type = 0
 description = "Surprise presents create [color=yellow]many presents[/color] on impact"
 dependencies = Array[StringName]([&"BOMB"])
 
@@ -276,7 +253,6 @@ script = ExtResource("5_kqrhn")
 id = &"SUPER_FRAG"
 name = "Rubik's Present"
 icon = ExtResource("30_k7icv")
-type = 0
 description = "Presents will create [color=yellow]even more presents[/color] when hitting the ground"
 dependencies = Array[StringName]([&"FRAG"])
 
@@ -285,7 +261,6 @@ script = ExtResource("5_kqrhn")
 id = &"BLOCK"
 name = "Protective Cane"
 icon = ExtResource("11_v50qq")
-type = 1
 description = "Throw a present right before hitting a building to [color=yellow]avoid all damage[/color]"
 dependencies = Array[StringName]([])
 
@@ -294,15 +269,14 @@ script = ExtResource("5_kqrhn")
 id = &"SUPER_DASH"
 name = "Super Sugar Burst"
 icon = ExtResource("17_rodsk")
-type = 1
 description = "[color=yellow]Avoid all damage[/color] while dashing"
 dependencies = Array[StringName]([&"DASH"])
 
 [sub_resource type="Resource" id="Resource_wdxe3"]
 script = ExtResource("9_7qq88")
 id = &"MORE_PRESENTS"
-name = "+1 Present, +30% reload"
-icon = ExtResource("37_ew65x")
+name = "+1 Max Present"
+icon = ExtResource("28_fdqj3")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_y1h6y"]
@@ -312,10 +286,17 @@ name = "+1 HP"
 icon = ExtResource("18_415e6")
 dependencies = Array[StringName]([])
 
+[sub_resource type="Resource" id="Resource_pyael"]
+script = ExtResource("9_7qq88")
+id = &"MORE_LOAD"
+name = "+10% Present reload"
+icon = ExtResource("17_gjkxn")
+dependencies = Array[StringName]([])
+
 [sub_resource type="Resource" id="Resource_bpf33"]
 script = ExtResource("9_7qq88")
 id = &"MORE_SPEED"
-name = "+30% speed"
+name = "+10% speed"
 icon = ExtResource("30_p5rby")
 dependencies = Array[StringName]([])
 
@@ -329,13 +310,13 @@ dependencies = Array[StringName]([])
 [sub_resource type="Resource" id="Resource_pb6i8"]
 script = ExtResource("9_7qq88")
 id = &"DODGE_RELOAD"
-name = "+15% dodge reload"
+name = "+5% dodge reload"
 icon = ExtResource("25_tetid")
 dependencies = Array[StringName]([&"DODGE"])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1bt6w"]
 shader = ExtResource("38_p63ge")
-shader_parameter/layers = 80.0
+shader_parameter/layers = 100.0
 shader_parameter/layer_min = 70.0
 shader_parameter/depth = 0.47
 shader_parameter/density = 0.35
@@ -373,6 +354,12 @@ scale_min = 3.0
 scale_max = 3.0
 color = Color(1, 1, 1, 0.588235)
 color_ramp = SubResource("GradientTexture1D_uxk25")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtbyh"]
+shader = ExtResource("32_lqem0")
+shader_parameter/mask_position = Vector2(-0.167, -0.167)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_texture = ExtResource("33_blh7w")
 
 [sub_resource type="LabelSettings" id="LabelSettings_1bvtu"]
 font = ExtResource("64_jol62")
@@ -455,20 +442,6 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_os4m7"]
 font = ExtResource("30_wana7")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evleh"]
-texture = ExtResource("70_lm3tw")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ytdmo"]
-texture = ExtResource("71_hic1s")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84pr2"]
 
 [node name="Main" type="Node2D" groups=["MainGroup"]]
@@ -481,7 +454,7 @@ children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
 canne_spawn_timing = Vector2(3, 8)
-initial_time = 5.0
+initial_time = 180.0
 max_presents = 3
 dash_speed = 1.0
 dash_falloff = 0.6
@@ -495,7 +468,7 @@ childrens = Array[PackedScene]([ExtResource("11_vnvko")])
 cannes = Array[PackedScene]([ExtResource("9_anif7")])
 line_scene = ExtResource("7_rkfew")
 upgrades = Array[ExtResource("5_kqrhn")]([SubResource("Resource_6n4n3"), SubResource("Resource_812a1"), SubResource("Resource_306lq"), SubResource("Resource_bt1gb"), SubResource("Resource_t402t"), SubResource("Resource_fe4ix"), SubResource("Resource_yuq2w"), SubResource("Resource_42057"), SubResource("Resource_tv622"), SubResource("Resource_uy4bj"), SubResource("Resource_ohgfx"), SubResource("Resource_yeuxv"), SubResource("Resource_xug02"), SubResource("Resource_1vr1a"), SubResource("Resource_rccpv"), SubResource("Resource_wdf5p"), SubResource("Resource_6h1xm"), SubResource("Resource_qjylm"), SubResource("Resource_c6ebj"), SubResource("Resource_xhd2x"), SubResource("Resource_n82aa"), SubResource("Resource_lxu1p"), SubResource("Resource_yoqqk"), SubResource("Resource_1dpen"), SubResource("Resource_tdvxx")])
-repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
+repeatable_upgrades = Array[ExtResource("9_7qq88")]([SubResource("Resource_wdxe3"), SubResource("Resource_y1h6y"), SubResource("Resource_pyael"), SubResource("Resource_bpf33"), SubResource("Resource_7smhc"), SubResource("Resource_pb6i8")])
 double_upgrade_button_scene = ExtResource("41_cwkee")
 
 [node name="CameraRot" type="Node2D" parent="."]
@@ -511,7 +484,6 @@ script = ExtResource("21_7foa3")
 [node name="Background" type="Node2D" parent="."]
 
 [node name="SkySprite" type="Sprite2D" parent="Background"]
-unique_name_in_owner = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_1bt6w")
 position = Vector2(320, 896)
@@ -662,16 +634,6 @@ stream = ExtResource("39_5rlis")
 volume_db = -25.0
 autoplay = true
 
-[node name="Beep4Audio" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("58_j4oup")
-volume_db = -15.0
-
-[node name="BeepAudio" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("59_0hul8")
-volume_db = -15.0
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="VBoxTopLeft" type="VBoxContainer" parent="CanvasLayer"]
@@ -683,20 +645,14 @@ unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("29_nd4gb")
 
-[node name="Ammo_mask" type="ColorRect" parent="CanvasLayer/VBoxTopLeft/Ammo"]
+[node name="Ammo_Bar" type="TextureProgressBar" parent="CanvasLayer/VBoxTopLeft/Ammo"]
 unique_name_in_owner = true
-clip_children = 1
+material = SubResource("ShaderMaterial_vtbyh")
 layout_mode = 0
-offset_left = 4.0
+offset_left = 3.85
 offset_top = 4.0
-offset_right = 256.0
-offset_bottom = 31.0
-
-[node name="Ammo_Bar" type="TextureProgressBar" parent="CanvasLayer/VBoxTopLeft/Ammo/Ammo_mask"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 396.0
-offset_bottom = 32.0
+offset_right = 399.85
+offset_bottom = 36.0
 scale = Vector2(0.645, 0.645)
 max_value = 1500.0
 texture_under = ExtResource("29_b4kqe")
@@ -856,31 +812,55 @@ layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
+[node name="CanvasLayerGameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayerGameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelLose" type="Label" parent="CanvasLayerGameOver/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "Game Over!!!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayerGameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ButtonRetry" type="Button" parent="CanvasLayerGameOver/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Retry"
+
 [node name="CanvasLayerEnd" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayerEnd"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
-
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayerEnd"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 42.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LabelEnd" type="Label" parent="CanvasLayerEnd/VBoxContainer"]
-unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("66_mr1i3")
 theme_override_font_sizes/font_size = 64
 text = "End of the night"
 horizontal_alignment = 1
@@ -888,34 +868,32 @@ vertical_alignment = 1
 
 [node name="LabelEndPresents" type="Label" parent="CanvasLayerEnd/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("66_mr1i3")
 theme_override_font_sizes/font_size = 32
 text = "Presents offered: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayerEnd/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 50
+theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 80
 
 [node name="ButtonRetry" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer"]
-unique_name_in_owner = true
+visible = false
 layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("66_mr1i3")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxTexture_evleh")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ytdmo")
-theme_override_styles/hover = SubResource("StyleBoxTexture_evleh")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ytdmo")
-theme_override_styles/normal = SubResource("StyleBoxTexture_evleh")
 text = "Retry"
+
+[node name="victory_screen" parent="CanvasLayerEnd" instance=ExtResource("70_tonoo")]
+unique_name_in_owner = true
+visible = false
 
 [node name="CanvasLayerClickProtection" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -941,5 +919,6 @@ unique_name_in_owner = true
 [connection signal="exited_screen" from="Character" to="." method="_on_character_exited_screen"]
 [connection signal="hit" from="Character" to="." method="_on_character_hit"]
 [connection signal="hit_ground" from="Character" to="." method="_on_character_hit_ground"]
+[connection signal="pressed" from="CanvasLayerGameOver/VBoxContainer/MarginContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]
 [connection signal="pressed" from="CanvasLayerEnd/VBoxContainer/MarginContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]
 [connection signal="timeout" from="SemicolonTimer" to="." method="_on_semicolon_timer_timeout"]

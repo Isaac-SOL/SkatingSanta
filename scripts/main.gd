@@ -15,7 +15,7 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 @export var alien_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var canne_spawn_timing: Vector2 = Vector2(1.0, 6.0)
 @export var cannon_spawn_timing: Vector2 = Vector2(1.0, 6.0)
-@export var initial_time: float = 120.0
+@export var initial_time: float = 180.0
 @export var max_presents: int = 5
 @export var present_reload_time: float = 1.0
 @export var dash_reload_time: float = 5.0
@@ -42,6 +42,8 @@ enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 
 @export var picked_upgrades: Array[StringName] = []
 
+var pause = false
+var in_game_pause = false
 var game_state: GameState = GameState.RUNNING
 var speed: float = 1.0
 var next_house_spawn: float
@@ -86,6 +88,7 @@ var dash_reload: float = 0.0 :
 		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time)) + "%")
 
 func _ready() -> void:
+	%PauseMenu.hide()
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
 	next_satellite_spawn = randf_range(satellite_spawn_timing.x, satellite_spawn_timing.y)
 	next_pipe_spawn = randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
@@ -99,6 +102,15 @@ func _ready() -> void:
 	update_max_ammo_barr()
 
 func _process(delta: float) -> void:
+	
+	
+	# Pause menus
+	if Input.is_action_just_pressed("pause"):
+		pauseMenu()
+		
+	#Update global variable
+	Global.score = score
+		
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
 	norm_pos = pow(clamp(norm_pos, 0, 1), speed_power)
 	speed = lerpf(speed_high, speed_low, pow(norm_pos, speed_power))
@@ -151,7 +163,7 @@ func _process(delta: float) -> void:
 	process_present_reload(delta)
 	
 	process_global_timer(delta)
-	process_pause()
+	#process_pause()
 
 func start_dash():
 	dash_additional_speed = dash_speed
@@ -258,14 +270,14 @@ func process_global_timer(delta: float):
 		time_finished.emit()
 		end_game()
 
-func process_pause():
-	if Input.is_action_just_pressed("pause"):
-		if game_state == GameState.RUNNING:
-			game_state = GameState.PAUSED
-			Engine.time_scale = 0
-		elif game_state == GameState.PAUSED:
-			game_state = GameState.RUNNING
-			Engine.time_scale = 1
+#func process_pause():
+	#if Input.is_action_just_pressed("pause"):
+		#if game_state == GameState.RUNNING:
+			#game_state = GameState.PAUSED
+			#Engine.time_scale = 0
+		#elif game_state == GameState.PAUSED:
+			#game_state = GameState.RUNNING
+			#Engine.time_scale = 1
 
 func has_upgrade(upgrade_id: StringName) -> bool:
 	return upgrade_id in picked_upgrades
@@ -273,6 +285,10 @@ func has_upgrade(upgrade_id: StringName) -> bool:
 func start_upgrade_screen():
 	if game_state == GameState.WAITING_UPGRADE:
 		return
+	
+	game_state = GameState.WAITING_UPGRADE
+	Engine.time_scale = 0
+	in_game_pause = true
 	
 	if upgrades.is_empty():
 		curr_level_need = 1000000
@@ -309,6 +325,7 @@ func start_upgrade_screen():
 
 func kill():
 	Engine.time_scale = 0
+	in_game_pause = true
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
@@ -318,6 +335,7 @@ func kill():
 
 func end_game():
 	Engine.time_scale = 0
+	in_game_pause = true
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
@@ -369,6 +387,7 @@ func _on_character_exited_screen() -> void:
 func _on_button_retry_pressed() -> void:
 	get_tree().reload_current_scene()
 	Engine.time_scale = 1
+	in_game_pause = false
 
 func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringName) -> void:
 	if game_state != GameState.WAITING_UPGRADE:
@@ -405,6 +424,7 @@ func close_upgrades_screen():
 		child.queue_free()
 	game_state = GameState.RUNNING
 	Engine.time_scale = 1
+	in_game_pause = false
 	%CanvasLayerUpgrades.visible = false
 
 func apply_new_level():
@@ -482,3 +502,14 @@ func hitstop(duration: float):
 func _on_semicolon_timer_timeout() -> void:
 	time_semicolon = ":" if time_semicolon == " " else " "
 	update_time_text()
+
+
+func pauseMenu():
+	if pause:
+		%PauseMenu.hide()
+		if !in_game_pause:
+			Engine.time_scale = 1
+	else:
+		%PauseMenu.show()
+		Engine.time_scale = 0
+	pause = !pause

@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/image="res://assets/your-logo-here-dark.png"
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://scenes/globals/global.tscn"
+
 [display]
 
 window/size/viewport_width=640
@@ -46,6 +50,7 @@ folder_colors={
 [global_group]
 
 Character=""
+MainGroup=""
 
 [input]
 

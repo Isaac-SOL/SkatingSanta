@@ -17,9 +17,6 @@ hp = 5
 position = Vector2(0, -18.615)
 texture = ExtResource("2_b42lw")
 
-[node name="GPUParticles2D" parent="." index="1"]
-position = Vector2(6, -47)
-
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(4.76837e-07, -14.5)
 shape = SubResource("RectangleShape2D_ohhwe")

@@ -99,6 +99,7 @@ func _process(delta: float) -> void:
 			if dodge_load <= 0.0:
 				# Dodge ready
 				%GlassesSprite.visible = true
+				%ReadyAudio.play()
 				var tween_scale := create_tween().set_trans(Tween.TRANS_QUAD)
 				tween_scale.tween_property(%ShineSprite, "scale", Vector2(0.4, 0.4), 0.5).set_ease(Tween.EASE_OUT)
 				tween_scale.tween_property(%ShineSprite, "scale", Vector2.ZERO, 0.5).set_ease(Tween.EASE_IN)
@@ -412,6 +413,7 @@ func apply_upgrade(upgrade_id: StringName):
 		&"DODGE":
 			dodge_load = 0.0
 			%GlassesSprite.visible = true
+			%ReadyAudio.play()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	exited_screen.emit()

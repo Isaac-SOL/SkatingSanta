@@ -13,6 +13,7 @@ func _ready():
 	%NewGameButton.grab_focus()
 	anim_player.queue("title_anim")
 	#NodeAudio.playAudio(NodeAudio.audioMenu)
+	Engine.time_scale = 1
 	
 
 #func _process(delta):
@@ -20,7 +21,7 @@ func _ready():
 	
 func _on_new_game_button_pressed():
 	#NodeAudio.playAudio(NodeAudio.audioTransit)
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/menus/help.tscn")
 	#get_tree().change_scene_to_packed(main_level)
 
 func _on_quit_button_pressed():

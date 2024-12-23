@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://8j3yqjf3koxf"
+path="res://.godot/imported/Christmas Music - Christmas Is Coming.ogg-2a1f4fab97850ce8151dd714d04c82c2.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Christmas Music - Christmas Is Coming.ogg"
+dest_files=["res://.godot/imported/Christmas Music - Christmas Is Coming.ogg-2a1f4fab97850ce8151dd714d04c82c2.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

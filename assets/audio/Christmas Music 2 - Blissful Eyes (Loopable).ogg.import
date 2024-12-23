@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chplio1lyutpb"
+path="res://.godot/imported/Christmas Music 2 - Blissful Eyes (Loopable).ogg-0c08480cfc8c109a04ed950ec32925f6.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Christmas Music 2 - Blissful Eyes (Loopable).ogg"
+dest_files=["res://.godot/imported/Christmas Music 2 - Blissful Eyes (Loopable).ogg-0c08480cfc8c109a04ed950ec32925f6.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -10,6 +10,8 @@
 script/source = "extends Control
 
 
+func _ready() -> void:
+	$MarginContainer/VBoxContainer2/VBoxContainer3/ExitButton.grab_focus()
 
 func _on_exit_button_pressed():
 	get_tree().change_scene_to_file(\"res://scenes/menus/menu.tscn\")

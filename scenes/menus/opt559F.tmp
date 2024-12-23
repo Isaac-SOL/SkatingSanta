@@ -1,0 +1,250 @@
+[gd_scene load_steps=9 format=3 uid="uid://btqhmth3nfcml"]
+
+[ext_resource type="Theme" uid="uid://ujjtd62wvxsf" path="res://imports/pixel_theme.tres" id="1_l24xp"]
+[ext_resource type="StyleBox" uid="uid://cln15kpjcsiss" path="res://imports/style_box_normal.tres" id="2_aoko6"]
+[ext_resource type="StyleBox" uid="uid://ddmyelf7ggrso" path="res://imports/style_box_hover.tres" id="3_eultm"]
+[ext_resource type="StyleBox" uid="uid://b3p1lms34esoy" path="res://imports/style_box_click.tres" id="4_s66lb"]
+[ext_resource type="PackedScene" uid="uid://vy1hotkmh85a" path="res://scenes/menus/rebind_button.tscn" id="6_ygs53"]
+[ext_resource type="PackedScene" uid="uid://djgyuwe64xlgb" path="res://scenes/menus/volume_slider.tscn" id="8_hh48g"]
+
+[sub_resource type="GDScript" id="GDScript_x83yd"]
+script/source = "extends Control
+
+#@onready var display_mode_b = $MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer/VBoxContainer/HBoxContainer/OptionButtonDisplay as OptionButton
+
+#func _ready():
+	#display_mode_b.select(Global.displayMode)
+	
+
+func _on_exit_button_pressed():
+	get_tree().change_scene_to_file(\"res://scenes/menus/menu.tscn\")
+
+#func _on_option_button_display_item_selected(index):
+	#Global.setDisplayMode(index)
+"
+
+[sub_resource type="Theme" id="Theme_a6xb6"]
+default_font_size = 75
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_x83yd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.254902, 0.254902, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 51.0
+offset_top = 14.0
+offset_right = 494.0
+offset_bottom = 311.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme = SubResource("Theme_a6xb6")
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.380392, 0.364706, 0.866667, 1)
+text = "Options"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer3"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(1083.16, 435)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_l24xp")
+theme_override_colors/font_unselected_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_colors/font_hovered_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_colors/font_selected_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_styles/tab_selected = ExtResource("4_s66lb")
+theme_override_styles/tab_hovered = ExtResource("3_eultm")
+theme_override_styles/tab_unselected = ExtResource("2_aoko6")
+current_tab = 0
+
+[node name="Game" type="TabBar" parent="MarginContainer/VBoxContainer3/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
+text = "Display Mode"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="OptionButtonDisplay" type="OptionButton" parent="MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_colors/font_hover_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_colors/font_pressed_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_colors/font_focus_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_styles/focus = ExtResource("2_aoko6")
+theme_override_styles/hover = ExtResource("3_eultm")
+theme_override_styles/pressed = ExtResource("4_s66lb")
+theme_override_styles/normal = ExtResource("2_aoko6")
+selected = 0
+item_count = 2
+popup/item_0/text = "Fullscreen"
+popup/item_1/text = "Windowed"
+popup/item_1/id = 1
+
+[node name="Controls" type="TabBar" parent="MarginContainer/VBoxContainer3/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 70
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RebindButtonUp" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
+layout_mode = 2
+actionName = "up"
+
+[node name="RebindButtonDown" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
+layout_mode = 2
+actionName = "down"
+
+[node name="RebindButtonLeft" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
+layout_mode = 2
+actionName = "left"
+
+[node name="RebindButtonRight" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
+layout_mode = 2
+actionName = "right"
+
+[node name="RebindButtonPause" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
+layout_mode = 2
+actionName = "pause"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Sound" type="TabBar" parent="MarginContainer/VBoxContainer3/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Sound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Sound/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="VolumeSliderMaster" parent="MarginContainer/VBoxContainer3/TabContainer/Sound/MarginContainer/VBoxContainer" instance=ExtResource("8_hh48g")]
+layout_mode = 2
+busName = "Master"
+
+[node name="VolumeSliderSfx" parent="MarginContainer/VBoxContainer3/TabContainer/Sound/MarginContainer/VBoxContainer" instance=ExtResource("8_hh48g")]
+layout_mode = 2
+busName = "Sfx"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer3"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_l24xp")
+theme_override_colors/font_color = Color(0.856294, 0.851802, 0.981024, 1)
+theme_override_styles/hover = ExtResource("3_eultm")
+theme_override_styles/pressed = ExtResource("4_s66lb")
+theme_override_styles/normal = ExtResource("2_aoko6")
+text = "Exit"
+
+[connection signal="item_selected" from="MarginContainer/VBoxContainer3/TabContainer/Game/MarginContainer/VBoxContainer/HBoxContainer/OptionButtonDisplay" to="." method="_on_option_button_display_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer3/VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]

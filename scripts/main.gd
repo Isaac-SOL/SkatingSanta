@@ -108,8 +108,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		pauseMenu()
 		
-	#Update global variable
-	Global.score = score
 		
 	var norm_pos: float = (%Character.position.y - position_bounds.x) / (position_bounds.y - position_bounds.x)
 	norm_pos = pow(clamp(norm_pos, 0, 1), speed_power)
@@ -133,7 +131,6 @@ func _process(delta: float) -> void:
 	%CloudSprite2.rotation -= speed * delta * 0.5
 	%CloudSprite1.rotation -= speed * delta * 0.6
 	%MoonSprite.rotation -= speed * delta * 0.4
-	%SkySprite.rotation -= speed * delta * 0.5
 	
 	# Speed lines
 	var norm_speed = clampf((speed - 0.25) / 0.15, 0, 1)
@@ -330,7 +327,7 @@ func kill():
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
 	%LabelEnd.text = "Game Over"
-	%LabelEndPresents.text = "Presents offered: " + str(score)
+	%LabelEndPresents.text = "Presents delivered: " + str(score)
 	%ButtonRetry.grab_focus()
 
 func end_game():
@@ -507,9 +504,18 @@ func _on_semicolon_timer_timeout() -> void:
 func pauseMenu():
 	if pause:
 		%PauseMenu.hide()
+		if game_state == GameState.PAUSED:
+			game_state = GameState.RUNNING
 		if !in_game_pause:
 			Engine.time_scale = 1
 	else:
 		%PauseMenu.show()
+		if game_state == GameState.RUNNING:
+			game_state = GameState.PAUSED
 		Engine.time_scale = 0
 	pause = !pause
+
+
+func _on_button_menu_pressed():
+	pauseMenu()
+	get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")

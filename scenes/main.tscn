@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=120 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -63,15 +63,16 @@
 [ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
 [ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
 [ext_resource type="Script" path="res://scripts/barre_hp_canne.gd" id="49_wvq3d"]
+[ext_resource type="Material" uid="uid://dgr5ke1ehddtw" path="res://assets/particules/speed_lines.tres" id="53_bqdpy"]
 [ext_resource type="AudioStream" uid="uid://canj3j51rqjs0" path="res://assets/audio/beep4.ogg" id="58_j4oup"]
 [ext_resource type="AudioStream" uid="uid://bltr5k3llyav7" path="res://assets/audio/beep.ogg" id="59_0hul8"]
 [ext_resource type="FontFile" uid="uid://bv01xdxovsvy0" path="res://assets/fonts/e1234-font/E1234Italic-Jpawx.ttf" id="64_jol62"]
 [ext_resource type="FontFile" uid="uid://b28yu6nnm4vdl" path="res://assets/fonts/Kenney Mini Square.ttf" id="66_mr1i3"]
 [ext_resource type="Texture2D" uid="uid://3pmvky8j7371" path="res://assets/sprites/Levelup_cadre.png" id="67_ct30h"]
 [ext_resource type="Texture2D" uid="uid://rxeitf4634g2" path="res://assets/sprites/Levelup.png" id="68_g3br0"]
-[ext_resource type="Texture2D" uid="uid://d4ki4faxxldnj" path="res://assets/sprites/Kenney/Green/Default/button_rectangle_depth_gradient.png" id="70_lm3tw"]
-[ext_resource type="Texture2D" uid="uid://dpm6sn8rx6e6" path="res://assets/sprites/Kenney/Green/Default/button_rectangle_gradient.png" id="71_hic1s"]
 [ext_resource type="PackedScene" uid="uid://41iw3r017qm6" path="res://scenes/menus/pause_menu.tscn" id="70_bj3f7"]
+[ext_resource type="StyleBox" uid="uid://q42qqrbxgtvj" path="res://assets/sprites/UI/button_focus.tres" id="70_ujuqb"]
+[ext_resource type="StyleBox" uid="uid://jxm6butg6hy0" path="res://assets/sprites/UI/button_pressed.tres" id="71_7rmov"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -348,32 +349,6 @@ radius = 652.007
 [sub_resource type="CircleShape2D" id="CircleShape2D_jundk"]
 radius = 586.008
 
-[sub_resource type="Gradient" id="Gradient_dy0e4"]
-offsets = PackedFloat32Array(0.189474, 0.466667, 0.701754, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_uxk25"]
-gradient = SubResource("Gradient_dy0e4")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wkd61"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(1, 100, 1)
-angle_min = -20.0
-angle_max = -20.0
-direction = Vector3(-1, -1, 0)
-spread = 0.0
-initial_velocity_min = 679.98
-initial_velocity_max = 679.98
-angular_velocity_min = 40.0
-angular_velocity_max = 40.0
-gravity = Vector3(0, 400, 0)
-scale_min = 3.0
-scale_max = 3.0
-color = Color(1, 1, 1, 0.588235)
-color_ramp = SubResource("GradientTexture1D_uxk25")
-
 [sub_resource type="LabelSettings" id="LabelSettings_1bvtu"]
 font = ExtResource("64_jol62")
 font_size = 24
@@ -455,20 +430,6 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_os4m7"]
 font = ExtResource("30_wana7")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evleh"]
-texture = ExtResource("70_lm3tw")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ytdmo"]
-texture = ExtResource("71_hic1s")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84pr2"]
 
 [node name="Main" type="Node2D" groups=["MainGroup"]]
@@ -481,7 +442,6 @@ children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
 canne_spawn_timing = Vector2(3, 8)
-initial_time = 5.0
 max_presents = 3
 dash_speed = 1.0
 dash_falloff = 0.6
@@ -511,7 +471,6 @@ script = ExtResource("21_7foa3")
 [node name="Background" type="Node2D" parent="."]
 
 [node name="SkySprite" type="Sprite2D" parent="Background"]
-unique_name_in_owner = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_1bt6w")
 position = Vector2(320, 896)
@@ -591,7 +550,7 @@ visible = false
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 position = Vector2(912, 386)
-process_material = SubResource("ParticleProcessMaterial_wkd61")
+process_material = ExtResource("53_bqdpy")
 texture = ExtResource("30_tgke0")
 lifetime = 2.0
 randomness = 1.0
@@ -892,7 +851,7 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("66_mr1i3")
 theme_override_font_sizes/font_size = 32
-text = "Presents offered: 0"
+text = "Presents delivered: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -900,22 +859,40 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 50
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 50
 
-[node name="ButtonRetry" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayerEnd/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ButtonRetry" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("66_mr1i3")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxTexture_evleh")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ytdmo")
-theme_override_styles/hover = SubResource("StyleBoxTexture_evleh")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ytdmo")
-theme_override_styles/normal = SubResource("StyleBoxTexture_evleh")
-text = "Retry"
+theme_override_styles/hover = ExtResource("71_7rmov")
+theme_override_styles/pressed = ExtResource("71_7rmov")
+theme_override_styles/normal = ExtResource("70_ujuqb")
+text = "Play 
+again"
+
+[node name="ButtonMenu" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("66_mr1i3")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = ExtResource("71_7rmov")
+theme_override_styles/pressed = ExtResource("71_7rmov")
+theme_override_styles/normal = ExtResource("70_ujuqb")
+text = "Main 
+Menu"
 
 [node name="CanvasLayerClickProtection" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -941,5 +918,6 @@ unique_name_in_owner = true
 [connection signal="exited_screen" from="Character" to="." method="_on_character_exited_screen"]
 [connection signal="hit" from="Character" to="." method="_on_character_hit"]
 [connection signal="hit_ground" from="Character" to="." method="_on_character_hit_ground"]
-[connection signal="pressed" from="CanvasLayerEnd/VBoxContainer/MarginContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]
+[connection signal="pressed" from="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]
+[connection signal="pressed" from="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer/ButtonMenu" to="." method="_on_button_menu_pressed"]
 [connection signal="timeout" from="SemicolonTimer" to="." method="_on_semicolon_timer_timeout"]

@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5584p4knludl"]
+[gd_scene load_steps=9 format=3 uid="uid://c5584p4knludl"]
 
 [ext_resource type="Theme" uid="uid://8emhd0ldlsmt" path="res://assets/fonts/themes/menus_title.tres" id="1_ua5cj"]
 [ext_resource type="Theme" uid="uid://dc7tnjmkxj4kx" path="res://assets/fonts/themes/menus_button.tres" id="2_4cpx6"]
 [ext_resource type="StyleBox" uid="uid://cln15kpjcsiss" path="res://imports/style_box_normal.tres" id="2_aoko6"]
 [ext_resource type="StyleBox" uid="uid://ddmyelf7ggrso" path="res://imports/style_box_hover.tres" id="3_eultm"]
 [ext_resource type="StyleBox" uid="uid://b3p1lms34esoy" path="res://imports/style_box_click.tres" id="4_s66lb"]
-[ext_resource type="PackedScene" uid="uid://vy1hotkmh85a" path="res://scenes/menus/rebind_button.tscn" id="6_ygs53"]
 [ext_resource type="PackedScene" uid="uid://djgyuwe64xlgb" path="res://scenes/menus/volume_slider.tscn" id="8_hh48g"]
 
 [sub_resource type="GDScript" id="GDScript_x83yd"]
@@ -93,10 +92,9 @@ theme_override_colors/font_selected_color = Color(0.854902, 0.85098, 0.980392, 1
 theme_override_styles/tab_selected = ExtResource("4_s66lb")
 theme_override_styles/tab_hovered = ExtResource("3_eultm")
 theme_override_styles/tab_unselected = ExtResource("2_aoko6")
-current_tab = 1
+current_tab = 0
 
 [node name="Game" type="TabBar" parent="MarginContainer/VBoxContainer3/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -148,62 +146,10 @@ popup/item_0/text = "Fullscreen"
 popup/item_1/text = "Windowed"
 popup/item_1/id = 1
 
-[node name="Controls" type="TabBar" parent="MarginContainer/VBoxContainer3/TabContainer"]
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Controls"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 5
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 70
-
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="RebindButtonUp" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
-layout_mode = 2
-actionName = "up"
-
-[node name="RebindButtonDown" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
-layout_mode = 2
-actionName = "down"
-
-[node name="RebindButtonLeft" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
-layout_mode = 2
-actionName = "left"
-
-[node name="RebindButtonRight" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
-layout_mode = 2
-actionName = "right"
-
-[node name="RebindButtonPause" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ygs53")]
-layout_mode = 2
-actionName = "pause"
-
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer3/TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 10
-
 [node name="Sound" type="TabBar" parent="MarginContainer/VBoxContainer3/TabContainer"]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 2
+metadata/_tab_index = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer3/TabContainer/Sound"]
 layout_mode = 1

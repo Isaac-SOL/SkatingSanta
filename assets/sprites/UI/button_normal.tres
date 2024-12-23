@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://b6vuywrt4cw0o"]
+
+[ext_resource type="Texture2D" uid="uid://d4ki4faxxldnj" path="res://assets/sprites/Kenney/Green/Default/button_rectangle_depth_gradient.png" id="1_rciju"]
+
+[resource]
+texture = ExtResource("1_rciju")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 10.0

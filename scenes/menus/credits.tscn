@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b3pubvdn636a6"]
+[gd_scene load_steps=8 format=3 uid="uid://b3pubvdn636a6"]
 
-[ext_resource type="Material" uid="uid://dqstr70mxussl" path="res://assets/shaders/shader_material_menu.tres" id="1_bbqsc"]
-[ext_resource type="FontFile" uid="uid://bttgrhv6x14xj" path="res://assets/fonts/arco/ARCO.ttf" id="1_g318r"]
-[ext_resource type="Theme" uid="uid://t6cgffi5rwf8" path="res://assets/fonts/credits_theme.tres" id="2_l8yri"]
-[ext_resource type="StyleBox" uid="uid://cln15kpjcsiss" path="res://imports/style_box_normal.tres" id="4_pmhgn"]
-[ext_resource type="StyleBox" uid="uid://ddmyelf7ggrso" path="res://imports/style_box_hover.tres" id="5_5lkmn"]
-[ext_resource type="StyleBox" uid="uid://b3p1lms34esoy" path="res://imports/style_box_click.tres" id="6_rj8dg"]
+[ext_resource type="Theme" uid="uid://8emhd0ldlsmt" path="res://assets/fonts/themes/menus_title.tres" id="1_cdxi0"]
+[ext_resource type="Theme" uid="uid://dc7tnjmkxj4kx" path="res://assets/fonts/themes/menus_button.tres" id="2_rsl3m"]
+[ext_resource type="StyleBox" uid="uid://dryhgdvxl8hsb" path="res://assets/sprites/UI/button_hover.tres" id="3_5shvy"]
+[ext_resource type="StyleBox" uid="uid://jxm6butg6hy0" path="res://assets/sprites/UI/button_pressed.tres" id="4_pjob6"]
+[ext_resource type="StyleBox" uid="uid://b6vuywrt4cw0o" path="res://assets/sprites/UI/button_normal.tres" id="5_2n127"]
 
 [sub_resource type="GDScript" id="GDScript_elj4b"]
 script/source = "extends Control
@@ -19,14 +18,6 @@ func _on_exit_button_pressed():
 [sub_resource type="Theme" id="Theme_3pghs"]
 default_font_size = 75
 
-[sub_resource type="Theme" id="Theme_ul7nw"]
-default_font = ExtResource("1_g318r")
-default_font_size = 30
-
-[sub_resource type="Theme" id="Theme_ws6a1"]
-default_font = ExtResource("1_g318r")
-default_font_size = 30
-
 [node name="credits" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -37,14 +28,13 @@ grow_vertical = 2
 script = SubResource("GDScript_elj4b")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = ExtResource("1_bbqsc")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0941176, 0.254902, 0.254902, 1)
+color = Color(0.0289173, 0.27077, 0.243888, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -55,7 +45,6 @@ offset_top = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_3pghs")
-theme_override_constants/margin_top = 10
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -65,7 +54,7 @@ custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 5
+theme_override_constants/separation = 20
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -75,8 +64,8 @@ theme_override_constants/separation = 25
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = SubResource("Theme_ul7nw")
-theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme = ExtResource("1_cdxi0")
+theme_override_colors/font_color = Color(0.145098, 0.8, 0.529412, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
@@ -91,14 +80,12 @@ theme_override_constants/separation = 5
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("2_l8yri")
+theme = ExtResource("2_rsl3m")
 theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
 theme_override_font_sizes/font_size = 16
-text = "SaltyIsaac: Game Design, Gameplay Programming
-Arkatein: Game Design, Shaders
-Popouleto: Sprites
-Chapix: Enemy AI
-Jananass: Background Music, Voice Acting"
+text = "SaltyIsaac: Game Design, Gameplay Programming, sound design
+Arkatein: Sprites pixel art, Shaders, particules, game integrations
+Cyptal: Upgrades' visuals, User interface, Voice acting"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -116,11 +103,11 @@ theme_override_constants/separation = 10
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 4
-theme = SubResource("Theme_ws6a1")
+theme = ExtResource("2_rsl3m")
 theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
-theme_override_styles/normal = ExtResource("4_pmhgn")
-theme_override_styles/hover = ExtResource("5_5lkmn")
-theme_override_styles/pressed = ExtResource("6_rj8dg")
+theme_override_styles/hover = ExtResource("3_5shvy")
+theme_override_styles/pressed = ExtResource("4_pjob6")
+theme_override_styles/normal = ExtResource("5_2n127")
 text = "Main Menu"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer3/ExitButton" to="." method="_on_exit_button_pressed"]

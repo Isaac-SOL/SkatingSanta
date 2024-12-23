@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://gyabx1wd7q0g"]
+[gd_scene load_steps=35 format=3 uid="uid://gyabx1wd7q0g"]
 
 [ext_resource type="Script" path="res://scripts/house.gd" id="1_epain"]
 [ext_resource type="Texture2D" uid="uid://cugwtgiuf6nhx" path="res://assets/sprites/alien.png" id="2_3almi"]
@@ -34,7 +34,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_72bym"]
-radius = 12.0
+radius = 8.00001
 height = 62.0
 
 [sub_resource type="Gradient" id="Gradient_6o615"]
@@ -86,6 +86,76 @@ damping_max = 100.0
 scale_min = 0.4
 scale_max = 0.7
 scale_curve = SubResource("CurveTexture_6ntje")
+
+[sub_resource type="Gradient" id="Gradient_a7bw8"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667, 0.249123, 0.473684, 0.705263, 0.852632)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0.133333, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_afukd"]
+gradient = SubResource("Gradient_a7bw8")
+
+[sub_resource type="Curve" id="Curve_8c1pl"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0734824, 14.7134), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4k4wk"]
+curve = SubResource("Curve_8c1pl")
+
+[sub_resource type="Curve" id="Curve_0uud7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.194888, 0), 0.0, 0.0, 0, 0, Vector2(0.421725, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_5s33i"]
+curve_x = SubResource("Curve_0uud7")
+
+[sub_resource type="Curve" id="Curve_vft6l"]
+_data = [Vector2(0, 0.36242), 0.0, 8.68226, 0, 0, Vector2(0.166134, 1), 0.0, 0.0, 0, 0, Vector2(0.530351, 1), 0.0, 0.0, 0, 0, Vector2(0.990415, 0.056051), -4.66511, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ocl5"]
+curve = SubResource("Curve_vft6l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jsjy2"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 25.0
+initial_velocity_min = 169.96
+initial_velocity_max = 353.44
+angular_velocity_min = -272.32
+angular_velocity_max = 169.17
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_5s33i")
+gravity = Vector3(0, 0, 0)
+damping_min = 50.782
+damping_max = 100.0
+damping_curve = SubResource("CurveTexture_4k4wk")
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_8ocl5")
+color_initial_ramp = SubResource("GradientTexture1D_afukd")
+
+[sub_resource type="GDScript" id="GDScript_hcm4b"]
+script/source = "extends Area2D
+
+var voided: bool :
+	get:
+		return get_parent().voided
+
+var blocked: bool :
+	get:
+		return get_parent().blocked
+
+func parry():
+	get_parent().parry()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t06e3"]
+size = Vector2(48, 5)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vhjnn"]
 random_pitch = 1.02
@@ -155,6 +225,26 @@ texture = ExtResource("5_1a1ay")
 lifetime = 0.5
 one_shot = true
 local_coords = true
+
+[node name="PoofParryParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_jsjy2")
+texture = ExtResource("4_sgksg")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="Wahoo" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 10
+script = SubResource("GDScript_hcm4b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wahoo"]
+position = Vector2(-9.53674e-07, -4.5)
+shape = SubResource("RectangleShape2D_t06e3")
 
 [node name="AudioHappy" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

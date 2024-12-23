@@ -71,6 +71,7 @@ var hp: int = 3 :
 		hp = mini(value, 9)
 		%HPLabel.text = "HP: " + str(hp)
 		%HP.update(hp)
+		%VignetteDanger.visible = hp <= 1
 var time_left: float = 120 :
 	set(value):
 		time_left = value
@@ -89,8 +90,7 @@ var dash_reload: float = 0.0 :
 		%DashLabel.text = "Dash: " + ("READY" if dash_reload <= 0 else str(100 - floori(dash_reload * 100 / dash_reload_time)) + "%")
 
 func _ready() -> void:
-	%PauseMenu.hide()
-	Engine.time_scale = 1
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
 	next_satellite_spawn = randf_range(satellite_spawn_timing.x, satellite_spawn_timing.y)
 	next_pipe_spawn = randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)

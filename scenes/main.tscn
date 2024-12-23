@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=122 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -61,12 +61,13 @@
 [ext_resource type="Texture2D" uid="uid://bscynl1lhqhlb" path="res://assets/sprites/3usine.png" id="37_ew65x"]
 [ext_resource type="Texture2D" uid="uid://cgcm2wmdtiwyc" path="res://assets/sprites/background/trees.png" id="37_v8x45"]
 [ext_resource type="Shader" path="res://shader/snow.gdshader" id="38_p63ge"]
-[ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
 [ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
 [ext_resource type="Script" path="res://scripts/barre_hp_canne.gd" id="49_wvq3d"]
 [ext_resource type="Material" uid="uid://dgr5ke1ehddtw" path="res://assets/particules/speed_lines.tres" id="53_bqdpy"]
 [ext_resource type="AudioStream" uid="uid://canj3j51rqjs0" path="res://assets/audio/beep4.ogg" id="58_j4oup"]
 [ext_resource type="AudioStream" uid="uid://bltr5k3llyav7" path="res://assets/audio/beep.ogg" id="59_0hul8"]
+[ext_resource type="AudioStream" uid="uid://8j3yqjf3koxf" path="res://assets/audio/Christmas Music - Christmas Is Coming.ogg" id="59_2j8l0"]
+[ext_resource type="Texture2D" uid="uid://bavlsumbmnxy2" path="res://assets/sprites/vignette.png" id="62_vgmd4"]
 [ext_resource type="FontFile" uid="uid://bv01xdxovsvy0" path="res://assets/fonts/e1234-font/E1234Italic-Jpawx.ttf" id="64_jol62"]
 [ext_resource type="FontFile" uid="uid://b28yu6nnm4vdl" path="res://assets/fonts/Kenney Mini Square.ttf" id="66_mr1i3"]
 [ext_resource type="Texture2D" uid="uid://3pmvky8j7371" path="res://assets/sprites/Levelup_cadre.png" id="67_ct30h"]
@@ -444,7 +445,6 @@ children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
 canne_spawn_timing = Vector2(3, 8)
-initial_time = 5.0
 max_presents = 3
 dash_speed = 1.0
 dash_falloff = 0.6
@@ -620,7 +620,7 @@ autoplay = true
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("39_5rlis")
+stream = ExtResource("59_2j8l0")
 volume_db = -25.0
 autoplay = true
 
@@ -635,6 +635,17 @@ stream = ExtResource("59_0hul8")
 volume_db = -15.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VignetteDanger" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("62_vgmd4")
 
 [node name="VBoxTopLeft" type="VBoxContainer" parent="CanvasLayer"]
 offset_right = 274.615
@@ -861,7 +872,6 @@ vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayerEnd/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 100
@@ -874,7 +884,7 @@ alignment = 1
 
 [node name="ButtonRetry" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("66_mr1i3")
@@ -888,7 +898,7 @@ again"
 [node name="ButtonMenu" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 process_mode = 3
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("66_mr1i3")
@@ -919,6 +929,7 @@ autostart = true
 
 [node name="PauseMenu" parent="CanvasLayerPause" instance=ExtResource("70_bj3f7")]
 unique_name_in_owner = true
+visible = false
 
 [connection signal="exited_screen" from="Character" to="." method="_on_character_exited_screen"]
 [connection signal="hit" from="Character" to="." method="_on_character_hit"]

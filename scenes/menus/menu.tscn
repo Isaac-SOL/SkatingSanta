@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8byfg0hwlqvq"]
+[gd_scene load_steps=12 format=3 uid="uid://b8byfg0hwlqvq"]
 
 [ext_resource type="Script" path="res://scripts/menus/menu.gd" id="1_lencv"]
+[ext_resource type="PackedScene" uid="uid://4su3d00erb0k" path="res://scenes/main.tscn" id="2_cq2uw"]
 [ext_resource type="Theme" uid="uid://dc7tnjmkxj4kx" path="res://assets/fonts/themes/menus_button.tres" id="2_qlina"]
+[ext_resource type="PackedScene" uid="uid://b3pubvdn636a6" path="res://scenes/menus/credits.tscn" id="2_wve3c"]
 [ext_resource type="StyleBox" uid="uid://dryhgdvxl8hsb" path="res://assets/sprites/UI/button_hover.tres" id="3_75icd"]
 [ext_resource type="StyleBox" uid="uid://jxm6butg6hy0" path="res://assets/sprites/UI/button_pressed.tres" id="4_wvb41"]
 [ext_resource type="StyleBox" uid="uid://b6vuywrt4cw0o" path="res://assets/sprites/UI/button_normal.tres" id="5_jv8dh"]
@@ -804,6 +806,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lencv")
+main_level = ExtResource("2_cq2uw")
+credit_menu = ExtResource("2_wve3c")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

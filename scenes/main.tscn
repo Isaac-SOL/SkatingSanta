@@ -1,8 +1,9 @@
-[gd_scene load_steps=120 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=121 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
 [ext_resource type="PackedScene" uid="uid://b7055nlbpufhw" path="res://objects/character.tscn" id="2_riojm"]
+[ext_resource type="PackedScene" uid="uid://b8byfg0hwlqvq" path="res://scenes/menus/menu.tscn" id="2_wljmx"]
 [ext_resource type="PackedScene" uid="uid://caq62ugtyx76r" path="res://objects/big_house.tscn" id="3_sv75s"]
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="4_dlig4"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="5_kqrhn"]
@@ -435,6 +436,7 @@ font = ExtResource("30_wana7")
 [node name="Main" type="Node2D" groups=["MainGroup"]]
 texture_filter = 1
 script = ExtResource("1_0wmhh")
+main_menu = ExtResource("2_wljmx")
 speed_low = 0.45
 position_bounds = Vector2(0, 225)
 house_spawn_timing = Vector2(0.2, 0.8)
@@ -442,6 +444,7 @@ children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
 canne_spawn_timing = Vector2(3, 8)
+initial_time = 5.0
 max_presents = 3
 dash_speed = 1.0
 dash_falloff = 0.6
@@ -817,6 +820,7 @@ alignment = 1
 
 [node name="CanvasLayerEnd" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+process_mode = 3
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayerEnd"]
@@ -883,6 +887,7 @@ again"
 
 [node name="ButtonMenu" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+process_mode = 3
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_constants/outline_size = 5

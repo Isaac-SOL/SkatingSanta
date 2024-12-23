@@ -4,6 +4,7 @@ signal time_finished
 
 enum GameState { RUNNING, PAUSED, END_GAME, WAITING_UPGRADE }
 
+@export var main_menu : PackedScene
 @export var speed_high: float = 0.1
 @export var speed_low: float = 1.0
 @export var position_bounds: Vector2 = Vector2(20, 140)
@@ -89,6 +90,7 @@ var dash_reload: float = 0.0 :
 
 func _ready() -> void:
 	%PauseMenu.hide()
+	Engine.time_scale = 1
 	next_house_spawn = randf_range(house_spawn_timing.x, house_spawn_timing.y)
 	next_satellite_spawn = randf_range(satellite_spawn_timing.x, satellite_spawn_timing.y)
 	next_pipe_spawn = randf_range(pipe_spawn_timing.x, pipe_spawn_timing.y)
@@ -263,7 +265,7 @@ func process_global_timer(delta: float):
 			%Beep4Audio.play()
 	if time_left < 5 and (floori(time_left) < floori(prev_time_left)):
 		%BeepAudio.play()
-	if time_left <= 0:
+	if time_left <= 0 and game_state == GameState.RUNNING:
 		time_finished.emit()
 		end_game()
 
@@ -336,7 +338,7 @@ func end_game():
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
-	%LabelEndPresents.text = "Presents offered: " + str(score)
+	%LabelEndPresents.text = "Presents delivered: " + str(score)
 	%ButtonRetry.grab_focus()
 
 func update_ammo_barr():
@@ -502,20 +504,17 @@ func _on_semicolon_timer_timeout() -> void:
 
 
 func pauseMenu():
-	if pause:
-		%PauseMenu.hide()
-		if game_state == GameState.PAUSED:
-			game_state = GameState.RUNNING
-		if !in_game_pause:
-			Engine.time_scale = 1
-	else:
+	if game_state == GameState.RUNNING:
+		game_state = GameState.PAUSED
 		%PauseMenu.show()
-		if game_state == GameState.RUNNING:
-			game_state = GameState.PAUSED
+		%PauseMenu.child_grab_focus()
 		Engine.time_scale = 0
-	pause = !pause
+	elif game_state == GameState.PAUSED:
+		game_state = GameState.RUNNING
+		%PauseMenu.hide()
+		Engine.time_scale = 1
 
 
 func _on_button_menu_pressed():
 	pauseMenu()
-	get_tree().change_scene_to_file("res://scenes/menus/menu.tscn")
+	get_tree().change_scene_to_packed(main_menu)

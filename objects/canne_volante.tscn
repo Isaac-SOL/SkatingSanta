@@ -82,8 +82,8 @@ position = Vector2(1, -1)
 shape = SubResource("CircleShape2D_ylf6q")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(1, -0.999999)
-scale = Vector2(1.5, 1.6)
+position = Vector2(1, 35)
+scale = Vector2(1.5, 5.2)
 
 [node name="PoofParticles" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
@@ -95,3 +95,6 @@ texture = ExtResource("3_e5tma")
 one_shot = true
 explosiveness = 1.0
 local_coords = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

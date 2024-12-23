@@ -38,6 +38,11 @@ var load_shot_direction: Vector2 = Vector2.ZERO
 var invincibility_left: float = 0.0
 var dodge_load: float = 0.0
 var bonus_rotation: float = 0.0
+var para_out: bool = false
+var rpara_out: bool = false 
+var default_anim := &"default"
+var fast_anim := &"fast"
+@onready var main_flames: GPUParticles2D = %StartFlames
 
 func _process(delta: float) -> void:
 	var height_mass_norm_pos = 1 - clampf((position.y + 75) / (height_mass_start_y + 75), 0, 1)
@@ -55,10 +60,21 @@ func _process(delta: float) -> void:
 	rotation += bonus_rotation
 	%RotationCancel.global_rotation = 0.0
 	
-	if main.speed > speed_animation_limit and %SantaSprite2D.animation != &"fast":
-		%SantaSprite2D.play(&"fast")
-	elif main.speed < speed_animation_limit and %SantaSprite2D.animation != &"default":
-		%SantaSprite2D.play(&"default") 
+	if main.speed > speed_animation_limit and %SantaSprite2D.animation != fast_anim:
+		%SantaSprite2D.play(fast_anim)
+		%HotteBGSprite.play(fast_anim)
+		%VoucherSprite.play(fast_anim)
+		%BombSprite.play(fast_anim)
+		%HotteFGSprite.play(fast_anim)
+	elif main.speed < speed_animation_limit and %SantaSprite2D.animation != default_anim:
+		%SantaSprite2D.play(default_anim)
+		%HotteBGSprite.play(default_anim)
+		%VoucherSprite.play(default_anim)
+		%BombSprite.play(default_anim)
+		%HotteFGSprite.play(default_anim)
+	
+	process_parachute()
+	process_flames_burst()
 	
 	if parry_time_left > 0.0:
 		parry_time_left -= delta
@@ -100,8 +116,7 @@ func process_shoot_loaded(delta: float):
 		main.presents -= 1
 		shoot_present(Vector2.LEFT * 3)
 		main.start_dash()
-		if main.has_upgrade(&"SUPER_DASH"):
-			invincibility_left = 0.5
+		%BoosterBurst.emitting = true
 		last_was_loading = false
 		curr_load = 0.0
 	
@@ -165,6 +180,7 @@ func process_shoot_instant():
 		main.presents -= 1
 		shoot_present(Vector2.LEFT * 3)
 		main.start_dash()
+		%BoosterBurst.emitting = true
 	
 	elif Input.is_action_just_pressed("shoot_right") and main.has_upgrade(&"BOMB"):
 		main.presents -= 1
@@ -228,7 +244,6 @@ func _on_area_entered(area: Area2D) -> void:
 		elif main.has_upgrade(&"WORLD_BOUNCE"):
 			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.02))
-			main.hitstop(0.05)
 		else:
 			hit_ground.emit()
 			%OofAudio.play()
@@ -248,12 +263,10 @@ func _on_area_entered(area: Area2D) -> void:
 		elif invincibility_left <= 0.0:
 			get_hit_normal()
 			spawn_flash_at(lerp(global_position, area.global_position, 0.4))
-			main.hitstop(0.05)
 	elif area.get_collision_layer_value(3) and invincibility_left <= 0.0:  # Enemies
 		get_hit_normal()
 		spawn_flash_at(lerp(global_position, area.global_position, 0.4))
-		main.hitstop(0.05)
-	elif area.get_collision_layer_value(6):  # Canne volante
+	elif area.get_collision_layer_value(9):  # Canne volante
 		main.hp +=1
 		%BonusAudio.play()
 
@@ -265,6 +278,7 @@ func get_hit_normal():
 	else:
 		hit.emit()
 		main.screenshake(1.5, 0.7)
+		main.hitstop(0.05)
 		vertical_speed = -hit_updards_impulse
 		%HitAudio.play()
 
@@ -275,6 +289,39 @@ func spawn_flash_at(glob: Vector2) -> Node2D:
 	new_flash.global_position = glob
 	return new_flash
 
+func process_parachute():
+	if global_position.y < 0 and not rpara_out:
+		rpara_out = true
+		parachute_anim(%ReverseParachute, true)
+	elif global_position.y > 25 and rpara_out:
+		rpara_out = false
+		parachute_anim(%ReverseParachute, false)
+	
+	if global_position.y > 200 and not para_out:
+		para_out = true
+		parachute_anim(%Parachute, true)
+	elif global_position.y < 175 and para_out:
+		para_out = false
+		parachute_anim(%Parachute, false)
+
+func parachute_anim(para: Node2D, out: bool):
+	print(para.name, out)
+	var tween := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(para, "scale", Vector2.ONE if out else Vector2.ZERO, 0.5)
+
+func process_flames_burst():
+	if main.has_upgrade(&"SPEED_LOW"):
+		if global_position.y > 185 and not %SurfaceFlames.emitting:
+			%StartFlames.emitting = false
+			%BoosterFlames.emitting = false
+			%SurfaceFlames.emitting = true
+			%SurfaceBurst.emitting = true
+			main.screenshake(0.5, 0.5)
+			%SurfaceStartAudio.play()
+		if global_position.y < 160 and %SurfaceFlames.emitting:
+			%SurfaceFlames.emitting = false
+			main_flames.emitting = true
+
 func upgrade_effect():
 	%BallSprite2D.scale = Vector2.ONE * 0.2
 	%BallSprite2D.visible = true
@@ -283,6 +330,48 @@ func upgrade_effect():
 	tween.tween_property(%BallSprite2D, "scale", Vector2.ONE, 1)
 	tween.parallel().tween_property(%BallSprite2D, "modulate", Color.TRANSPARENT, 1)
 	tween.tween_callback(func (): %BallSprite2D.visible = false)
+
+func apply_upgrade(upgrade_id: StringName):
+	match upgrade_id:
+		&"DASH":
+			%DashSprite1.visible = true
+			main_flames = %BoosterFlames
+			if %StartFlames.emitting:
+				%StartFlames.emitting = false
+				main_flames.emitting = true
+		&"SUPER_DASH":
+			%DashSprite1.visible = false
+			%DashSprite2.visible = true
+		&"RAINBOW":
+			%RainbowSprite.visible = true
+		&"SPEED_HIGH":
+			%WingsSprite.visible = true
+		&"PARRY":
+			%GoldSprite.visible = true
+		&"SPEED_LOW":
+			%SurfaceSprite.visible = true
+		&"RAIL":
+			%RailsSprite.visible = true
+		&"FLOATER":
+			%RainbowSprite.play("hover")
+		&"WORLD_BOUNCE":
+			%Parachute.visible = true
+		&"TOP_BOUNCE":
+			%ReverseParachute.visible = true
+		&"LIGHT":
+			default_anim = &"default_lean"
+			fast_anim = &"fast_lean"
+		&"HEAVY":
+			default_anim = &"default_big"
+			fast_anim = &"fast_big"
+		&"BOMB":
+			%HotteBGSprite.visible = true
+			%HotteFGSprite.visible = true
+			%BombSprite.visible = true
+		&"MONEY":
+			%HotteBGSprite.visible = true
+			%HotteFGSprite.visible = true
+			%VoucherSprite.visible = true
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	exited_screen.emit()

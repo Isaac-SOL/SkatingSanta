@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=121 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://caq62ugtyx76r" path="res://objects/big_house.tscn" id="3_sv75s"]
 [ext_resource type="PackedScene" uid="uid://bxwxahda2kpih" path="res://objects/enemy.tscn" id="4_dlig4"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="5_kqrhn"]
-[ext_resource type="Texture2D" uid="uid://dbjw7krf01fow" path="res://assets/sprites/upgrade_placeholder.png" id="6_h3cn5"]
 [ext_resource type="PackedScene" uid="uid://gyabx1wd7q0g" path="res://objects/alien.tscn" id="6_ruiaf"]
 [ext_resource type="PackedScene" uid="uid://y0abmmsddhcy" path="res://objects/pipe.tscn" id="6_v6dun"]
 [ext_resource type="PackedScene" uid="uid://cc6hm3f5wpuy2" path="res://objects/speed_line.tscn" id="7_rkfew"]
@@ -66,6 +65,7 @@
 [ext_resource type="AudioStream" uid="uid://cj4pdy3vfqxjf" path="res://assets/audio/Christmas Music - Christmas Is Coming (Loopable).ogg" id="39_5rlis"]
 [ext_resource type="PackedScene" uid="uid://betsd6ni68ahl" path="res://objects/double_upgrade_button.tscn" id="41_cwkee"]
 [ext_resource type="Script" path="res://scripts/barre_hp_canne.gd" id="49_wvq3d"]
+[ext_resource type="FontFile" uid="uid://bv01xdxovsvy0" path="res://assets/fonts/e1234-font/E1234Italic-Jpawx.ttf" id="64_jol62"]
 [ext_resource type="FontFile" uid="uid://b28yu6nnm4vdl" path="res://assets/fonts/Kenney Mini Square.ttf" id="66_mr1i3"]
 [ext_resource type="Texture2D" uid="uid://3pmvky8j7371" path="res://assets/sprites/Levelup_cadre.png" id="67_ct30h"]
 [ext_resource type="Texture2D" uid="uid://rxeitf4634g2" path="res://assets/sprites/Levelup.png" id="68_g3br0"]
@@ -123,7 +123,7 @@ script = ExtResource("5_kqrhn")
 id = &"PARRY"
 name = "Magical Cane"
 icon = ExtResource("18_nigbi")
-description = "Throw a present right before hitting a building to make color=yellow]everyone happy[/color]"
+description = "Throw a present right before hitting a building to make [color=green]everyone happy[/color]"
 dependencies = Array[StringName]([&"BLOCK"])
 
 [sub_resource type="Resource" id="Resource_42057"]
@@ -295,7 +295,7 @@ dependencies = Array[StringName]([])
 script = ExtResource("9_7qq88")
 id = &"MORE_SPEED"
 name = "+10% speed"
-icon = ExtResource("6_h3cn5")
+icon = ExtResource("30_p5rby")
 dependencies = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_7smhc"]
@@ -357,6 +357,13 @@ shader = ExtResource("32_lqem0")
 shader_parameter/mask_position = Vector2(-0.167, -0.167)
 shader_parameter/mask_size = Vector2(1, 1)
 shader_parameter/mask_texture = ExtResource("33_blh7w")
+
+[sub_resource type="LabelSettings" id="LabelSettings_1bvtu"]
+font = ExtResource("64_jol62")
+font_size = 24
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 0.588235)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38iap"]
 atlas = ExtResource("36_61xrk")
@@ -669,8 +676,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -68.5
+offset_top = 4.0
 offset_right = 68.5
-offset_bottom = 23.0
+offset_bottom = 32.0
 grow_horizontal = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -678,7 +686,8 @@ size_flags_vertical = 4
 [node name="TimeLabel" type="Label" parent="CanvasLayer/VBoxTopMid"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "120"
+text = "12:00"
+label_settings = SubResource("LabelSettings_1bvtu")
 horizontal_alignment = 1
 
 [node name="VBoxTopRight" type="VBoxContainer" parent="CanvasLayer"]
@@ -729,6 +738,21 @@ stretch_margin_bottom = 8
 texture_under = ExtResource("67_ct30h")
 texture_progress = ExtResource("68_g3br0")
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/VBoxBotMid/LevelProgressBar"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.588235)
+
 [node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxBotMid/LevelProgressBar"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -738,7 +762,8 @@ anchor_bottom = 1.0
 offset_top = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("66_mr1i3")
 text = "Happy Kids: 0 / 10"
 horizontal_alignment = 1
@@ -874,8 +899,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_84pr2")
 
+[node name="SemicolonTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="exited_screen" from="Character" to="." method="_on_character_exited_screen"]
 [connection signal="hit" from="Character" to="." method="_on_character_hit"]
 [connection signal="hit_ground" from="Character" to="." method="_on_character_hit_ground"]
 [connection signal="pressed" from="CanvasLayerGameOver/VBoxContainer/MarginContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]
 [connection signal="pressed" from="CanvasLayerEnd/VBoxContainer/MarginContainer/ButtonRetry" to="." method="_on_button_retry_pressed"]
+[connection signal="timeout" from="SemicolonTimer" to="." method="_on_semicolon_timer_timeout"]

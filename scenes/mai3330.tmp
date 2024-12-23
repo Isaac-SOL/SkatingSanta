@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://4su3d00erb0k"]
+[gd_scene load_steps=123 format=3 uid="uid://4su3d00erb0k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0wmhh"]
 [ext_resource type="PackedScene" uid="uid://co3nfgr6pq3ga" path="res://objects/house.tscn" id="2_es5xx"]
@@ -70,6 +70,7 @@
 [ext_resource type="Texture2D" uid="uid://3pmvky8j7371" path="res://assets/sprites/Levelup_cadre.png" id="67_ct30h"]
 [ext_resource type="Texture2D" uid="uid://rxeitf4634g2" path="res://assets/sprites/Levelup.png" id="68_g3br0"]
 [ext_resource type="PackedScene" uid="uid://41iw3r017qm6" path="res://scenes/menus/pause_menu.tscn" id="70_bj3f7"]
+[ext_resource type="PackedScene" uid="uid://72qg1qjaa2jj" path="res://scenes/menus/victory_screen.tscn" id="70_tonoo"]
 
 [sub_resource type="Resource" id="Resource_6n4n3"]
 script = ExtResource("5_kqrhn")
@@ -453,7 +454,7 @@ children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
 canne_spawn_timing = Vector2(3, 8)
-initial_time = 5.0
+initial_time = 180.0
 max_presents = 3
 dash_speed = 1.0
 dash_falloff = 0.6
@@ -849,6 +850,7 @@ unique_name_in_owner = true
 visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayerEnd"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -856,6 +858,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LabelEnd" type="Label" parent="CanvasLayerEnd/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
@@ -865,6 +868,7 @@ vertical_alignment = 1
 
 [node name="LabelEndPresents" type="Label" parent="CanvasLayerEnd/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
@@ -873,6 +877,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayerEnd/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 100
@@ -881,9 +886,14 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 80
 
 [node name="ButtonRetry" type="Button" parent="CanvasLayerEnd/VBoxContainer/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Retry"
+
+[node name="victory_screen" parent="CanvasLayerEnd" instance=ExtResource("70_tonoo")]
+unique_name_in_owner = true
+visible = false
 
 [node name="CanvasLayerClickProtection" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

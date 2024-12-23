@@ -443,7 +443,7 @@ font = ExtResource("30_wana7")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84pr2"]
 
-[node name="Main" type="Node2D" groups=["MainGroup"]]
+[node name="Main" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_0wmhh")
 speed_low = 0.45
@@ -453,7 +453,7 @@ children_spawn_timing = Vector2(1, 5)
 satellite_spawn_timing = Vector2(1, 5)
 pipe_spawn_timing = Vector2(3, 3)
 canne_spawn_timing = Vector2(3, 8)
-initial_time = 5.0
+initial_time = 180.0
 max_presents = 3
 dash_speed = 1.0
 dash_falloff = 0.6
@@ -904,7 +904,6 @@ autostart = true
 [node name="CanvasLayerPause" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayerPause" instance=ExtResource("70_bj3f7")]
-unique_name_in_owner = true
 
 [connection signal="exited_screen" from="Character" to="." method="_on_character_exited_screen"]
 [connection signal="hit" from="Character" to="." method="_on_character_hit"]

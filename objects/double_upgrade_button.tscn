@@ -136,7 +136,7 @@ text = "[font_size=14]Upgrade effect lorem ipsum dolor sit amet"
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "and"
+text = "AND"
 label_settings = SubResource("LabelSettings_0qdbi")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -78,18 +78,16 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 5
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+[node name="Label3" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("2_rsl3m")
-theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
-theme_override_font_sizes/font_size = 16
-text = "SaltyIsaac: Game Design, Gameplay Programming, sound design
-Arkatein: Sprites pixel art, Shaders, particules, game integrations
-Cyptal: Upgrades' visuals, User interface, Voice acting"
-horizontal_alignment = 1
-autowrap_mode = 3
+bbcode_enabled = true
+text = "[font_size=16][color=yellow]SaltyIsaac:[/color] Game Design, Gameplay Programming, sound design
+[color=yellow]Arkatein:[/color] Sprites pixel art, Shaders, particles, game integrations
+[color=yellow]Cyptal:[/color] Upgrades' visuals, User interface, Voice acting"
+fit_content = true
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(200, 0)

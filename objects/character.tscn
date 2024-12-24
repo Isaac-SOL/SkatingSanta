@@ -28,7 +28,6 @@
 [ext_resource type="Texture2D" uid="uid://dvcrb4mh7sfj5" path="res://assets/sprites/Santa_lean_sprite_sheet.png" id="14_wldn5"]
 [ext_resource type="Texture2D" uid="uid://dl2uuy68l5odl" path="res://assets/sprites/hotte_fg_default.png" id="15_glwdv"]
 [ext_resource type="Texture2D" uid="uid://bef4ldvvqk6yx" path="res://assets/sprites/santa_big_fast.png" id="16_hfwb0"]
-[ext_resource type="Texture2D" uid="uid://cpiilltxlfjrq" path="res://assets/sprites/parachute_sprite.png" id="16_jb406"]
 [ext_resource type="Texture2D" uid="uid://byrq5iqr7mrqp" path="res://assets/sprites/santa_lean_fast.png" id="17_bjh0s"]
 [ext_resource type="AudioStream" uid="uid://dpswq0wx1a7ww" path="res://assets/audio/parry.ogg" id="18_0eq0e"]
 [ext_resource type="AudioStream" uid="uid://br640ojkphcgo" path="res://assets/audio/hohoho.ogg" id="19_eu5he"]
@@ -41,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://dps8h7hkflls5" path="res://assets/sprites/shine.png" id="23_u6iku"]
 [ext_resource type="Texture2D" uid="uid://fthqhqpca6yi" path="res://assets/sprites/star.png" id="25_rurw3"]
 [ext_resource type="AudioStream" uid="uid://lewefcjuh3d6" path="res://assets/audio/powerUp9b.ogg" id="26_7sn2d"]
+[ext_resource type="Texture2D" uid="uid://dx3n3ahsglpls" path="res://assets/sprites/parachute_pixel.png" id="27_wuvfd"]
 [ext_resource type="Material" uid="uid://dtlqds4dvbe1t" path="res://assets/particules/starts_flames.tres" id="28_b7klj"]
 [ext_resource type="Material" uid="uid://c1run1dowb42s" path="res://assets/particules/booster_flames.tres" id="29_q787t"]
 [ext_resource type="Material" uid="uid://k3h0lswymbgu" path="res://assets/particules/hover_flames.tres" id="30_qdevg"]
@@ -930,9 +930,9 @@ scale = Vector2(1e-05, 1e-05)
 
 [node name="ParachuteSprite" type="Sprite2D" parent="RotationCancel/Parachute"]
 z_index = -1
-position = Vector2(1, -18)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("16_jb406")
+position = Vector2(0, -23)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("27_wuvfd")
 
 [node name="ReverseParachute" type="Node2D" parent="RotationCancel"]
 unique_name_in_owner = true
@@ -941,9 +941,9 @@ scale = Vector2(1e-05, 1e-05)
 
 [node name="ReverseParachuteSprite" type="Sprite2D" parent="RotationCancel/ReverseParachute"]
 z_index = -1
-position = Vector2(1, 11)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("16_jb406")
+position = Vector2(0, 4)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("27_wuvfd")
 flip_v = true
 
 [node name="StartFlames" type="GPUParticles2D" parent="."]
@@ -1020,7 +1020,7 @@ max_polyphony = 4
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_70y7a")
-volume_db = -10.0
+volume_db = -17.5
 max_polyphony = 4
 
 [node name="DodgeAudio" type="AudioStreamPlayer" parent="."]

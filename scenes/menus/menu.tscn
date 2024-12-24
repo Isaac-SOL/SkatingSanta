@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b8byfg0hwlqvq"]
+[gd_scene load_steps=18 format=3 uid="uid://b8byfg0hwlqvq"]
 
 [ext_resource type="Script" path="res://scripts/menus/menu.gd" id="1_lencv"]
 [ext_resource type="Theme" uid="uid://dc7tnjmkxj4kx" path="res://assets/fonts/themes/menus_button.tres" id="2_qlina"]
@@ -27,14 +27,35 @@ colors = PackedColorArray(0.247059, 0.160784, 0.454902, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_r0ug3"]
 gradient = SubResource("Gradient_rbfef")
 
-[sub_resource type="LabelSettings" id="LabelSettings_m4wjp"]
-font = ExtResource("9_llm6e")
-font_size = 32
-shadow_size = 2
-shadow_color = Color(0, 0, 0, 1)
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_odmuw"]
 streams_count = 5
+
+[sub_resource type="Animation" id="Animation_408bp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Sprite2D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_okvcb"]
 resource_name = "loop"
@@ -63,33 +84,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.139626, 0.139626, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_408bp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D2:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/Sprite2D2:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yh1tf"]
@@ -150,7 +144,7 @@ theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
 theme_override_styles/hover = ExtResource("3_75icd")
 theme_override_styles/pressed = ExtResource("4_wvb41")
 theme_override_styles/normal = ExtResource("5_jv8dh")
-text = "Play"
+text = "PLAY"
 
 [node name="OptionButton" type="Button" parent="MarginContainer2/VBoxContainer"]
 visible = false
@@ -171,7 +165,19 @@ theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
 theme_override_styles/hover = ExtResource("3_75icd")
 theme_override_styles/pressed = ExtResource("4_wvb41")
 theme_override_styles/normal = ExtResource("5_jv8dh")
-text = "Credits"
+text = "CREDITS"
+
+[node name="LanguageButton" type="Button" parent="MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme = ExtResource("2_qlina")
+theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_styles/hover = ExtResource("3_75icd")
+theme_override_styles/pressed = ExtResource("4_wvb41")
+theme_override_styles/normal = ExtResource("5_jv8dh")
+text = "Language:
+English"
 
 [node name="QuitButton" type="Button" parent="MarginContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
@@ -181,15 +187,17 @@ theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
 theme_override_styles/hover = ExtResource("3_75icd")
 theme_override_styles/pressed = ExtResource("4_wvb41")
 theme_override_styles/normal = ExtResource("5_jv8dh")
-text = "Quit"
+text = "QUIT"
 
-[node name="Label" type="Label" parent="MarginContainer2"]
+[node name="Label" type="RichTextLabel" parent="MarginContainer2"]
+texture_filter = 1
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 8
-text = "←→ To pick an option, ↑ to confirm"
-label_settings = SubResource("LabelSettings_m4wjp")
-horizontal_alignment = 1
+theme_override_fonts/normal_font = ExtResource("9_llm6e")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "MENU_CONTROLS"
 
 [node name="AudioStreamPlayer2D_title" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_odmuw")
@@ -211,4 +219,5 @@ autoplay = "loop"
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/CreditButton" to="." method="_on_credit_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

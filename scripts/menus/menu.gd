@@ -15,6 +15,11 @@ func _ready():
 	#NodeAudio.playAudio(NodeAudio.audioMenu)
 	Engine.time_scale = 1
 	
+	var curr_locale := TranslationServer.get_locale()
+	if curr_locale.begins_with("fr"):
+		%LanguageButton.text = "Langue :\nFrançais"
+	else:
+		TranslationServer.set_locale("en")
 
 #func _process(delta):
 	#screensize = Global.screenSize
@@ -36,3 +41,13 @@ func _on_credit_button_pressed():
 
 #func _on_check_button_toggled(toggled_on):
 	#Global.french = toggled_on
+
+
+func _on_language_button_pressed() -> void:
+	if TranslationServer.get_locale().begins_with("fr"):
+		TranslationServer.set_locale("en")
+		%LanguageButton.text = "Language:\nEnglish"
+	else:
+		TranslationServer.set_locale("fr")
+		%LanguageButton.text = "Langue :\nFrançais"
+	pass # Replace with function body.

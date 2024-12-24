@@ -1,0 +1,71 @@
+key,en,fr
+PLAY,Play,Jouer
+CREDITS,Credits,Crédits
+QUIT,Quit,Quitter
+MENU_CONTROLS,"[center][img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_w_small.png[/img] [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_e_small.png[/img] to pick an option, [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_n_small.png[/img] to confirm",[center]Choisissez une option avec [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_w_small.png[/img] [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_e_small.png[/img] et confirmez avec [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_n_small.png[/img]
+MAIN_MENU,Main Menu,Menu Principal
+HAPPY_KIDS,Happy Kids:,Enfants Heureux :
+LOAD_SHOT_NAME,Big Present,Gros Cadeau
+LOAD_SHOT_DESC,"[color=yellow]Hold[/color] the button to prepare a bigger, faster present for [color=yellow]more kids[/color]",[color=yellow]Maintenez[/color] le bouton pour préparer un gros cadeau pour [color=yellow]plus d’enfants[/color]
+FRAG_NAME,Multi-Present,Multi-Cadeau
+FRAG_DESC,Presents will create [color=yellow]more presents[/color] when hitting the ground,Les cadeaux se séparent en [color=yellow]plusieurs cadeaux[/color] quand ils touchent le sol
+DASH_NAME,Sugar Burst,Turbosucre
+DASH_DESC,Send a present to the [color=yellow]left[/color] with [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_w_small.png[/img] to [color=yellow]dash[/color] forward,Envoyez un cadeau à [color=yellow]gauche[/color] avec [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_w_small.png[/img] pour vous [color=yellow]propulser[/color] en avant
+FAST_PRESENTS_NAME,Weighted Presents,Cadeaux Lestés
+FAST_PRESENTS_DESC,Add some weight into your presents to make them reach the ground [color=yellow]faster[/color],Ajoute un peu de poids aux cadeaux pour qu’ils atteignent le sol [color=yellow]plus vite[/color]
+SPEED_HIGH_NAME,Winged Cane,Sucre Ailé
+SPEED_HIGH_DESC,Increases speed in [color=yellow]high[/color] orbit,Augmente la vitesse en [color=yellow]haute[/color] orbite
+SPEED_LOW_NAME,Surface Boosters,Propulseurs de Surface
+SPEED_LOW_DESC,Greatly increases speed in [color=yellow]low[/color] orbit,Augmente beaucoup la vitesse en [color=yellow]basse[/color] orbite
+PARRY_NAME,Magical Cane,Sucre Magique
+PARRY_DESC,Throw a present right before hitting a building to make [color=green]everyone happy[/color],Envoyez un cadeau juste avant de toucher un bâtiment pour rendre les [color=green]tous les habitants heureux[/color]
+RAINBOW_NAME,Rainbow Cane,Sucre Arc-en-ciel
+RAINBOW_DESC,The Candy Cane now shoots [color=red]r[color=orange]a[color=yellow]i[color=green]n[color=cyan]b[color=blue]o[color=purple]w[color=pink]s[/color],Le sucre d’orge envoie des [color=red]ar[color=orange]cs[color=yellow]-[color=green]e[color=cyan]n[color=blue]-[color=purple]ci[color=pink]el[/color]
+WORLD_BOUNCE_NAME,Parachute,Parachute
+WORLD_BOUNCE_DESC,Hitting the ground only deals [color=yellow]1 damage[/color],Toucher le sol ne fait que [color=yellow]1 dégât[/color]
+TOP_BOUNCE_NAME,Reverse Parachute,Paraciel
+TOP_BOUNCE_DESC,Increases your mass at [color=yellow]high[/color] altitudes,Augmente la masse en [color=yellow]haute[/color] altitude
+HEAVY_NAME,Hearty meal,Bon Plat
+HEAVY_DESC,Makes you [color=yellow]50% heavier[/color],Vous rend [color=yellow]50% plus lourd[/color]
+LIGHT_NAME,Dubious Meal,Plat Douteux
+LIGHT_DESC,Makes you [color=yellow]33% lighter[/color],Vous rend [color=yellow]33% plus léger[/color]
+FLOATER_NAME,Hovercane,Hoversucre
+FLOATER_DESC,You are no longer affected by [color=yellow]gravity[/color],Vous n’êtes plus affecté par la [color=yellow]gravité[/color]
+BOMB_NAME,Surprise Present,Cadeau Surprise
+BOMB_DESC,"Press [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_e_small.png[/img] to send a ""susprise present"" to [color=yellow]remove obstacles[/color] ",Appuyez sur [img]res://assets/sprites/Kenney/Grey/Default/arrow_decorative_e_small.png[/img] pour envoyer un « cadeau surprise » et [color=yellow]enlever les obstacles[/color] 
+DODGE_NAME,Dodge,Esquive
+DODGE_DESC,[color=yellow]Avoid[/color] up to 1 hit every 20 seconds,[color=yellow]Esquivez[/color] un dégât toutes les 20 secondes
+BOUNCE_NAME,Bouncy Presents,Cadeaux à ressort
+BOUNCE_DESC,Presents [color=yellow]bounce[/color] on the [color=yellow]ground[/color] once,Les cadeaux [color=yellow]rebondissent[/color] sur le [color=yellow]sol[/color] une fois
+RICOCHET_NAME,Ricochet,Ricochet
+RICOCHET_DESC,Presents [color=yellow]bounce[/color] on [color=yellow]houses[/color] once,Les cadeaux [color=yellow]rebondissent[/color] sur les [color=yellow]maisons[/color] une fois
+GROUP_BONUS_NAME,Happy Family,Famille Heureuse
+GROUP_BONUS_DESC,[color=yellow]Completing[/color] a building awards [color=yellow]2[/color] additional happy kids,[color=yellow]Compléter[/color] un bâtiment rend [color=yellow]2[/color] enfants supplémentaires heureux
+MARIO_NAME,Christmas Cap,Chapeau de Noël
+MARIO_DESC,Bounce on top of a building to [color=yellow]avoid damage[/color] and make [color=green]everyone happy[/color],"Sautez sur un bâtiment, [color=yellow]évitez les dégâts[/color] et rendez [color=green]tous les habitants heureux[/color]"
+RAIL_NAME,Pannier-on-rails,Hotte à skis
+RAIL_DESC,You can [color=yellow]slide[/color] on the ground to [color=yellow]avoid all buildings[/color],Vous pouvez [color=yellow]glisser[/color] sur le sol pour [color=yellow]esquiver tous les bâtiments[/color]
+MONEY_NAME,Voucher,Coupon
+MONEY_DESC,Next [color=yellow]upgrades[/color] will happen [color=yellow]faster[/color],Les prochaines [color=yellow]améliorations[/color] arriveront [color=yellow]plus vite[/color]
+HOLY_NAME,Sacred Surprise,Surprise Sacrée
+HOLY_DESC,Surprise presents create [color=yellow]many presents[/color] on impact,Les cadeaux surprise créent [color=yellow]plein de cadeaux[/color] en explosant
+SUPER_FRAG_NAME,Rubik's Present,Rubik's Cadeau
+SUPER_FRAG_DESC,Presents will create [color=yellow]even more presents[/color] when hitting the ground,Les cadeaux se séparent en [color=yellow]encore plus de cadeaux[/color] quand ils touchent le sol
+BLOCK_NAME,Protective Cane,Sucre d’orge Défensif
+BLOCK_DESC,Throw a present right before hitting a building to [color=yellow]avoid all damage[/color],Envoyez un cadeau juste avant de toucher un bâtiment pour [color=yellow]éviter les dégâts[/color]
+SUPER_DASH_NAME,Super Sugar Burst,Super-Turbosucre
+SUPER_DASH_DESC,[color=yellow]Avoid all damage[/color] while dashing,Vous propuler vous permet d’[color=yellow]esquiver les dégâts[/color]
+MORE_PRESENTS_NAME,"+1 Present, +30% reload","+1 Cadeau, +30% recharge"
+MORE_HP_NAME,+1 HP,+1 PV
+MORE_SPEED_NAME,+30% speed,+30% vitesse
+MORE_TIME_NAME,+20 minutes,+20 minutes
+DODGE_RELOAD_NAME,+15% dodge reload,+15% rechargement de l'esquive
+HIT_GROUND,Santa hit the ground too hard,Papa Noël hit the ground too hard
+END_TITLE,End of the  night,Fin de la nuit
+GAME_OVER,Game Over,Game Over
+PRESENTS_DELIVERED,Presents Delivered:,Cadeaux distribués :
+PLAY_AGAIN,Play Again,Rejouer
+PAUSE,Pause,Pause
+RESUME,Resume,Reprendre
+RESTART,Restart,Recommencer
+AND,And,Et

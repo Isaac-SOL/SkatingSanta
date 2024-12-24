@@ -64,7 +64,7 @@ var time_semicolon: String = ":"
 var score: int = 0 :
 	set(value):
 		score = value
-		%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
+		%ScoreLabel.text = tr("HAPPY_KIDS") + " " + str(score) + " / " + str(curr_level_need)
 		%LevelProgressBar.value = score
 var hp: int = 3 :
 	set(value):
@@ -102,6 +102,7 @@ func _ready() -> void:
 	presents = max_presents
 	%HP.update(hp)
 	update_max_ammo_barr()
+	score = score
 
 func _process(delta: float) -> void:
 	
@@ -328,8 +329,8 @@ func kill():
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
-	%LabelEnd.text = "Game Over"
-	%LabelEndPresents.text = "Presents delivered: " + str(score)
+	%LabelEnd.text = "GAME_OVER"
+	%LabelEndPresents.text = tr("PRESENTS_DELIVERED") + " " + str(score)
 	%ButtonRetry.grab_focus()
 
 func end_game():
@@ -338,7 +339,7 @@ func end_game():
 	game_state = GameState.END_GAME
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
-	%LabelEndPresents.text = "Presents delivered: " + str(score)
+	%LabelEndPresents.text = tr("PRESENTS_DELIVERED") + " " + str(score)
 	%ButtonRetry.grab_focus()
 
 func update_ammo_barr():
@@ -352,6 +353,8 @@ func update_ammo_text():
 
 func update_time_text():
 	var rtime: int = initial_time - time_left + (9 * 60)
+	if TranslationServer.get_locale().begins_with("fr"):
+		rtime += (12 * 60)
 	var hrs: int = rtime / 60
 	var mins: int = rtime - (60 * hrs)
 	var str_mins := str(mins)
@@ -412,7 +415,7 @@ func _on_upgrade_button_pressed(upgrade_id: StringName, repeatable_id: StringNam
 	%LevelProgressBar.min_value = curr_level_need
 	base_level_need *= level_mult
 	curr_level_need += base_level_need
-	%ScoreLabel.text = "Happy Kids: " + str(score) + " / " + str(curr_level_need)
+	%ScoreLabel.text = tr("HAPPY_KIDS") + " " + str(score) + " / " + str(curr_level_need)
 	%LevelProgressBar.max_value = curr_level_need
 	%LevelProgressBar.value = score
 	

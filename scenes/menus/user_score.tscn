@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmsxkuhry6o7w"]
+
+[ext_resource type="Script" path="res://scripts/menus/user_score.gd" id="1_4kcm4"]
+
+[node name="HBoxContainer" type="HBoxContainer" groups=["User"]]
+offset_right = 340.0
+offset_bottom = 23.0
+alignment = 1
+script = ExtResource("1_4kcm4")
+
+[node name="id" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Name"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="points" type="Label" parent="."]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "0"

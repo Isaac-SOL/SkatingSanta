@@ -331,6 +331,7 @@ func kill():
 	screen_click_protection()
 	%LabelEnd.text = "GAME_OVER"
 	%LabelEndPresents.text = tr("PRESENTS_DELIVERED") + " " + str(score)
+	Score.add_score(str(score))
 	%ButtonRetry.grab_focus()
 
 func end_game():
@@ -340,6 +341,7 @@ func end_game():
 	%CanvasLayerEnd.visible = true
 	screen_click_protection()
 	%LabelEndPresents.text = tr("PRESENTS_DELIVERED") + " " + str(score)
+	Score.add_score(str(score))
 	%ButtonRetry.grab_focus()
 
 func update_ammo_barr():

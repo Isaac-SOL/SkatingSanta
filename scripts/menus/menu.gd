@@ -51,3 +51,7 @@ func _on_language_button_pressed() -> void:
 		TranslationServer.set_locale("fr")
 		%LanguageButton.text = "Langue :\nFrançais"
 	pass # Replace with function body.
+
+
+func _on_score_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/menus/score.tscn")

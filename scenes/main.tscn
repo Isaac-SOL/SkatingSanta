@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://b10t78yj1xin2" path="res://assets/sprites/parade.png" id="11_v50qq"]
 [ext_resource type="PackedScene" uid="uid://mjcfyq10uyxg" path="res://objects/children.tscn" id="11_vnvko"]
 [ext_resource type="Texture2D" uid="uid://hatww0w5ysuh" path="res://assets/sprites/boom.png" id="12_3wedo"]
-[ext_resource type="Texture2D" uid="uid://d4ajmhhgdl2x0" path="res://assets/sprites/cloud2.png" id="12_med80"]
+[ext_resource type="Texture2D" uid="uid://bhof6bgpptsfq" path="res://assets/sprites/background/cloud2.png" id="12_med80"]
 [ext_resource type="Texture2D" uid="uid://bnvcxvlqc8mp" path="res://assets/sprites/sugar_rainbow4.png" id="12_sfbkc"]
 [ext_resource type="Texture2D" uid="uid://c3yc0ti38d7w5" path="res://assets/sprites/sugar_rainbow5.png" id="13_fb388"]
 [ext_resource type="Texture2D" uid="uid://cgo7i76kckqq3" path="res://assets/sprites/boom2.png" id="14_lu857"]

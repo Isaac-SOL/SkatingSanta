@@ -1,14 +1,14 @@
 extends Control
 
+@onready var http_request: HTTPRequest = $HTTPRequest
+@onready var user_list = $MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer
+
 var user_score = preload("res://scenes/menus/user_score.tscn")
 var user_id : String
 var client = HTTPClient.new()
 var first_occurance = []
-@onready var http_request: HTTPRequest = $HTTPRequest
-@onready var user_list: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer
 
 const url_submit = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeWSC05_PQnuKfx1l96ugKCiD9gzehk8K_KIefzziaOB7KiZw/formResponse"
-
 const url_data = "https://opensheet.elk.sh/1zP7pLXKQPpk5JQYPx1IE4WGrINvwhgR7cFQCe59N7e4/data"
 #entry.359931179 = Id
 #entry.141189832 = Points
@@ -48,14 +48,10 @@ func update_score():
 	
 	var headers = ["Content-Type: application/json"]
 	http.request(url_data, headers, HTTPClient.METHOD_GET)
-	#if err:
-		#http.queue_free()
-	print("Updating score")
 
 func add_score(user_points : String):
 	var http = HTTPRequest.new()
 	http.request_completed.connect(http_submit)
-	#http.connect("request_completed","http_submit",[http])
 	add_child(http)
 	
 	var user_data = client.query_string_from_dict({
@@ -68,5 +64,5 @@ func add_score(user_points : String):
 		http.queue_free()
 	else:
 		pass
-		#Reset user name and point (not necessary fdor us)
+		#Reset user name and point (not necessary for us)
 	print("Adding score : Player ="+user_id+" Points = "+user_points)

@@ -3,9 +3,8 @@ extends Control
 var id = "Name"
 var points = "0"
 
-
-@onready var id_label: Label = $id
-@onready var points_label: Label = $points
+@onready var id_label = $HBoxContainer/id
+@onready var points_label = $HBoxContainer/points
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

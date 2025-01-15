@@ -1,17 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcb67jxc4b87v"]
+[gd_scene load_steps=11 format=3 uid="uid://dcb67jxc4b87v"]
 
 [ext_resource type="Shader" path="res://shader/snow.gdshader" id="1_jmaf2"]
 [ext_resource type="Texture2D" uid="uid://cexyqqlot8bye" path="res://assets/sprites/Begin2.png" id="2_e3o6i"]
+[ext_resource type="Theme" uid="uid://dc7tnjmkxj4kx" path="res://assets/fonts/themes/menus_button.tres" id="3_ly1vc"]
+[ext_resource type="StyleBox" uid="uid://dryhgdvxl8hsb" path="res://assets/sprites/UI/button_hover.tres" id="4_4imy1"]
+[ext_resource type="StyleBox" uid="uid://jxm6butg6hy0" path="res://assets/sprites/UI/button_pressed.tres" id="5_u5eng"]
+[ext_resource type="StyleBox" uid="uid://b6vuywrt4cw0o" path="res://assets/sprites/UI/button_normal.tres" id="6_umxf3"]
 
 [sub_resource type="GDScript" id="GDScript_qei3j"]
 script/source = "extends Control
 
-@onready var text_edit: TextEdit = $TextEdit
+@onready var container_name = $ContainerName
+@onready var text_edit = $ContainerName/VBoxContainer/TextEdit
+var name_chosen = false
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed(\"shoot_up\"):
-		Score.set_user_id(text_edit.text)
+	if Input.is_action_just_pressed(\"shoot_up\") and name_chosen:
 		get_tree().change_scene_to_file(\"res://scenes/main.tscn\")
+
+
+func _on_accept_button_pressed():
+	container_name.visible = false
+	Score.set_user_id(text_edit.text)
+	name_chosen = true
+	
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aw2nj"]
@@ -60,12 +72,58 @@ texture = ExtResource("2_e3o6i")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = 188.0
-offset_top = 245.0
-offset_right = 337.0
-offset_bottom = 271.0
-theme_override_font_sizes/font_size = 10
-placeholder_text = "Santa Name"
+[node name="ContainerName" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="ContainerName"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.027451, 0.270588, 0.243137, 0.972549)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContainerName"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="ContainerName/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ly1vc")
+text = "Enter Santa name :"
+horizontal_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="ContainerName/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_ly1vc")
+theme_override_font_sizes/font_size = 15
+placeholder_text = "Santa name"
 scroll_fit_content_height = true
+
+[node name="HSeparator" type="HSeparator" parent="ContainerName/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AcceptButton" type="Button" parent="ContainerName/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_ly1vc")
+theme_override_colors/font_color = Color(0.854902, 0.85098, 0.980392, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/hover = ExtResource("4_4imy1")
+theme_override_styles/pressed = ExtResource("5_u5eng")
+theme_override_styles/normal = ExtResource("6_umxf3")
+text = "Accept"
+
+[connection signal="pressed" from="ContainerName/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]

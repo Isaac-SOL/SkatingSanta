@@ -331,7 +331,6 @@ func kill():
 	screen_click_protection()
 	%LabelEnd.text = "GAME_OVER"
 	%LabelEndPresents.text = tr("PRESENTS_DELIVERED") + " " + str(score)
-	Score.add_score(str(score))
 	%ButtonRetry.grab_focus()
 
 func end_game():

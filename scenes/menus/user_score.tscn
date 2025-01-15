@@ -1,24 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmsxkuhry6o7w"]
+[gd_scene load_steps=3 format=3 uid="uid://dmsxkuhry6o7w"]
 
 [ext_resource type="Script" path="res://scripts/menus/user_score.gd" id="1_4kcm4"]
+[ext_resource type="Theme" uid="uid://dc7tnjmkxj4kx" path="res://assets/fonts/themes/menus_button.tres" id="2_1774f"]
 
-[node name="HBoxContainer" type="HBoxContainer" groups=["User"]]
-offset_right = 340.0
-offset_bottom = 23.0
-alignment = 1
+[node name="MarginContainer" type="MarginContainer" groups=["User"]]
+custom_minimum_size = Vector2(450, 0)
+offset_right = 328.0
+offset_bottom = 30.0
 script = ExtResource("1_4kcm4")
 
-[node name="id" type="Label" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.470588, 0.470588, 0.470588, 0.431373)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 180
+alignment = 1
+
+[node name="id" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+theme = ExtResource("2_1774f")
 text = "Name"
 
-[node name="VSeparator" type="VSeparator" parent="."]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 100
-
-[node name="points" type="Label" parent="."]
+[node name="points" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
+theme = ExtResource("2_1774f")
 text = "0"
